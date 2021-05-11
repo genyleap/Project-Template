@@ -18,7 +18,7 @@ cmake ..
 make
 ```
 
-## CMake module option
+## CMake module option [Features]
 - These features can be useful in downloading, building, and integrating prerequisites into your project.
 - So you can set cmake option variable for enabling them.
 
@@ -60,6 +60,58 @@ cmake .. -DUSE_OPENSSL=true
 - Include ZLib
 ```
 cmake .. -DDUSE_ZLIB=true
+```
+
+## CMake module option [Compiler options]
+
+- Enabling the test of clang-tidy
+```
+cmake .. -DENABLE_CLANG_TIDY=true
+```
+
+- Build the project as minimally as possible
+```
+cmake .. -DSIMPLE_BUILD=true
+```
+
+- Enable address sanitizer
+```
+cmake .. -DENABLE_ASAN=true
+```
+
+- Enabling the build of safe codes only [check by warnings]!
+```
+cmake .. -DENABLE_WARN_MODE=true
+```
+
+- Enabling the build of safe codes only!
+```
+cmake .. -DENABLE_SAFE_ONLY=true
+```
+
+- Enable developer (debug) mode
+```
+cmake .. -BUILD_DEBUG_MODE=true
+```
+
+- Enabling the build of debug logging
+```
+cmake .. -DEBUG_LOGGING=true
+```
+
+- Build Static Version
+```
+cmake .. -ENABLE_STATIC_LIB_BUILD=true
+```
+
+- Build Shared (Dynamic) Version
+```
+cmake .. -ENABLE_SHARED_LIB_BUILD=true
+```
+
+- Forcing to enable updated programming language.
+```
+cmake .. -FORCE_LATEST_STANDARD_FEATURE=true
 ```
 
 - ِYou can set or change your project's basic information such as name, description, link, etc.
