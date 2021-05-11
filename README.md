@@ -88,6 +88,27 @@ project(
 ## Configuration output
 
 ```bash
+
+-- The CXX compiler identification is AppleClang 12.0.0.12000032
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Ready for Apple Silicon.
+-- Performing Test COMPILER_SUPPORTS_CXX23
+-- Performing Test COMPILER_SUPPORTS_CXX23 - Success
+-- Performing Test COMPILER_SUPPORTS_CXX20
+-- Performing Test COMPILER_SUPPORTS_CXX20 - Success
+-- Performing Test COMPILER_SUPPORTS_CXX17
+-- Performing Test COMPILER_SUPPORTS_CXX17 - Success
+-- Performing Test COMPILER_SUPPORTS_CXX14
+-- Performing Test COMPILER_SUPPORTS_CXX14 - Success
+-- Performing Test COMPILER_SUPPORTS_CXX11
+-- Performing Test COMPILER_SUPPORTS_CXX11 - Success
+-- Performing Test COMPILER_SUPPORTS_CXX0X
+-- Performing Test COMPILER_SUPPORTS_CXX0X - Success
+
 -- ------ ProjectTemplate Tools Configuration ------
 -- Language Standard	    : C++[20]
 -- Compiler		    : AppleClang
