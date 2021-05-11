@@ -73,6 +73,39 @@ if (NOT Git_FOUND)
     message(FATAL_ERROR "Git not found!")
 endif ()
 
+if(USE_BOOST)
+set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
+set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
+set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs
+set(Boost_USE_MULTITHREADED      ON)
+set(Boost_USE_STATIC_RUNTIME    OFF)
+find_package(Boost COMPONENTS date_time filesystem system chrono)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
+#//TODO...
+#set(FETCHCONTENT_QUIET off)
+#get_filename_component(boost_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/boost"
+#                       REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
+#set(FETCHCONTENT_BASE_DIR ${boost_base})
+#FetchContent_Declare(
+#  Boost
+#  GIT_REPOSITORY https://github.com/boostorg/boost.git
+#  GIT_TAG master
+#  GIT_PROGRESS   TRUE
+#  USES_TERMINAL_DOWNLOAD TRUE
+#)
+
+# Check if population has already been performed
+#FetchContent_GetProperties(Boost)
+#string(TOLOWER "Boost" lcName)
+#if(NOT ${lcName}_POPULATED)
+#FetchContent_Populate(${lcName})
+#add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
+#endif()
+#FetchContent_MakeAvailable(Boost)
+endif()
+
 if(USE_OPENSSL)
 EXTERNALPROJECT_ADD(
   openssl
