@@ -23,6 +23,11 @@ if (USE_CPP_CHECK)
   add_definitions(-DUSE_CPP_CHECK)
 endif()
 
+option(USE_CURL    "Include Curl"  FALSE)
+if (USE_CURL)
+  add_definitions(-DUSE_CURL)
+endif()
+
 option(USE_GOOGLE_TEST    "Include Google-Test"  FALSE)
 if (USE_GOOGLE_TEST)
   add_definitions(-DUSE_GOOGLE_TEST)
@@ -116,6 +121,68 @@ externalproject_add(
     LOG ON
 )
 endif()
+
+if(USE_CURL)
+
+#externalproject_add(
+#    curl
+#    GIT_REPOSITORY "https://github.com/curl/curl.git"
+#    GIT_TAG master
+#    UPDATE_COMMAND ${GIT_EXECUTABLE} pull
+#    TIMEOUT 10
+
+#    INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/curl"
+##    CMAKE_ARGS -DOPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1/1.1.1k/"
+##    CMAKE_CACHE_ARGS -DOPENSSL_ROOT_DIR:="/usr/local/Cellar/openssl@1.1/1.1.1k/"
+
+#    DOWNLOAD_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/curl/downloads
+#    SOURCE_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/curl/src
+#    BINARY_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/curl/build
+#    STAMP_DIR  ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/curl/stamp
+
+#    BUILD_IN_SOURCE OFF
+#    INACTIVITY_TIMEOUT ON
+#    GIT_PROGRESS ON
+#    DOWNLOAD_NO_PROGRESS OFF
+#    LOG_DOWNLOAD ON
+#    LOG_UPDATE ON
+#    LOG_CONFIGURE ON
+#    LOG_BUILD ON
+#    LOG_TEST ON
+#    USES_TERMINAL_DOWNLOAD ON
+#    USES_TERMINAL_UPDATE ON
+#    USES_TERMINAL_BUILD ON
+#    USES_TERMINAL_TEST ON
+#    USES_TERMINAL_INSTALL ON
+#    LOG ON
+#)
+
+
+include(FetchContent)
+
+set(FETCHCONTENT_QUIET off)
+
+get_filename_component(curl_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/curl"
+                       REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
+set(FETCHCONTENT_BASE_DIR ${curl_base})
+FetchContent_Declare(
+  curl
+  GIT_REPOSITORY      https://github.com/curl/curl.git
+  GIT_TAG master
+  GIT_PROGRESS   TRUE
+  USES_TERMINAL_DOWNLOAD TRUE
+)
+
+# Check if population has already been performed
+FetchContent_GetProperties(curl)
+string(TOLOWER "curl" lcName)
+if(NOT ${lcName}_POPULATED)
+FetchContent_Populate(curl)
+add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
+FetchContent_MakeAvailable(curl)
+endif()
+
 
 if(USE_GOOGLE_TEST)
 externalproject_add(
