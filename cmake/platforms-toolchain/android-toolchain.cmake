@@ -30,7 +30,7 @@
 # ANDROID_ARM_NEON
 # ANDROID_DISABLE_FORMAT_STRING_CHECKS
 # ANDROID_CCACHE
-cmake_minimum_required(VERSION 3.6.0)
+cmake_minimum_required(VERSION 3.18)
 # Inhibit all of CMake's own NDK handling code.
 set(CMAKE_SYSTEM_VERSION 1)
 # CMake invokes the toolchain file twice during the first build, but only once
