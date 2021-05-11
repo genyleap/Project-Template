@@ -50,6 +50,11 @@ cmake .. -DUSE_CPP_CHECK=true
 cmake .. -DUSE_GOOGLE_TEST=true
 ```
 
+- Include Doc-Test
+```
+cmake .. -DUSE_DOC_TEST=true
+```
+
 - Include Catch2
 ```
 cmake .. -DUSE_CATCH2=true
