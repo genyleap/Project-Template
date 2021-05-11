@@ -34,6 +34,8 @@ cmake .. -DUSE_LATEST_STANDARD=true
 ```
 
 - Include Boost library
+- This option is currently usable if it's already installed on your system.
+- I'll work on the automatic downloader version as soon as possible.
 ```
 cmake .. -DUSE_BOOST=true
 ```
