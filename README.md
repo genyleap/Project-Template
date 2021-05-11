@@ -3,6 +3,9 @@
 ##  Cross-Platform project structure based on CMake ##
 This repository is a modern project template based on C++ and CMake build tool.
 
+Note : This template is not yet complete and conceptually under development.
+
+
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
 ## Language Standard Support [C++2a or C++2b]
@@ -214,5 +217,9 @@ int main()
 }
 ```
 
+## More usage examples
+- Coming soon...
+
+
 ## Contribution
-Bug fixes, docs, and enhancements welcome! Please let me know kambiz.ceo@gmail.com
+- Bug fixes, docs, and enhancements welcome! Please let me know kambiz.ceo@gmail.com
