@@ -30,9 +30,14 @@ make
 cmake .. -DUSE_LATEST_STANDARD=true
 ```
 
-- Include OpenSSL library
+- Include Boost library
 ```
 cmake .. -DUSE_BOOST=true
+```
+
+- Include Curl library
+```
+cmake .. -DUSE_CURL=true
 ```
 
 - Include CppCheck library
