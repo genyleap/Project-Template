@@ -18,7 +18,7 @@ cmake ..
 make
 ```
 
-## CMake module option [Features]
+## CMake module option [Dependencies]
 - These features can be useful in downloading, building, and integrating prerequisites into your project.
 - So you can set cmake option variable for enabling them.
 
