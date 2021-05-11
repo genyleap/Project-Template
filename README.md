@@ -58,6 +58,30 @@ cmake .. -DUSE_OPENSSL=true
 ```
 cmake .. -DDUSE_ZLIB=true
 ```
+
+- ِYou can set or change your project's basic information such as name, description, link, etc.
+
+```
+set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name")
+set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Target Name")
+```
+
+- Creator Name.
+```
+set(PROJECT_CREATOR "Kambiz Asadzadeh")
+```
+
+- Project name, language, description, url and version.
+```
+project(
+    ${PROJECT_NAME}
+    LANGUAGES CXX
+    DESCRIPTION "Description of your project."
+    HOMEPAGE_URL "https://kambizasadzadeh.com"
+    VERSION ${PROJECT_VERSION}
+)
+```
+
 ## Configuration output
 
 ```bash
