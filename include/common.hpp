@@ -66,18 +66,4 @@
 # include "precompiled/pch.hpp"
 #endif
 
-struct GLOBAL_STATICS final {
-  static constexpr std::string_view FULL_NAME = "Tegra CMS";
-  static constexpr std::string_view FULL_VERSION = "0.5";
-  static constexpr std::string_view RELEASE_MODE = "alpha";
-  static constexpr std::string_view RELEASE_NUMBER = "2";
-  static constexpr std::string_view DEVELOPER = "Kambiz Asadzadeh";
-  static constexpr std::string_view FRAMEWORK_CONFIG_FILE = "config.json";
-  static constexpr std::string_view CMS_CONFIG_FILE = "config/system-config.json";
-  static constexpr std::string_view TRANSLATION_FILE = "translations/contents.json";
-
-  static constexpr std::string_view OFFICIAL_WEB = "http://kambizasadzadeh.com";
-};
-
-
 #endif // COMMON_HPP
