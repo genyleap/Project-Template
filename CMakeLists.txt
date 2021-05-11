@@ -1,6 +1,18 @@
 cmake_minimum_required(VERSION 3.20)
 cmake_policy(SET CMP0048 NEW)
 
+# Add include path for cmake modules
+# ------ PROJECT EXTRA CMAKE ------
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
+
+# ------ PROJECT INFO ------
+#include(project-info)
+#if(project-info)
+#  return()
+#endif()
+#set(project-info ON)
+
 # ------ PROJECT INFO ------
 # Options
 set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name")
@@ -47,12 +59,6 @@ project(
     VERSION ${PROJECT_VERSION}
     )
 
-
-# Add include path for cmake modules
-# ------ PROJECT EXTRA CMAKE ------
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
-
 # ------ CROSS-COMPILE CONFIG ------
 include(cross-compile)
 if(cross-compile)
@@ -80,6 +86,7 @@ if(packages)
   return()
 endif()
 set(packages ON)
+
 
 SET (PROJECT_LICENSE "MIT")
 
@@ -154,22 +161,45 @@ message(STATUS "${Bold}LIBRARY_OUTPUT_PATH${ColourReset}		: ${LIBRARY_OUTPUT_PAT
 message(STATUS "${Bold}CMAKE_CURRENT_SOURCE_DIR${ColourReset}	: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} End Configuration ------${ColourReset}")
 
-
-#target_link_libraries(foo PRIVATE nlohmann_json::nlohmann_json)
-
-#target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
-
 #Add an executable to the project using the specified source files.
 add_executable(${PROJECT_NAME} ${SOURCESFILE})
 
+if(USE_BOOST)
+set(Boost_USE_STATIC_LIBS        ON)  # only find static libs.
+set(Boost_USE_DEBUG_LIBS        OFF) # ignore debug libs and.
+set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs.
+set(Boost_USE_MULTITHREADED      ON)  # use multithread mode.
+set(Boost_USE_STATIC_RUNTIME    OFF)  # use static mode at runtime.
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${Boost_LIBRARIES})
+endif()
+if(USE_NONE_STL_JSON)
+    target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
+endif()
+if(USE_CATCH2)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2)
+endif()
+if(USE_GOOGLE_TEST)
+    target_link_libraries(${PROJECT_NAME} PRIVATE gtest)
+endif()
+if(USE_DOC_TEST)
+    target_link_libraries(${PROJECT_NAME} PRIVATE doctest)
+endif()
+if(USE_CURL)
+    target_link_libraries(${PROJECT_NAME} PRIVATE curl)
+endif()
+if(USE_OPENSSL)
+    target_link_libraries(${PROJECT_NAME} PRIVATE crypto ssl)
+endif()
+if(USE_ZLIB)
+    target_link_libraries(${PROJECT_NAME} PRIVATE zlib)
+endif()
+if(USE_BOOST)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${Boost_LIBRARIES})
+endif()
 
 target_link_libraries(${PROJECT_NAME}
  PRIVATE
  -lc++
- nlohmann_json::nlohmann_json
- #PUBLIC
- #Boost::boost
- #fmt::fmt
 )
 
 #This command generates installation rules for a project.

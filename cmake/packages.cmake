@@ -5,6 +5,8 @@ else()
 cmake_policy(VERSION 3.20)
 endif()
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+
 include(ExternalProject)
 include(FetchContent)
 
@@ -33,7 +35,12 @@ if (USE_GOOGLE_TEST)
   add_definitions(-DUSE_GOOGLE_TEST)
 endif()
 
-option(USE_CATCH2    "Include Catch2"  FALSE)
+option(USE_DOC_TEST    "Include DocTest"  FALSE)
+if (USE_DOC_TEST)
+  add_definitions(-DUSE_DOC_TEST)
+endif()
+
+option(USE_CATCH2    "Include Catch2"  TRUE)
 if (USE_CATCH2)
   add_definitions(-DUSE_CATCH2)
 endif()
@@ -122,43 +129,33 @@ externalproject_add(
 )
 endif()
 
+if(USE_DOC_TEST)
+
+set(FETCHCONTENT_QUIET off)
+
+get_filename_component(doctest_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/doctest"
+                       REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
+set(FETCHCONTENT_BASE_DIR ${doctest_base})
+FetchContent_Declare(
+  DocTest
+  GIT_REPOSITORY      https://github.com/onqtam/doctest
+  GIT_TAG master
+  GIT_PROGRESS   TRUE
+  USES_TERMINAL_DOWNLOAD TRUE
+)
+
+# Check if population has already been performed
+FetchContent_GetProperties(doctest)
+string(TOLOWER "doctest" lcName)
+if(NOT ${lcName}_POPULATED)
+FetchContent_Populate(${lcName})
+add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
+FetchContent_MakeAvailable(DocTest)
+target_link_libraries(${PROJECT_NAME} PRIVATE doctest)
+endif()
+
 if(USE_CURL)
-
-#externalproject_add(
-#    curl
-#    GIT_REPOSITORY "https://github.com/curl/curl.git"
-#    GIT_TAG master
-#    UPDATE_COMMAND ${GIT_EXECUTABLE} pull
-#    TIMEOUT 10
-
-#    INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/curl"
-##    CMAKE_ARGS -DOPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1/1.1.1k/"
-##    CMAKE_CACHE_ARGS -DOPENSSL_ROOT_DIR:="/usr/local/Cellar/openssl@1.1/1.1.1k/"
-
-#    DOWNLOAD_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/curl/downloads
-#    SOURCE_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/curl/src
-#    BINARY_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/curl/build
-#    STAMP_DIR  ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/curl/stamp
-
-#    BUILD_IN_SOURCE OFF
-#    INACTIVITY_TIMEOUT ON
-#    GIT_PROGRESS ON
-#    DOWNLOAD_NO_PROGRESS OFF
-#    LOG_DOWNLOAD ON
-#    LOG_UPDATE ON
-#    LOG_CONFIGURE ON
-#    LOG_BUILD ON
-#    LOG_TEST ON
-#    USES_TERMINAL_DOWNLOAD ON
-#    USES_TERMINAL_UPDATE ON
-#    USES_TERMINAL_BUILD ON
-#    USES_TERMINAL_TEST ON
-#    USES_TERMINAL_INSTALL ON
-#    LOG ON
-#)
-
-
-include(FetchContent)
 
 set(FETCHCONTENT_QUIET off)
 
@@ -177,7 +174,7 @@ FetchContent_Declare(
 FetchContent_GetProperties(curl)
 string(TOLOWER "curl" lcName)
 if(NOT ${lcName}_POPULATED)
-FetchContent_Populate(curl)
+FetchContent_Populate(${lcName})
 add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 FetchContent_MakeAvailable(curl)
@@ -185,79 +182,53 @@ endif()
 
 
 if(USE_GOOGLE_TEST)
-externalproject_add(
-    googletest
-    GIT_REPOSITORY "https://github.com/google/googletest.git"
-    GIT_TAG master
-    UPDATE_COMMAND ${GIT_EXECUTABLE} pull
-    TIMEOUT 10
-
-    INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/googletest"
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/googletest
-    CMAKE_CACHE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/googletest
-
-    DOWNLOAD_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/googletest/downloads
-    SOURCE_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/googletest/src
-    BINARY_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/googletest/build
-    STAMP_DIR  ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/googletest/stamp
-
-    BUILD_IN_SOURCE OFF
-    INACTIVITY_TIMEOUT ON
-    GIT_PROGRESS ON
-    DOWNLOAD_NO_PROGRESS OFF
-    LOG_DOWNLOAD ON
-    LOG_UPDATE ON
-    LOG_CONFIGURE ON
-    LOG_BUILD ON
-    LOG_TEST ON
-    USES_TERMINAL_DOWNLOAD ON
-    USES_TERMINAL_UPDATE ON
-    USES_TERMINAL_BUILD ON
-    USES_TERMINAL_TEST ON
-    USES_TERMINAL_INSTALL ON
-    LOG ON
+set(FETCHCONTENT_QUIET off)
+get_filename_component(googletest_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/gtest"
+                       REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
+set(FETCHCONTENT_BASE_DIR ${googletest_base})
+FetchContent_Declare(
+  gtest
+  GIT_REPOSITORY      https://github.com/google/googletest.git
+  GIT_TAG master
+  GIT_PROGRESS   TRUE
+  USES_TERMINAL_DOWNLOAD TRUE
 )
+
+# Check if population has already been performed
+FetchContent_GetProperties(gtest)
+string(TOLOWER "gtest" lcName)
+if(NOT ${lcName}_POPULATED)
+FetchContent_Populate(${lcName})
+add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
-#if(USE_CATCH2)
-#externalproject_add(
-#    catch2
-#    GIT_REPOSITORY "https://github.com/catchorg/Catch2.git"
-#    GIT_TAG devel
-#    UPDATE_COMMAND ${GIT_EXECUTABLE} pull
-#    TIMEOUT 10
+FetchContent_MakeAvailable(gtest)
+endif()
 
-#    INSTALL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/catch2"
-#    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/catch2
-#    CMAKE_CACHE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/catch2
+if(USE_CATCH2)
+set(FETCHCONTENT_QUIET off)
+get_filename_component(catch2_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/catch2"
+                       REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
+set(FETCHCONTENT_BASE_DIR ${catch2_base})
+FetchContent_Declare(
+  catch2
+  GIT_REPOSITORY      https://github.com/catchorg/Catch2.git
+  GIT_TAG devel
+  GIT_PROGRESS   TRUE
+  USES_TERMINAL_DOWNLOAD TRUE
+)
 
-#    DOWNLOAD_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/catch2/downloads
-#    SOURCE_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/catch2/src
-#    BINARY_DIR ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/catch2/build
-#    STAMP_DIR  ${TEMP_SOURCE_DIR}/${THIRD_PARTY}/catch2/stamp
-
-#    BUILD_IN_SOURCE OFF
-#    INACTIVITY_TIMEOUT ON
-#    GIT_PROGRESS ON
-#    DOWNLOAD_NO_PROGRESS OFF
-#    LOG_DOWNLOAD ON
-#    LOG_UPDATE ON
-#    LOG_CONFIGURE ON
-#    LOG_BUILD ON
-#    LOG_TEST ON
-#    USES_TERMINAL_DOWNLOAD ON
-#    USES_TERMINAL_UPDATE ON
-#    USES_TERMINAL_BUILD ON
-#    USES_TERMINAL_TEST ON
-#    USES_TERMINAL_INSTALL ON
-#    LOG ON
-#)
-#ExternalProject_Get_Property(catch2 SOURCE_DIR)
-#set(CATCH2_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/catch2/include CACHE INTERNAL "Path to include folder for Catch2")
-#set(CATCH2_LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/catch2/lib CACHE INTERNAL "Path to lib folder for Catch2")
-#endif()
+# Check if population has already been performed
+FetchContent_GetProperties(catch2)
+string(TOLOWER "catch2" lcName)
+if(NOT ${lcName}_POPULATED)
+FetchContent_Populate(${lcName})
+add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
+FetchContent_MakeAvailable(catch2)
+endif()
 
 if(USE_NONE_STL_JSON)
-include(FetchContent)
+
 set(FETCHCONTENT_QUIET off)
 
 get_filename_component(json_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/json"
@@ -275,38 +246,13 @@ FetchContent_Declare(
 FetchContent_GetProperties(json)
 string(TOLOWER "json" lcName)
 if(NOT ${lcName}_POPULATED)
-FetchContent_Populate(json)
+FetchContent_Populate(${lcName})
 add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
+FetchContent_MakeAvailable(json)
 endif()
 
-FetchContent_MakeAvailable(json)
-
 if(USE_CPP_CHECK)
-#include(FetchContent)
-#set(FETCHCONTENT_QUIET off)
-
-#get_filename_component(cppcheck_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/cppcheck"
-#                       REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
-#set(FETCHCONTENT_BASE_DIR ${cppcheck_base})
-
-#FetchContent_Declare(
-#  cppcheck
-#  GIT_REPOSITORY      https://github.com/danmar/cppcheck.git
-#  GIT_TAG main
-#  GIT_PROGRESS   TRUE
-#)
-
-## Check if population has already been performed
-#FetchContent_GetProperties(cppcheck)
-#string(TOLOWER "cppcheck" lcName)
-#if(NOT ${lcName}_POPULATED)
-#FetchContent_Populate(cppcheck)
-#add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
-#endif()
-
-#FetchContent_MakeAvailable(cppcheck)
-
 externalproject_add(cppcheck
     GIT_REPOSITORY "https://github.com/danmar/cppcheck.git"
     GIT_TAG main
@@ -315,21 +261,4 @@ externalproject_add(cppcheck
     CMAKE_CACHE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/cppcheck
     UPDATE_COMMAND ""
     )
-endif()
-
-
-
-if(USE_BOOST)
-find_package(Boost REQUIRED)
-if(Boost_FOUND)
-message(STATUS "Boost version: ${Boost_VERSION}")
-include_directories(${Boost_INCLUDE_DIRS})
-endif()
-# ------ BOOST ------
-set(Boost_USE_STATIC_LIBS        ON)  # only find static libs.
-set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and.
-set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs.
-set(Boost_USE_MULTITHREADED      ON)  # use multithread mode.
-set(Boost_USE_STATIC_RUNTIME    OFF)  # use static mode at runtime.
-set(LibraryList ${Boost_LIBRARIES})
 endif()

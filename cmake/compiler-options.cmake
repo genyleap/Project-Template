@@ -34,14 +34,9 @@ endif()
 # --- Build Options --- #
 #########################
 
-option(BUILD_CURL "Use Curl library" OFF)
-if (BUILD_CURL)
-  add_definitions(-DBUILD_CURL)
-endif()
-
-option(USE_OPENSSL "Use OpenSSL library" OFF)
-if (USE_OPENSSL)
-  add_definitions(-DUSE_OPENSSL)
+option(USE_FEATURE_TEST "Use Feature Test library" OFF)
+if (USE_FEATURE_TEST)
+  add_definitions(-DUSE_FEATURE_TEST)
 endif()
 
 option(USE_SSL_METHOD	    "Use Https/SSL system"      OFF)
