@@ -210,12 +210,24 @@ project(
 #include <iostream>
 #include "utilities/featuretest.hpp"
 
+//!Boost Library
+#ifdef USE_BOOST
+#include <boost/chrono.hpp>
+void testBoost() {
+  boost::chrono::system_clock::time_point start = boost::chrono::system_clock::now();
+  for ( long i = 0; i < 10000000; ++i )
+    std::sqrt( 123.456L ); // burn some time
+  boost::chrono::duration<double> sec = boost::chrono::system_clock::now() - start;
+  std::cout << "took " << sec.count() << " seconds\n";
+}
+
+#endif
 //!JSon [Non-STL] Features
 #include <nlohmann/json.hpp>
 
 //!Google Test
 #ifdef USE_GOOGLE_TEST
-# include <gtest/gtest.h>
+#include <gtest/gtest.h>
 
 class Counter {
 public:
@@ -302,6 +314,10 @@ int main()
   cout << "Hello World!" << endl;
 #ifdef USE_FEATURE_TEST
   featureTest();
+#endif
+
+#ifdef USE_BOOST
+  testBoost();
 #endif
   return 0;
 }
