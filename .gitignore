@@ -32,4 +32,4 @@
 *.app
 
 #Extra
-*.DS_Store
+.DS_Store
