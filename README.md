@@ -14,6 +14,7 @@ Note : This template is not yet complete and conceptually under development.
 ## Building
 
 - You need CMake tool for building source code
+- CMake 3.20 or higher is required.
 
 ```
 cd build
