@@ -5,6 +5,9 @@ This repository is a modern project template based on C++ and CMake build tool.
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
+## Standard Support [C++20]
+- It depends on your compiler!
+
 ## Building
 
 - You need CMake tool for building source code
