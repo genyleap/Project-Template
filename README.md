@@ -20,6 +20,8 @@ Note : This template is not yet complete and conceptually under development.
 cd build
 cmake ..
 make
+./ProjectTemplate
+
 ```
 
 ## CMake module option [Dependencies]
