@@ -1098,6 +1098,19 @@ __declspec(noinline) can also be applied to constant data, to prevent the compil
 #   define PLATFORM_TYPE            "Mobile (Windows Phone)"
 #endif
 
+//!Language Standard Macro
+#if __cplusplus == 199711L
+  #define CXX_STANDARD_98 199711L
+  #elif __cplusplus == 201103L || __cplusplus == 201100
+  #define CXX_STANDARD_11 201100
+  #elif __cplusplus == 201402L
+  #define CXX_STANDARD_14 201402L
+  #elif __cplusplus == 201703L || __cplusplus == 201704L
+  #define CXX_STANDARD_17 201703L
+  #elif __cplusplus == 202002L
+  #define CXX_STANDARD_20 202002L
+#endif
+
 }
 
 #endif // PREPROCESSORS_HPP

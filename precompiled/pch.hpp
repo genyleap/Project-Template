@@ -35,7 +35,7 @@
 #include <numeric>
 
 //!Added in the C++20 standard
-#if defined(TEGRA_CXX_STANDARD_20)
+#if defined(CXX_STANDARD_20)
 //!Concepts
 #ifdef __has_include
 # if __has_include(<concepts>)
