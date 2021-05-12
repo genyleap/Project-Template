@@ -448,5 +448,12 @@ void LibraryTest::testBoost() const noexcept
   
 ```
 
+## TOOD
+- Bug fixing.
+- Add new exception handler.
+- Add new features.
+- Support new libraries.
+- Tell me your opinion about which other items should be added.
+
 ## Contribution
 - Bug fixes, docs, and enhancements welcome! Please let me know kambiz.ceo@gmail.com
