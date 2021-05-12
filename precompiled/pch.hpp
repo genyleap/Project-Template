@@ -10,7 +10,7 @@
 //!Header files for the C++ standard library and extensions, by category.
 //!
 
-#if __cplusplus < 201100
+#if defined(CXX_STANDARD_98)
 #  error "C++11 or better is required"
 #endif
 

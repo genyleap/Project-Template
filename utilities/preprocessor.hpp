@@ -227,6 +227,12 @@ namespace Preprocessor {
 #   define __CPP_VERSION__  "C++20"
 #   undef  __CPP_VALUE__
 #   define __CPP_VALUE__  __cplusplus
+#elif __cplusplus == 20120
+/* C++23:  __cplusplus is c++2b.*/
+#   undef  __CPP_VERSION__
+#   define __CPP_VERSION__  "C++23"
+#   undef  __CPP_VALUE__
+#   define __CPP_VALUE__  __cplusplus
 #elif __embedded_cplusplus
 #   undef  __CPP_VERSION__
 #   define __CPP_VERSION__ "Embedded C++"

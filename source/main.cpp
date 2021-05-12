@@ -1,18 +1,13 @@
 #include <iostream>
 #include "utilities/featuretest.hpp"
 
-//!Boost Library
-#ifdef USE_BOOST
-#include <boost/chrono.hpp>
-void testBoost() {
-  boost::chrono::system_clock::time_point start = boost::chrono::system_clock::now();
-  for ( long i = 0; i < 10000000; ++i )
-    std::sqrt( 123.456L ); // burn some time
-  boost::chrono::duration<double> sec = boost::chrono::system_clock::now() - start;
-  std::cout << "took " << sec.count() << " seconds\n";
-}
+//! Examples
+#include "include/examples/compilertest.hpp"
+#include "include/examples/platformtest.hpp"
+#include "include/examples/librarytest.hpp"
+#include "include/examples/languagetest.hpp"
+#include "include/examples/configtest.hpp"
 
-#endif
 //!JSon [Non-STL] Features
 #include <nlohmann/json.hpp>
 
@@ -85,30 +80,29 @@ TEST_CASE( "Factorials are computed", "[factorial]" ) {
 
 using namespace std;
 
-void featureTest() {
-
-  if (print.general_features) show("C++ GENERAL", cxx);
-  if (print.cxx11 && print.core_features) show("C++11 CORE", cxx11);
-  if (print.cxx14 && print.core_features) show("C++14 CORE", cxx14);
-  if (print.cxx14 && print.lib_features ) show("C++14 LIB" , cxx14lib);
-  if (print.cxx17 && print.core_features) show("C++17 CORE", cxx17);
-  if (print.cxx17 && print.lib_features ) show("C++17 LIB" , cxx17lib);
-  if (print.cxx20 && print.core_features) show("C++20 CORE", cxx20);
-  if (print.cxx20 && print.lib_features ) show("C++20 LIB" , cxx20lib);
-  if (print.cxx23 && print.core_features) show("C++23 CORE", cxx23);
-  if (print.cxx23 && print.lib_features ) show("C++23 LIB" , cxx23lib);
-  if (print.attributes) show("ATTRIBUTES", attributes);
-}
-
 int main()
 {
   cout << "Hello World!" << endl;
-#ifdef USE_FEATURE_TEST
-  featureTest();
-#endif
 
-#ifdef USE_BOOST
-  testBoost();
-#endif
+  //!Config Test
+  ConfigTest config;
+  config.readSettings();
+
+  //!Compiler Test
+  CompilerTest compiler;
+  compiler.getCompilerInfo();
+
+  //!Platform Test
+  PlatformTest platform;
+  platform.getPlatformInfo();
+
+  //!Library Test
+  LibraryTest library;
+  library.testBoost(); // Boost
+
+  //!Language Features
+  LanguageTest language;
+  language.checkFeatures();
+
   return 0;
 }

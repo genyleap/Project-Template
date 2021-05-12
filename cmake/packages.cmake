@@ -40,7 +40,7 @@ if (USE_DOC_TEST)
   add_definitions(-DUSE_DOC_TEST)
 endif()
 
-option(USE_CATCH2    "Include Catch2"  TRUE)
+option(USE_CATCH2    "Include Catch2"  FALSE)
 if (USE_CATCH2)
   add_definitions(-DUSE_CATCH2)
 endif()

@@ -98,6 +98,10 @@ set(SUFFIX_CONFIG *.json)
 file(GLOB PRECOMPILED precompiled/pch.hpp)
 file(GLOB HEADERS include/${SUFFIX_HPPHEADER})
 file(GLOB SOURCES source/${SUFFIX_SOURCE})
+file(GLOB EXAMPLES
+     include/examples/${SUFFIX_HPPHEADER}
+     source/examples/${SUFFIX_SOURCE}
+)
 file(GLOB UTILS
      utilities/${SUFFIX_HPPHEADER}
      utilities/${SUFFIX_SOURCE}
@@ -112,12 +116,14 @@ ${SOURCES}
 ${UTILS}
 ${CONFIGFILE}
 ${PRECOMPILED}
+${EXAMPLES}
 )
 
 source_group("PrecompiledHeaders"  FILES ${PRECOMPILED})
 source_group("Utilities"  FILES ${UTILS})
 source_group("Base"   FILES ${HEADERS} ${SOURCES})
 source_group("Config" FILES ${CONFIGFILE})
+source_group("Examples"  FILES ${EXAMPLES})
 
 # ------ PROJECT DIRECTORIES ------
 set(dir ${CMAKE_CURRENT_SOURCE_DIR}/build/)
