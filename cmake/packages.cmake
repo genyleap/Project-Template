@@ -30,6 +30,16 @@ if (USE_CURL)
   add_definitions(-DUSE_CURL)
 endif()
 
+option(USE_QT    "Include Qt Framework"  FALSE)
+if (USE_QT)
+  add_definitions(-DUSE_QT)
+endif()
+
+option(HAS_USER_INTERFACE    "Include GUI"  FALSE)
+if (HAS_USER_INTERFACE)
+  add_definitions(-DHAS_USER_INTERFACE)
+endif()
+
 option(USE_GOOGLE_TEST    "Include Google-Test"  FALSE)
 if (USE_GOOGLE_TEST)
   add_definitions(-DUSE_GOOGLE_TEST)

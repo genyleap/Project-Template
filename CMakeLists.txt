@@ -6,12 +6,11 @@ cmake_policy(SET CMP0048 NEW)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
 
-# ------ PROJECT INFO ------
-#include(project-info)
-#if(project-info)
-#  return()
-#endif()
-#set(project-info ON)
+if(USE_QT)
+    set(CMAKE_AUTOUIC ON)
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+endif()
 
 # ------ PROJECT INFO ------
 # Options
@@ -95,6 +94,11 @@ set(SUFFIX_HPPHEADER *.hpp)
 set(SUFFIX_SOURCE *.cpp)
 set(SUFFIX_CONFIG *.json)
 
+if(HAS_USER_INTERFACE)
+    set(SUFFIX_QML *.qml)
+    set(SUFFIX_QRC *.qrc)
+endif()
+
 file(GLOB PRECOMPILED precompiled/pch.hpp)
 file(GLOB HEADERS include/${SUFFIX_HPPHEADER})
 file(GLOB SOURCES source/${SUFFIX_SOURCE})
@@ -107,23 +111,49 @@ file(GLOB UTILS
      utilities/${SUFFIX_SOURCE}
 )
 
+if(HAS_USER_INTERFACE)
+    file(GLOB UI_SOURCE ui/${SUFFIX_QRC})
+endif()
+
 file(GLOB CONFIGFILE config/${SUFFIX_CONFIG})
 
+if(HAS_USER_INTERFACE)
 file(GLOB SOURCESFILE
-#---C++---
-${HEADERS}
-${SOURCES}
-${UTILS}
-${CONFIGFILE}
-${PRECOMPILED}
-${EXAMPLES}
-)
+    #---C++---
+    ${HEADERS}
+    ${SOURCES}
+    ${UI_SOURCE}
+    ${UTILS}
+    ${CONFIGFILE}
+    ${PRECOMPILED}
+    ${EXAMPLES}
+    )
+
+source_group("PrecompiledHeaders"  FILES ${PRECOMPILED})
+source_group("Utilities"  FILES ${UTILS})
+source_group("Base"   FILES ${HEADERS} ${SOURCES})
+source_group("UI"     FILES ${UI_SOURCE})
+source_group("Config" FILES ${CONFIGFILE})
+source_group("Examples"  FILES ${EXAMPLES})
+
+else()
+    file(GLOB SOURCESFILE
+    #---C++---
+    ${HEADERS}
+    ${SOURCES}
+    ${UTILS}
+    ${CONFIGFILE}
+    ${PRECOMPILED}
+    ${EXAMPLES}
+    )
 
 source_group("PrecompiledHeaders"  FILES ${PRECOMPILED})
 source_group("Utilities"  FILES ${UTILS})
 source_group("Base"   FILES ${HEADERS} ${SOURCES})
 source_group("Config" FILES ${CONFIGFILE})
 source_group("Examples"  FILES ${EXAMPLES})
+
+endif()
 
 # ------ PROJECT DIRECTORIES ------
 set(dir ${CMAKE_CURRENT_SOURCE_DIR}/build/)
@@ -167,8 +197,13 @@ message(STATUS "${Bold}LIBRARY_OUTPUT_PATH${ColourReset}		: ${LIBRARY_OUTPUT_PAT
 message(STATUS "${Bold}CMAKE_CURRENT_SOURCE_DIR${ColourReset}	: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} End Configuration ------${ColourReset}")
 
+if(USE_QT)
+#Add an executable to the project using the specified source files.
+add_executable(${PROJECT_NAME} ${SOURCESFILE} ${UI_SOURCE})
+else()
 #Add an executable to the project using the specified source files.
 add_executable(${PROJECT_NAME} ${SOURCESFILE})
+endif()
 
 if(USE_BOOST)
 set(Boost_USE_STATIC_LIBS        ON)  # only find static libs.
@@ -207,6 +242,19 @@ target_link_libraries(${PROJECT_NAME}
  PRIVATE
  -lc++
 )
+
+if(USE_QT)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core
+  Qt${QT_VERSION_MAJOR}::Quick
+)
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_import_qml_plugins(${PROJECT_NAME})
+    qt_finalize_executable(${PROJECT_NAME})
+endif()
+endif()
 
 #This command generates installation rules for a project.
 #Install rules specified by calls to the install() command within a source directory. are executed in order during installation.
