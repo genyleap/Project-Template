@@ -212,18 +212,13 @@ project(
 #include <iostream>
 #include "utilities/featuretest.hpp"
 
-//!Boost Library
-#ifdef USE_BOOST
-#include <boost/chrono.hpp>
-void testBoost() {
-  boost::chrono::system_clock::time_point start = boost::chrono::system_clock::now();
-  for ( long i = 0; i < 10000000; ++i )
-    std::sqrt( 123.456L ); // burn some time
-  boost::chrono::duration<double> sec = boost::chrono::system_clock::now() - start;
-  std::cout << "took " << sec.count() << " seconds\n";
-}
+//! Examples
+#include "include/examples/compilertest.hpp"
+#include "include/examples/platformtest.hpp"
+#include "include/examples/librarytest.hpp"
+#include "include/examples/languagetest.hpp"
+#include "include/examples/configtest.hpp"
 
-#endif
 //!JSon [Non-STL] Features
 #include <nlohmann/json.hpp>
 
@@ -296,8 +291,132 @@ TEST_CASE( "Factorials are computed", "[factorial]" ) {
 
 using namespace std;
 
-void featureTest() {
+int main()
+{
+  cout << "Hello World!" << endl;
 
+  //!Config Test
+  ConfigTest config;
+  config.readSettings();
+
+  //!Compiler Test
+  CompilerTest compiler;
+  compiler.getCompilerInfo();
+
+  //!Platform Test
+  PlatformTest platform;
+  platform.getPlatformInfo();
+
+  //!Library Test
+  LibraryTest library;
+  library.testBoost(); // Boost
+
+  //!Language Features
+  LanguageTest language;
+  language.checkFeatures();
+
+  return 0;
+}
+```
+
+## More usage examples
+- Compiler Test
+```cpp
+cout << "Compiler Name : " << __COMPILER__ << endl;
+cout << "Compiler Version : " << __COMPILER_VER__ << endl;
+
+#if defined(__COMPILER_CLANG_LLVM_)
+  cout << "Clang compiler has been detected!\n";
+#elif defined(__COMPILER_INTEL__)
+  cout << "Intel compiler has been detected!\n";
+#elif defined(__COMPILER_MINGW__)
+  cout << "MinGW compiler has been detected!\n";
+#elif defined(__COMPILER_MINGW_64__)
+  cout << "MinGW64 compiler has been detected!\n";
+#elif defined(__COMPILER_GCC__)
+  cout << "GCC compiler has been detected!\n";
+#elif defined(__COMPILER__HEWLETT_)
+  cout << "Hewlett compiler has been detected!\n";
+#elif defined(__COMPILER_IBM__)
+  cout << "IBM compiler has been detected!\n";
+#elif defined(__COMPILER_MSVC__)
+  cout << "MSVC compiler has been detected!\n";
+#elif defined(__COMPILER_PGCC__)
+  cout << "PGCC compiler has been detected!\n";
+#elif defined(__COMPILER_ORACLE__)
+  cout << "Oracle compiler has been detected!\n";
+#endif
+  
+```
+- Platform Test
+```cpp
+#if defined(PLATFORM_MAC)
+  cout << "This is macOS platform!\n";
+#elif defined(PLATFORM_WINDOWS)
+  cout << "This is Windows platform!\n";
+#elif defined(PLATFORM_LINUX)
+  cout << "This is Linux platform!\n";
+#elif defined(PLATFORM_FREEBSD)
+  cout << "This is freeBSD platform!\n";
+#elif defined(PLATFORM_OPENBSD)
+  cout << "This is openBSD platform!\n";
+#elif defined(PLATFORM_VXWORKS)
+  cout << "This is VXWorks platform!\n";
+#elif defined(PLATFORM_MOTOROLA)
+  cout << "This is Motorola platform!\n";
+#elif defined(PLATFORM_ULTRIX)
+  cout << "This is Ultrix platform!\n";
+#elif defined(PLATFORM_DOS)
+  cout << "This is Dos platform!\n";
+#elif defined(PLATFORM_WINDOWS_PHONE)
+  cout << "This is Windows Phone platform!\n";
+#elif defined(PLATFORM_IOS_SIMULATOR)
+  cout << "This is iOS Simulator platform!\n";
+#elif defined(PLATFORM_IOS)
+  cout << "This is iOS platform!\n";
+#elif defined(PLATFORM_APPLE_TV)
+  cout << "This is AppleTV platform!\n";
+#elif defined(PLATFORM_IWATCH)
+  cout << "This is iWatch platform!\n";
+#elif defined(PLATFORM_ANDROID)
+  cout << "This is Android platform!\n";
+#endif
+```
+- Library Test
+```cpp
+#include "include/common.hpp"
+#include <iostream>
+
+#ifdef USE_BOOST
+#include <boost/chrono.hpp>
+#endif
+
+LibraryTest::LibraryTest()
+{
+
+}
+
+void LibraryTest::testBoost() const noexcept
+{
+  //!Boost Library
+#ifdef USE_BOOST
+  std::cout << "Boost version " << BOOST_VERSION << std::endl;
+  std::cout << "Boost Lib Clock Test\n";
+  boost::chrono::system_clock::time_point start = boost::chrono::system_clock::now();
+  for ( long i = 0; i < 10000000; ++i )
+    std::sqrt( 123.456L ); // burn some time
+  boost::chrono::duration<double> sec = boost::chrono::system_clock::now() - start;
+  std::cout << "took " << sec.count() << " seconds\n";
+#else
+  std::cout << "Boost Library is not available.\n";
+#endif
+
+}
+```
+
+- Language Test
+```cpp
+#ifdef USE_FEATURE_TEST
   if (print.general_features) show("C++ GENERAL", cxx);
   if (print.cxx11 && print.core_features) show("C++11 CORE", cxx11);
   if (print.cxx14 && print.core_features) show("C++14 CORE", cxx14);
@@ -309,25 +428,32 @@ void featureTest() {
   if (print.cxx23 && print.core_features) show("C++23 CORE", cxx23);
   if (print.cxx23 && print.lib_features ) show("C++23 LIB" , cxx23lib);
   if (print.attributes) show("ATTRIBUTES", attributes);
-}
-
-int main()
-{
-  cout << "Hello World!" << endl;
-#ifdef USE_FEATURE_TEST
-  featureTest();
+#else
+  std::cout << "Test Feature is not available.\n";
 #endif
+```
+- Config Test
+```cpp
+#include "include/common.hpp"
+#include "include/config.hpp"
+#include <iostream>
 
-#ifdef USE_BOOST
-  testBoost();
-#endif
-  return 0;
-}
+  std::cout << "Language : " << Config::GET["language"] << std::endl;
+  std::cout << "Debug : "    << Config::GET["debug"] << std::endl;
+  std::cout << "Project Code Name : " << Config::GET["system"]["codename"] << std::endl;
+  std::cout << "Project Version : " << Config::GET["system"]["version"] << std::endl;
+  std::cout << "Last Update : " << Config::GET["system"]["last_update"] << std::endl;
+  std::cout << "Server Host : " << Config::GET["system"]["server_host"] << std::endl;
+  std::cout << "Encoding : " << Config::GET["system"]["encoding"] << std::endl;
+  
 ```
 
-## More usage examples
-- Coming soon...
-
+## TOOD
+- Bug fixing.
+- Add new exception handler.
+- Add new features.
+- Support new libraries.
+- Tell me your opinion about which other items should be added.
 
 ## Contribution
 - Bug fixes, docs, and enhancements welcome! Please let me know kambiz.ceo@gmail.com
