@@ -251,11 +251,11 @@ int main(int argc, char *argv[])
 #include "utilities/featuretest.hpp"
 
 //! Examples
-#include "include/examples/compilertest.hpp"
-#include "include/examples/platformtest.hpp"
-#include "include/examples/librarytest.hpp"
-#include "include/examples/languagetest.hpp"
-#include "include/examples/configtest.hpp"
+#include "examples/compilertest.hpp"
+#include "examples/platformtest.hpp"
+#include "examples/librarytest.hpp"
+#include "examples/languagetest.hpp"
+#include "examples/configtest.hpp"
 
 //!JSon [Non-STL] Features
 #include <nlohmann/json.hpp>
