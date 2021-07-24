@@ -100,10 +100,10 @@ if(HAS_USER_INTERFACE)
 endif()
 
 file(GLOB PRECOMPILED precompiled/pch.hpp)
-file(GLOB HEADERS include/${SUFFIX_HPPHEADER})
+file(GLOB HEADERS source/${SUFFIX_HPPHEADER})
 file(GLOB SOURCES source/${SUFFIX_SOURCE})
 file(GLOB EXAMPLES
-     include/examples/${SUFFIX_HPPHEADER}
+     source/examples/${SUFFIX_HPPHEADER}
      source/examples/${SUFFIX_SOURCE}
 )
 file(GLOB UTILS
@@ -242,6 +242,9 @@ target_link_libraries(${PROJECT_NAME}
  PRIVATE
  -lc++
 )
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source)
+target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source)
 
 if(USE_QT)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)

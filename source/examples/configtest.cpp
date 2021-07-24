@@ -1,6 +1,6 @@
-#include "include/examples/configtest.hpp"
-#include "include/common.hpp"
-#include "include/config.hpp"
+#include "examples/configtest.hpp"
+#include "common.hpp"
+#include "config.hpp"
 #include <iostream>
 
 ConfigTest::ConfigTest()
