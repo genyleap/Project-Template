@@ -4,41 +4,34 @@
 
 using namespace std;
 
-CompilerTest::CompilerTest()
-{
+CompilerTest::CompilerTest() {}
 
+void CompilerTest::getCompilerInfo() const noexcept {
+  cout << "Compiler Name : " << COMPILER << endl;
+  cout << "Compiler Version : " << COMPILER_VER << endl;
 }
 
-void CompilerTest::getCompilerInfo() const noexcept
-{
-  cout << "Compiler Name : " << __COMPILER__ << endl;
-  cout << "Compiler Version : " << __COMPILER_VER__ << endl;
-}
-
-void CompilerTest::checkByCompiler() const noexcept
-{
-  //!Compiler Stataement
-#if defined(__COMPILER_CLANG_LLVM_)
+void CompilerTest::checkByCompiler() const noexcept {
+  //! Compiler Stataement
+#if defined(COMPILER_CLANG_LLVM)
   cout << "Clang compiler has been detected!\n";
-#elif defined(__COMPILER_INTEL__)
+#elif defined(COMPILER_INTEL)
   cout << "Intel compiler has been detected!\n";
-#elif defined(__COMPILER_MINGW__)
+#elif defined(COMPILER_MINGW)
   cout << "MinGW compiler has been detected!\n";
-#elif defined(__COMPILER_MINGW_64__)
+#elif defined(COMPILER_MINGW_64)
   cout << "MinGW64 compiler has been detected!\n";
-#elif defined(__COMPILER_GCC__)
+#elif defined(COMPILER_GCC)
   cout << "GCC compiler has been detected!\n";
-#elif defined(__COMPILER__HEWLETT_)
+#elif defined(COMPILER__HEWLETT)
   cout << "Hewlett compiler has been detected!\n";
-#elif defined(__COMPILER_IBM__)
+#elif defined(COMPILER_IBM)
   cout << "IBM compiler has been detected!\n";
-#elif defined(__COMPILER_MSVC__)
+#elif defined(COMPILER_MSVC)
   cout << "MSVC compiler has been detected!\n";
-#elif defined(__COMPILER_PGCC__)
+#elif defined(COMPILER_PGCC)
   cout << "PGCC compiler has been detected!\n";
-#elif defined(__COMPILER_ORACLE__)
+#elif defined(COMPILER_ORACLE)
   cout << "Oracle compiler has been detected!\n";
 #endif
-
-
 }
