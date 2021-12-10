@@ -106,6 +106,9 @@ TEST_CASE( "Factorials are computed", "[factorial]" ) {
 
 #endif
 
+//ThirdParty libs
+#include "examples/thirdpartytest.hpp"
+
 using namespace std;
 
 int main()
@@ -131,6 +134,9 @@ int main()
   //!Language Features
   LanguageTest language;
   language.checkFeatures();
+
+  ThirdPartyTest thirdPartyTest;
+  thirdPartyTest.testFmt();
 
   return 0;
 }

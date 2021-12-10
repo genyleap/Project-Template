@@ -13,6 +13,7 @@ LibraryTest::LibraryTest()
 
 void LibraryTest::testBoost() const noexcept
 {
+std::cout << "========BOOST TEST========" << std::endl;
   //!Boost Library
 #ifdef USE_BOOST
   std::cout << "Boost version " << BOOST_VERSION << std::endl;
@@ -25,5 +26,5 @@ void LibraryTest::testBoost() const noexcept
 #else
   std::cout << "Boost Library is not available.\n";
 #endif
-
+  std::cout << "========BOOST TEST========" << std::endl;
 }

@@ -30,6 +30,11 @@ if (USE_CURL)
   add_definitions(-DUSE_CURL)
 endif()
 
+option(USE_FMT    "Include Fmt"  FALSE)
+if (USE_FMT)
+  add_definitions(-DUSE_FMT)
+endif()
+
 option(USE_QT    "Include Qt Framework"  FALSE)
 if (USE_QT)
   add_definitions(-DUSE_QT)
@@ -304,4 +309,25 @@ externalproject_add(cppcheck
     CMAKE_CACHE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/cppcheck
     UPDATE_COMMAND ""
     )
+endif()
+
+if(USE_FMT)
+    set(FETCHCONTENT_QUIET off)
+    get_filename_component(fmt_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/${PLATFORM_FOLDER_NAME}/fmt"
+                           REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
+    set(FETCHCONTENT_BASE_DIR ${fmt_base})
+    FetchContent_Declare(
+      fmt
+      GIT_REPOSITORY      https://github.com/fmtlib/fmt.git
+      GIT_TAG master
+      GIT_PROGRESS   TRUE
+    )
+    # Check if population has already been performed
+    FetchContent_GetProperties(fmt)
+    string(TOLOWER "fmt" lcName)
+    if(NOT ${lcName}_POPULATED)
+    FetchContent_Populate(${lcName})
+    add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
+    endif()
+    FetchContent_MakeAvailable(fmt)
 endif()

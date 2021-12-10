@@ -9,7 +9,7 @@ LanguageTest::LanguageTest()
 
 void LanguageTest::checkFeatures() const noexcept
 {
-
+std::cout << "========FEATURE TEST========" << std::endl;
 #ifdef USE_FEATURE_TEST
   if (print.general_features) show("C++ GENERAL", cxx);
   if (print.cxx11 && print.core_features) show("C++11 CORE", cxx11);
@@ -25,4 +25,5 @@ void LanguageTest::checkFeatures() const noexcept
 #else
   std::cout << "Test Feature is not available.\n";
 #endif
+  std::cout << "========FEATURE TEST========" << std::endl;
 }

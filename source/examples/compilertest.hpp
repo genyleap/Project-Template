@@ -5,9 +5,9 @@
 class CompilerTest
 {
 public:
-  CompilerTest();
-  void getCompilerInfo() const noexcept;
-  void checkByCompiler() const noexcept;
+    CompilerTest();
+    void getCompilerInfo() const noexcept;
+    void checkByCompiler() const noexcept;
 };
 
 #endif // COMPILERTEST_HPP

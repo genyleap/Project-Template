@@ -4,7 +4,8 @@
 
 using namespace std;
 
-CompilerTest::CompilerTest() {}
+CompilerTest::CompilerTest() {
+}
 
 void CompilerTest::getCompilerInfo() const noexcept {
   cout << "Compiler Name : " << COMPILER << endl;
@@ -12,6 +13,7 @@ void CompilerTest::getCompilerInfo() const noexcept {
 }
 
 void CompilerTest::checkByCompiler() const noexcept {
+  std::cout << "========COMPILER TEST========" << std::endl;
   //! Compiler Stataement
 #if defined(COMPILER_CLANG_LLVM)
   cout << "Clang compiler has been detected!\n";
@@ -34,4 +36,5 @@ void CompilerTest::checkByCompiler() const noexcept {
 #elif defined(COMPILER_ORACLE)
   cout << "Oracle compiler has been detected!\n";
 #endif
+  std::cout << "========COMPILER TEST========" << std::endl;
 }
