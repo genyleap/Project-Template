@@ -6,6 +6,7 @@ class ThirdPartyTest
 public:
     ThirdPartyTest();
     void testFmt();
+    void testCtre();
 };
 
 

@@ -60,6 +60,11 @@ if (USE_CATCH2)
   add_definitions(-DUSE_CATCH2)
 endif()
 
+option(USE_CTRE    "Include CTRE library"  FALSE)
+if (USE_CTRE)
+  add_definitions(-DUSE_CTRE)
+endif()
+
 option(USE_NONE_STL_JSON    "Include JSON"  TRUE)
 if (USE_NONE_STL_JSON)
   add_definitions(-DUSE_NONE_STL_JSON)
@@ -309,6 +314,27 @@ externalproject_add(cppcheck
     CMAKE_CACHE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/cppcheck
     UPDATE_COMMAND ""
     )
+endif()
+
+if(USE_CTRE)
+    set(FETCHCONTENT_QUIET off)
+    get_filename_component(ctre_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/${PLATFORM_FOLDER_NAME}/ctre"
+                           REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
+    set(FETCHCONTENT_BASE_DIR ${ctre_base})
+    FetchContent_Declare(
+      ctre
+      GIT_REPOSITORY     https://github.com/hanickadot/compile-time-regular-expressions.git
+      GIT_TAG main
+      GIT_PROGRESS   TRUE
+    )
+    # Check if population has already been performed
+    FetchContent_GetProperties(ctre)
+    string(TOLOWER "ctre" lcName)
+    if(NOT ${lcName}_POPULATED)
+    FetchContent_Populate(${lcName})
+    add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
+    endif()
+    FetchContent_MakeAvailable(ctre)
 endif()
 
 if(USE_FMT)

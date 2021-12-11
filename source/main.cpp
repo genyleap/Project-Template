@@ -113,7 +113,7 @@ using namespace std;
 
 int main()
 {
-  cout << "Hello World!" << endl;
+    cout << "Hello World!" << endl;
 
   //!Config Test
   ConfigTest config;
@@ -135,8 +135,10 @@ int main()
   LanguageTest language;
   language.checkFeatures();
 
+  //!ThirdParty Library
   ThirdPartyTest thirdPartyTest;
   thirdPartyTest.testFmt();
+  thirdPartyTest.testCtre();
 
   return 0;
 }
