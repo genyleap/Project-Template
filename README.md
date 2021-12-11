@@ -55,6 +55,11 @@ cmake .. -DHAS_USER_INTERFACE=true
 cmake .. -DUSE_CURL=true
 ```
 
+- Include FMT library
+```
+cmake .. -DUSE_FMT=true
+```
+
 - Include CppCheck library
 ```
 cmake .. -DUSE_CPP_CHECK=true
@@ -352,6 +357,10 @@ int main()
   //!Language Features
   LanguageTest language;
   language.checkFeatures();
+  
+  //!ThirdParty Library
+  ThirdPartyTest thirdPartyTest;
+  thirdPartyTest.testFmt();
 
   return 0;
 }
