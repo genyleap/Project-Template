@@ -80,6 +80,11 @@ cmake .. -DUSE_DOC_TEST=true
 cmake .. -DUSE_CATCH2=true
 ```
 
+- Include CTRE
+```
+cmake .. -DUSE_CTRE=true
+```
+
 - Include Non-STL JSon library
 ```
 cmake .. -DUSE_NONE_STL_JSON=true
