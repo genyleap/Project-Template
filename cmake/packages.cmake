@@ -65,7 +65,7 @@ if (USE_CTRE)
   add_definitions(-DUSE_CTRE)
 endif()
 
-option(USE_NONE_STL_JSON    "Include JSON"  TRUE)
+option(USE_NONE_STL_JSON    "Include JSON"  FALSE)
 if (USE_NONE_STL_JSON)
   add_definitions(-DUSE_NONE_STL_JSON)
 endif()

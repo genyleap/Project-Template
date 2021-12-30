@@ -196,7 +196,9 @@ namespace Preprocessor {
 #define MSVCPP "MSVC++ 16.10"
 #elif defined(_MSC_VER) && _MSC_VER == 1930
 #undef MSVCPP
-#define MSVCPP "MSVC++ 1]RTW (17.0)"
+#elif defined(_MSC_VER) && _MSC_VER == 1931
+#undef MSVCPP
+#define MSVCPP "MSVC++ (17.1)"
 #endif
 
 //! LANGUAGE STANDARD
@@ -1147,16 +1149,34 @@ required. For example, an array dimension.
 #endif
 
 //! Language Standard Macro
-#if __cplusplus == 199711L
-#define CXX_STANDARD_98 199711L
-#elif __cplusplus == 201103L || __cplusplus == 201100
-#define CXX_STANDARD_11 201100
-#elif __cplusplus == 201402L
-#define CXX_STANDARD_14 201402L
-#elif __cplusplus == 201703L || __cplusplus == 201704L
-#define CXX_STANDARD_17 201703L
-#elif __cplusplus == 202002L
-#define CXX_STANDARD_20 202002L
+#ifdef _MSC_VER
+    #if _MSC_VER < 1920
+        #if __cplusplus == 199711L
+        #define CXX_STANDARD_98 199711L
+        #elif __cplusplus == 201103L || __cplusplus == 201100
+        #define CXX_STANDARD_11 201100
+        #elif __cplusplus == 201402L
+        #define CXX_STANDARD_14
+        #elif __cplusplus == 201703L || __cplusplus == 201704L
+        #define CXX_STANDARD_17 201703L
+        #elif __cplusplus == 202002L
+        #define CXX_STANDARD_20 202002L
+        #endif
+    #else
+        #define CXX_STANDARD_20 202002L
+    #endif
+#else
+    #if __cplusplus == 199711L
+    #define CXX_STANDARD_98 199711L
+    #elif __cplusplus == 201103L || __cplusplus == 201100
+    #define CXX_STANDARD_11 201100
+    #elif __cplusplus == 201402L
+    #define CXX_STANDARD_14 201402L
+    #elif __cplusplus == 201703L || __cplusplus == 201704L
+    #define CXX_STANDARD_17 201703L
+    #elif __cplusplus == 202002L
+    #define CXX_STANDARD_20 202002L
+    #endif
 #endif
 
 } // namespace Preprocessor

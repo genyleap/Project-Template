@@ -32,8 +32,15 @@ using namespace Types;
  * \brief The Config struct
  * \details Tegra will gets all default or custom variables from base config file.
  */
+#ifdef USE_NONE_STL_JSON
+//struct Config {
+//  inline static JSon GET = JSon::parse(if_streamer("config/system-config.json"));
+//};
+#else //!TODO for standard version [STL]
 struct Config {
-  inline static JSon GET = JSon::parse(if_streamer("config/system-config.json"));
+  inline static unsigned int GET = 0; //TODO...
 };
+#endif
+
 
 #endif // CONFIG_HPP

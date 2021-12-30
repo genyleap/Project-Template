@@ -244,11 +244,6 @@ if(USE_BOOST)
     target_link_libraries(${PROJECT_NAME} PRIVATE ${Boost_LIBRARIES})
 endif()
 
-target_link_libraries(${PROJECT_NAME}
- PRIVATE
- -lc++
-)
-
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source)
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source)
 

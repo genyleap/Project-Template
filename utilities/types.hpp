@@ -1,14 +1,6 @@
 #ifndef PROJECT_TYPES_HPP
 #define PROJECT_TYPES_HPP
 
-//!JSON Config
-#ifdef USE_NONE_STL_JSON
-#include <nlohmann/json.hpp>
-using JSon = nlohmann::json;
-using JSonException = nlohmann::detail::exception;
-#else
-#endif
-
 #include "precompiled/pch.hpp" //get some header.
 
 namespace Types {

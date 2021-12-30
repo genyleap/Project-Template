@@ -7,11 +7,12 @@
  * Can reduce the number of lines of code that the compiler must process (in some cases, by several orders of magnitude).
 */
 
-//!Header files for the C++ standard library and extensions, by category.
-//!
+#include <utilities/preprocessor.hpp>
 
-#if defined(CXX_STANDARD_98)
-#  error "C++11 or better is required"
+//!Header files for the C++ standard library and extensions, by category.
+
+#ifdef CXX_STANDARD_98
+    #error "C++11 or better is required"
 #endif
 
 #include <algorithm>
@@ -66,7 +67,13 @@
 #include <stack>
 
 //!Container views
-#include <span>
+#if defined(CXX_STANDARD_20)
+#ifdef __has_include
+# if __has_include(<span>)
+#   include <span>
+# endif
+#endif
+#endif
 
 //!Errors and exception handling
 #include <cassert>
@@ -76,17 +83,29 @@
 
 //!General utilities
 #include <any>
-#include <bit>
+
 #include <bitset>
 #include <cstdlib>
-#include <execution>
+
+#if defined(CXX_STANDARD_20)
+#ifdef __has_include
+# if __has_include(<execution>)
+#   include <execution>
+# endif
+#endif
+#endif
+
 #include <functional>
 #include <memory>
+
+#if defined(CXX_STANDARD_20)
 #ifdef __has_include
-# if __has_include(<memory_resource>) //C++2a
+# if __has_include(<memory_resource>)
 #   include <memory_resource>
 # endif
 #endif
+#endif
+
 #include <optional>
 #include <ratio>
 #include <scoped_allocator>
@@ -107,7 +126,15 @@
 //!I/O and formatting
 #include <cinttypes>
 #include <cstdio>
-#include <filesystem>
+
+#ifdef CXX_STANDARD_20
+#ifdef __has_include
+# if __has_include(<filesystem>)
+#   include <filesystem>
+# endif
+#endif
+#endif
+
 #include <fstream>
 #include <iomanip>
 #include <ios>
@@ -117,11 +144,13 @@
 #include <ostream>
 #include <sstream>
 #include <streambuf>
-#include <strstream>
+
+#if defined(CXX_STANDARD_20)
 #ifdef __has_include
-# if __has_include(<syncstream>) //C++2a
+# if __has_include(<syncstream>)
 #   include <syncstream>
 # endif
+#endif
 #endif
 
 //!Iterators
@@ -131,17 +160,32 @@
 #include <cfloat>
 #include <climits>
 #include <codecvt>
-#include <compare>
+
+
+#if defined(CXX_STANDARD_20)
 #ifdef __has_include
-# if __has_include(<contract>) //C++2a
+# if __has_include(<compare>)
+#   include <compare>
+# endif
+#endif
+#endif
+
+#if defined(CXX_STANDARD_20)
+#ifdef __has_include
+# if __has_include(<contract>)
 #   include <contract>
 # endif
 #endif
+#endif
+
+#if defined(CXX_STANDARD_20)
 #ifdef __has_include
-# if __has_include(<coroutine>) //C++2a
+# if __has_include(<coroutine>)
 #   include <coroutine>
 # endif
 #endif
+#endif
+
 #include <csetjmp>
 #include <csignal>
 #include <cstdarg>
@@ -153,13 +197,22 @@
 #include <limits>
 #include <new>
 #include <typeinfo>
-#include <version>
+
+#if defined(CXX_STANDARD_20)
+#ifdef __has_include
+# if __has_include(<version>)
+#   include <version>
+# endif
+#endif
+#endif
 
 //!Ranges
+#if defined(CXX_STANDARD_20)
 #ifdef __has_include
-# if __has_include(<ranges>) //C++2a
+# if __has_include(<ranges>)
 #   include <ranges>
 # endif
+#endif
 #endif
 
 //!Regular expressions
@@ -170,11 +223,15 @@
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
+
+#if defined(CXX_STANDARD_20)
 #ifdef __has_include
-# if __has_include(<cuchar>) //C++2a
+# if __has_include(<cuchar>)
 #   include <cuchar>
 # endif
 #endif
+#endif
+
 #include <cwchar>
 #include <cwctype>
 #include <regex>
@@ -217,7 +274,13 @@
 #include <locale>
 
 //!Math and numerics
-#include <bit>
+#if defined(CXX_STANDARD_20)
+#ifdef __has_include
+# if __has_include(<bit>)
+#   include <bit>
+# endif
+#endif
+#endif
 #include <cfenv>
 #include <cmath>
 #include <complex>
@@ -245,8 +308,15 @@
 
 #ifdef _MSC_VER
 #include <intrin.h>
-#else
-#include <x86intrin.h>
 #endif
+
+//!JSON Config
+//#if defined(USE_NONE_STL_JSON)
+//#include <nlohmann/json.hpp>
+//using JSon = nlohmann::json;
+//using JSonException = nlohmann::detail::exception;
+//#else
+//#endif
+
 
 #endif // PCH_HPP

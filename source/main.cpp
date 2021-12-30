@@ -37,7 +37,9 @@ int main(int argc, char *argv[])
 #include "examples/configtest.hpp"
 
 //!JSon [Non-STL] Features
+#ifdef USE_JSON
 #include <nlohmann/json.hpp>
+#endif
 
 //!Google Test
 #ifdef USE_GOOGLE_TEST
