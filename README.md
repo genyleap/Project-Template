@@ -1,5 +1,6 @@
 # Modern Project-Template
- A template for modern C++ projects with features for developing cross-platform projects.
+A template for modern C++ projects with useful features for developing cross-platform projects.
+
 ##  Cross-Platform project structure based on CMake ##
 This repository is a modern project template based on C++ and CMake build tool.
 
