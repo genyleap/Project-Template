@@ -40,6 +40,17 @@ if (USE_QT)
   add_definitions(-DUSE_QT)
 endif()
 
+option(USE_QT5_FEATURES    "Include Qt5 Framework features"  FALSE)
+if (USE_QT5_FEATURES)
+  add_definitions(-DUSE_QT5_FEATURES)
+endif()
+
+option(USE_FULL_QT_FEATURES    "Include Full features of Qt Framework"  FALSE)
+if (USE_FULL_QT_FEATURES)
+  add_definitions(-USE_FULL_QT_FEATURES)
+endif()
+
+
 option(HAS_USER_INTERFACE    "Include GUI"  FALSE)
 if (HAS_USER_INTERFACE)
   add_definitions(-DHAS_USER_INTERFACE)

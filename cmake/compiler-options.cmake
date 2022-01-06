@@ -76,6 +76,10 @@ if (BUILD_DOC)
   add_definitions(-DBUILD_DOC)
 endif()
 
+option(USE_QT_QUICK_COMPILER "Compile Qt Quick (QML) files." OFF)
+if (USE_QT_QUICK_COMPILER)
+  add_definitions(-DUSE_QT_QUICK_COMPILER)
+endif()
 
 option(FORCE_COLORED_OUTPUT "Always produce ANSI-colored output (GNU/Clang only)."  TRUE)
 if (FORCE_COLORED_OUTPUT)
