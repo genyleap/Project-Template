@@ -47,7 +47,7 @@ set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_
 project(
     ${PROJECT_NAME}
     LANGUAGES CXX
-    DESCRIPTION "A template for modern C++ projects with features for developing cross-platform projects." #You can replace your project description with this string.
+    DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." #You can replace your project description with this string.
     HOMEPAGE_URL "https://kambizasadzadeh.com" #Your project website address.
     VERSION ${PROJECT_VERSION}
     )
