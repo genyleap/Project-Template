@@ -83,8 +83,10 @@ set(packages ON)
 
 SET (PROJECT_LICENSE "MIT") #Your project license type.
 
-#Use this keys [stl, qt, qtwidget, qtquick]
-set(PROJECT_MAIN_TYPE "qtquick")
+#Use these keys [stl, qt, qtwidget, qtquick]
+set(PROJECT_MAIN_TYPE "stl")
+
+#Use these keys [macOS, Windows, Linux, iOS, Android]
 set(PLATFORM_OS "macOS")
 
 if(USE_QT AND NOT PROJECT_MAIN_TYPE STREQUAL "stl")
