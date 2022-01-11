@@ -66,8 +66,8 @@ set(PROJECT_HOMEPAGE_URL "https://kambizasadzadeh.com" CACHE STRING "Project URL
 
 #Project pre-configuration system.
 configure_file(
-  "${PROJECT_SOURCE_DIR}source/config.hpp.in"
-  "${PROJECT_SOURCE_DIR}source/config.hpp"
+  ${PROJECT_SOURCE_DIR}config.hpp.in
+  ${PROJECT_SOURCE_DIR}config.hpp
 )
 
 project(
