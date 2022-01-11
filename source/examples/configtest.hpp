@@ -6,7 +6,7 @@ class ConfigTest
 {
 public:
   ConfigTest();
-  void readSettings() const noexcept;
+  void readConfig() const noexcept;
 };
 
 #endif // CONFIGTEST_HPP

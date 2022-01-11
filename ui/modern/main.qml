@@ -13,4 +13,6 @@ ApplicationWindow {
         anchors.centerIn: parent
         text: qsTr("Hello from Qt Quick!")
     }
+
+
 }

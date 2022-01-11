@@ -1,5 +1,6 @@
 # Modern Project-Template
- Modern C++ Project Template
+A template for modern C++ projects with useful features for developing cross-platform projects.
+
 ##  Cross-Platform project structure based on CMake ##
 This repository is a modern project template based on C++ and CMake build tool.
 
@@ -24,6 +25,11 @@ make
 
 ```
 
+## Customization options.
+```
+cmake .. -DPROJECT_NAME="Your Project Name" -DPROJECT_CREATOR="Kambiz" -DPROJECT_VERSION_TYPE="beta" -DPROJECT_DESCRIPTION="This is my awesome project" -DPROJECT_LICENSE_TYPE="mit"
+```
+
 ## CMake module option [Dependencies]
 - These features can be useful in downloading, building, and integrating prerequisites into your project.
 - So you can set cmake option variable for enabling them.
@@ -40,14 +46,33 @@ cmake .. -DUSE_LATEST_STANDARD=true
 cmake .. -DUSE_BOOST=true
 ```
 
-- Include Qt Frameowke
+- Include Qt Framework
 ```
 cmake .. -DUSE_QT=true
+```
+
+- Set Platform os type [macOS, Windows, Linux, iOS, Android]
+```
+cmake .. -DPLATFORM_OS=macOS
 ```
 
 - Include UI
 ```
 cmake .. -DHAS_USER_INTERFACE=true
+```
+
+- Include project main type by [stl, qt, qtwidget, qtquick]
+- stl (Your project will be based on stl [Default]).
+- qt (Your project will be based on Qt Core only [No GUI]).
+- qtwidget (Your project will be based on C++, QtWidget [Classic GUI]).
+- qtquick (Your project will be based on C++, QtQuick and QML [Modern GUI]).
+```
+cmake .. -DPROJECT_MAIN_TYPE=stl
+```
+
+- The Qt Quick Compiler is a development add-on for Qt Quick applications which allows you to compile QML source code into the final binary. When you use this add-on, the application's startup time is significantly improved and you no longer need to deploy .qml files together with the application.
+```
+cmake .. -DUSE_QT_QUICK_COMPILER=false
 ```
 
 - Include Curl library

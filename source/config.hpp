@@ -1,46 +1,13 @@
-/*!
- * MIT License
- *
- * Copyright (c) 2021 Kambiz Asadzadeh
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
+#ifndef PROJECTCONFIG_HPP
+#define PROJECTCONFIG_HPP
 
-#ifndef CONFIG_HPP
-#define CONFIG_HPP
-
-#include "common.hpp"
-
-using namespace Types;
-
-/*!
- * \brief The Config struct
- * \details Tegra will gets all default or custom variables from base config file.
- */
-#ifdef USE_NONE_STL_JSON
-//struct Config {
-//  inline static JSon GET = JSon::parse(if_streamer("config/system-config.json"));
-//};
-#else //!TODO for standard version [STL]
-struct Config {
-  inline static unsigned int GET = 0; //TODO...
-};
-#endif
+//The configured options and settings for Project
+#define PROJECT_NAME                    "ProjectTemplate"
+#define PROJECT_VERSION_MAJOR           0
+#define PROJECT_VERSION_MINOR           8
+#define PROJECT_VERSION_REVISION        832
+#define PROJECT_VERSION                 0.8
+#define PROJECT_VERSION_STRING          "0.8.832"
 
 
-#endif // CONFIG_HPP
+#endif // PROJECTCONFIG_HPP

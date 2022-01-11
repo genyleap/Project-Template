@@ -9,11 +9,12 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
 # ------ PROJECT INFO ------
 # Options
 set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name") #You can change "ProjectTemplate" with your project name.
-set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Target Name")
+set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name")
 
 set(PROJECT_VERSION_MAJOR 0)
-set(PROJECT_VERSION_MINOR 8)
-set(PROJECT_VERSION_PATCH 646)
+set(PROJECT_VERSION_MINOR 9)
+set(PROJECT_VERSION_PATCH 876)
+set(PROJECT_VERSION_TWEAK 0)
 
 # ---- Project settings ----
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -26,7 +27,8 @@ if(NOT DEFINED CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_EXTENSIONS ON)
 endif()
 
-set(PROJECT_CREATOR "Kambiz Asadzadeh")
+set(PROJECT_CREATOR "Kambiz Asadzadeh" CACHE STRING "Creator of your project.")
+set(PROJECT_LICENSE_TYPE "MIT" CACHE STRING "Project License Type.") #Your project license type.
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
   execute_process(
@@ -35,19 +37,43 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
     OUTPUT_VARIABLE PROJECT_VERSION_TAG
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
+
 endif()
 if(NOT PROJECT_VERSION_TAG)
   set(PROJECT_VERSION_TAG 00000000)
 endif()
 set(PROJECT_VERSION_TAG_HEX 0x${PROJECT_VERSION_TAG})
-set(PROJECT_VERSION_TYPE "alpha")
+set(PROJECT_VERSION_TYPE "alpha" CACHE STRING "Version type.")
 
-set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} CACHE STRING "Version of ${PROJECT_NAME}")
+set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+
+set(PROJECT_VERSION_STRING ${PROJECT_VERSION})
+
+# Supported languages include C, CXX (i.e. C++), CUDA, OBJC (i.e. Objective-C), OBJCXX, Fortran, HIP, ISPC, and ASM. By default C and CXX are enabled if no language options are given.
+# Specify language NONE, or use the LANGUAGES keyword and list no languages, to skip enabling any languages.
+set(PROJECT_LANGUAGES CXX)
+
+#Use these keys [stl, qt, qtwidget, qtquick]
+set(PROJECT_MAIN_TYPE "stl" CACHE STRING "Library System.")
+
+#Use these keys [macOS, Windows, Linux, iOS, Android]
+set(PLATFORM_OS "macOS" CACHE STRING "OS Type.")
+
+set(PROJECT_DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." CACHE STRING "Project Description")
+
+set(PROJECT_HOMEPAGE_URL "https://kambizasadzadeh.com" CACHE STRING "Project URL.")
+
+
+#Project pre-configuration system.
+configure_file(
+  "${PROJECT_SOURCE_DIR}source/config.hpp.in"
+  "${PROJECT_SOURCE_DIR}source/config.hpp"
+)
 
 project(
     ${PROJECT_NAME}
     LANGUAGES CXX
-    DESCRIPTION "A template for modern C++ projects with features for developing cross-platform projects." #You can replace your project description with this string.
+    DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." #You can replace your project description with this string.
     HOMEPAGE_URL "https://kambizasadzadeh.com" #Your project website address.
     VERSION ${PROJECT_VERSION}
     )
@@ -79,13 +105,6 @@ if(packages)
   return()
 endif()
 set(packages ON)
-
-
-SET (PROJECT_LICENSE "MIT") #Your project license type.
-
-#Use this keys [stl, qt, qtwidget, qtquick]
-set(PROJECT_MAIN_TYPE "qtquick")
-set(PLATFORM_OS "macOS")
 
 if(USE_QT AND NOT PROJECT_MAIN_TYPE STREQUAL "stl")
     set(CMAKE_AUTOUIC ON)
@@ -234,6 +253,7 @@ message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} Framework Info ------${Colou
 message(STATUS "${Bold}Name${ColourReset}			    : ${CMAKE_PROJECT_NAME}")
 message(STATUS "${Bold}Description${ColourReset}		    : ${CMAKE_PROJECT_DESCRIPTION}")
 message(STATUS "${Bold}Version${ColourReset}		    : ${PROJECT_VERSION}")
+message(STATUS "${Bold}Creator${ColourReset}		    : ${PROJECT_CREATOR}")
 message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} Project Configuration ------${ColourReset}")
 message(STATUS "${Bold}DEVELOPER${ColourReset}		    : ${PROJECT_DEVELOPER}")
 message(STATUS "${Bold}PROJECT_PROJECT${ColourReset}	    : ${PROJECT_PROJECT}")
