@@ -72,9 +72,9 @@ configure_file(
 
 project(
     ${PROJECT_NAME}
-    LANGUAGES CXX
-    DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." #You can replace your project description with this string.
-    HOMEPAGE_URL "https://kambizasadzadeh.com" #Your project website address.
+    LANGUAGES ${PROJECT_LANGUAGES}
+    DESCRIPTION ${PROJECT_DESCRIPTION} #You can replace your project description with this string.
+    HOMEPAGE_URL ${PROJECT_HOMEPAGE_URL} #Your project website address.
     VERSION ${PROJECT_VERSION}
     )
 
