@@ -25,6 +25,10 @@ make
 
 ```
 
+##How to sync project from template source?
+- Add an action for your repo based from this file: https://gist.github.com/KambizAsadzadeh/3db13a8c2ccf20a602a55a9189ffe82d
+- https://github.com/KambizAsadzadeh/YourRepo/blob/main/.github/workflows/sync-from-template.yml
+
 ## Customization options.
 ```
 cmake .. -DPROJECT_NAME="Your Project Name" -DPROJECT_CREATOR="Kambiz" -DPROJECT_VERSION_TYPE="beta" -DPROJECT_DESCRIPTION="This is my awesome project" -DPROJECT_LICENSE_TYPE="mit"
