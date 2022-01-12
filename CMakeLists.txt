@@ -27,7 +27,7 @@ if(NOT DEFINED CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_EXTENSIONS ON)
 endif()
 
-set(PROJECT_CREATOR "Kambiz Asadzadeh" CACHE STRING "Creator of your project.")
+set(PROJECT_CREATOR "Kambiz Asadzadeh" CACHE STRING "Creator of your project.") #Your project creator.
 set(PROJECT_LICENSE_TYPE "MIT" CACHE STRING "Project License Type.") #Your project license type.
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
@@ -44,9 +44,7 @@ if(NOT PROJECT_VERSION_TAG)
 endif()
 set(PROJECT_VERSION_TAG_HEX 0x${PROJECT_VERSION_TAG})
 set(PROJECT_VERSION_TYPE "alpha" CACHE STRING "Version type.")
-
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
-
 set(PROJECT_VERSION_STRING ${PROJECT_VERSION})
 
 # Supported languages include C, CXX (i.e. C++), CUDA, OBJC (i.e. Objective-C), OBJCXX, Fortran, HIP, ISPC, and ASM. By default C and CXX are enabled if no language options are given.
@@ -59,8 +57,10 @@ set(PROJECT_MAIN_TYPE "stl" CACHE STRING "Library System.")
 #Use these keys [macOS, Windows, Linux, iOS, Android]
 set(PLATFORM_OS "macOS" CACHE STRING "OS Type.")
 
+#You can replace your project description with this string.
 set(PROJECT_DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." CACHE STRING "Project Description")
 
+#Your project website address.
 set(PROJECT_HOMEPAGE_URL "https://kambizasadzadeh.com" CACHE STRING "Project URL.")
 
 
@@ -73,8 +73,8 @@ configure_file(
 project(
     ${PROJECT_NAME}
     LANGUAGES ${PROJECT_LANGUAGES}
-    DESCRIPTION ${PROJECT_DESCRIPTION} #You can replace your project description with this string.
-    HOMEPAGE_URL ${PROJECT_HOMEPAGE_URL} #Your project website address.
+    DESCRIPTION ${PROJECT_DESCRIPTION}
+    HOMEPAGE_URL ${PROJECT_HOMEPAGE_URL}
     VERSION ${PROJECT_VERSION}
     )
 
