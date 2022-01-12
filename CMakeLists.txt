@@ -8,8 +8,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
 
 # ------ PROJECT INFO ------
 # Options
-set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name") #You can change "ProjectTemplate" with your project name.
-set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name")
+set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name.") #You can change "ProjectTemplate" with your project name.
+set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 9)
@@ -212,15 +212,16 @@ else()
     )
 
 source_group("Precompiled Headers"  FILES ${PRECOMPILED})
-source_group("Utilities"  FILES ${UTILS})
+source_group("Utilities"            FILES ${UTILS})
 source_group("Entry Point (Main)"   FILES ${MAIN_ENTRY_POINT})
-source_group("Base"   FILES ${HEADERS} ${SOURCES})
-source_group("Config" FILES ${CONFIGFILE})
-source_group("Examples"  FILES ${EXAMPLES})
+source_group("Base"                 FILES ${HEADERS} ${SOURCES})
+source_group("Config"               FILES ${CONFIGFILE})
+source_group("Examples"             FILES ${EXAMPLES})
 
 endif()
 
 # ------ PROJECT DIRECTORIES ------
+
 set(dir ${CMAKE_CURRENT_SOURCE_DIR}/build/)
 set(EXECUTABLE_OUTPUT_PATH ${dir} CACHE PATH "Build directory" FORCE)
 set(LIBRARY_OUTPUT_PATH ${dir} CACHE PATH "Build directory" FORCE)
@@ -233,6 +234,7 @@ SET(LIBRARY_OUTPUT_PATH ${dir}lib)
 SET(CMAKE_CACHEFILE_DIR ${dir})
 
 message("CMAKE_BUILD_FILES_DIRECTORY: " ${CMAKE_BUILD_FILES_DIRECTORY})
+
 # ------ OUTPUTS CONFIG ------
 
 if(PLATFORM_OS STREQUAL "macOS")
