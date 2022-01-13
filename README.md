@@ -4,10 +4,30 @@ A template for modern C++ projects with useful features for developing cross-pla
 ##  Cross-Platform project structure based on CMake ##
 This repository is a modern project template based on C++ and CMake build tool.
 
-Note : This template is not yet complete and conceptually under development.
-
+> Note : This template is not yet complete and conceptually under development.
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
+
+## Supported platforms:
+
+- [x] macOS
+- [x] Windows
+- [x] Linux
+- [ ] freeBSD
+- [ ] OpenBSD
+- [ ] NetBSD
+- [ ] iOS
+- [ ] watchOS
+- [x] Android
+
+## Supported project type:
+
+- [x] Core Application
+- [x] Desktop Application
+- [x] Embedded Application
+- [x] Mobile Application
+- [ ] Library
+- [ ] Mixed Version
 
 ## Language Standard Support [C++2a or C++2b]
 - It depends on your compiler!
@@ -25,9 +45,8 @@ make
 
 ```
 
-##How to sync project from template source?
-- Add an action for your repo based from this file: https://gist.github.com/KambizAsadzadeh/3db13a8c2ccf20a602a55a9189ffe82d
-- https://github.com/KambizAsadzadeh/YourRepo/blob/main/.github/workflows/sync-from-template.yml
+> How to sync project from template source?
+- This feature is embedded in the project as Git Action.
 
 ## Customization options.
 ```
