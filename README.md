@@ -79,11 +79,6 @@ cmake .. -DUSE_QT=true
 cmake .. -DPLATFORM_OS=macOS
 ```
 
-- Include UI
-```
-cmake .. -DHAS_USER_INTERFACE=true
-```
-
 - Include project main type by [stl, qt, qtwidget, qtquick]
 - stl (Your project will be based on stl [Default]).
 - qt (Your project will be based on Qt Core only [No GUI]).
