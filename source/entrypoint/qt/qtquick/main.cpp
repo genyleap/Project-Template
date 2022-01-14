@@ -22,5 +22,5 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 #else
-#error Please enable USE_QT and HAS_USER_INTERFACE from cmake variables!
+#error Please enable USE_QT from cmake variables!
 #endif

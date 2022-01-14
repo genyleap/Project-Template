@@ -35,7 +35,6 @@
 #ifdef USE_JSON
 #include <nlohmann/json.hpp>
 #endif
-
 //!Google Test
 #ifdef USE_GOOGLE_TEST
 #include <gtest/gtest.h>
@@ -106,9 +105,17 @@ TEST_CASE( "Factorials are computed", "[factorial]" ) {
 //ThirdParty libs
 #include "examples/thirdpartytest.hpp"
 
+#ifdef USE_OPENMESH
+#include <third-party/openmesh/openmesh-src/src/OpenMesh/Core/IO/MeshIO.hh>
+
+#endif
+
+
 #include <config.hpp> //Project Config
 
 using namespace std;
+
+#include <iostream>
 
 int main()
 {

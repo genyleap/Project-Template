@@ -1,6 +1,7 @@
 #ifdef USE_QT
 
 #include <QCoreApplication>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {

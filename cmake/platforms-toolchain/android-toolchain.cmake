@@ -33,6 +33,15 @@
 cmake_minimum_required(VERSION 3.18)
 # Inhibit all of CMake's own NDK handling code.
 set(CMAKE_SYSTEM_VERSION 1)
+
+if(ANDROID_SDK_ROOT)
+include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
+endif()
+
+if(ANDROID_SDK)
+include(${ANDROID_SDK}/android_openssl/CMakeLists.txt)
+endif()
+
 # CMake invokes the toolchain file twice during the first build, but only once
 # during subsequent rebuilds. This was causing the various flags to be added
 # twice on the first build, and on a rebuild ninja would see only one set of the
@@ -673,3 +682,4 @@ if (CMAKE_VERSION VERSION_GREATER 3.7.0)
   set(CMAKE_C_ANDROID_TOOLCHAIN_SUFFIX "${ANDROID_TOOLCHAIN_SUFFIX}")
   set(CMAKE_CXX_ANDROID_TOOLCHAIN_SUFFIX "${ANDROID_TOOLCHAIN_SUFFIX}")
 endif()
+

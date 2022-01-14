@@ -3,8 +3,11 @@ cmake_policy(SET CMP0048 NEW)
 
 # Add include path for cmake modules
 # ------ PROJECT EXTRA CMAKE ------
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
+
+include(ExternalProject)
+include(FetchContent)
 
 # ------ PROJECT INFO ------
 # Options
@@ -13,7 +16,7 @@ set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 9)
-set(PROJECT_VERSION_PATCH 876)
+set(PROJECT_VERSION_PATCH 966)
 set(PROJECT_VERSION_TWEAK 0)
 
 # ---- Project settings ----
@@ -79,6 +82,13 @@ project(
     VERSION ${PROJECT_VERSION}
     )
 
+# ------ PACKAGES CONFIG ------
+include(project-setting)
+if(project-setting)
+  return()
+endif()
+set(project-setting ON)
+
 # ------ CROSS-COMPILE CONFIG ------
 include(cross-compile)
 if(cross-compile)
@@ -107,6 +117,7 @@ if(packages)
 endif()
 set(packages ON)
 
+
 if(USE_QT AND NOT PROJECT_MAIN_TYPE STREQUAL "stl")
     set(CMAKE_AUTOUIC ON)
     set(CMAKE_AUTOMOC ON)
@@ -118,13 +129,11 @@ set(SUFFIX_HPPHEADER *.hpp)
 set(SUFFIX_SOURCE *.cpp)
 set(SUFFIX_CONFIG *.json)
 
-if(HAS_USER_INTERFACE)
-    if(PROJECT_MAIN_TYPE STREQUAL "qtwidget")
-        set(SUFFIX_WIDGET *.ui)
-    elseif(PROJECT_MAIN_TYPE STREQUAL "qtquick")
-        set(SUFFIX_QML *.qml)
-    endif()
-    set(SUFFIX_QRC *.qrc)
+if(PROJECT_MAIN_TYPE STREQUAL "qtwidget")
+     set(SUFFIX_WIDGET *.ui)
+elseif(PROJECT_MAIN_TYPE STREQUAL "qtquick")
+     set(SUFFIX_QML *.qml)
+     set(SUFFIX_QRC *.qrc)
 endif()
 
 file(GLOB PRECOMPILED precompiled/pch.hpp)
@@ -147,21 +156,18 @@ if(${PROJECT_MAIN_TYPE} STREQUAL "stl")
          source/entrypoint/stl/${SUFFIX_SOURCE}
     )
 elseif(${PROJECT_MAIN_TYPE} STREQUAL "qt")
-    set(HAS_USER_INTERFACE false)
     file(GLOB MAIN_ENTRY_POINT
          source/entrypoint/qt/nogui/${SUFFIX_HPPHEADER}
          source/entrypoint/qt/nogui/${SUFFIX_SOURCE}
     )
 elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtwidget")
-    set(HAS_USER_INTERFACE true)
     file(GLOB MAIN_ENTRY_POINT
         source/entrypoint/qt/qtwidget/${SUFFIX_HPPHEADER}
         source/entrypoint/qt/qtwidget/${SUFFIX_SOURCE}
-        ui/classic/${SUFFIX_HPPHEADER}
-        ui/classic/${SUFFIX_SOURCE}
+        ui/widgets/${SUFFIX_HPPHEADER}
+        ui/widgets/${SUFFIX_SOURCE}
     )
 elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
-    set(HAS_USER_INTERFACE true)
     file(GLOB MAIN_ENTRY_POINT
          source/entrypoint/qt/qtquick/${SUFFIX_HPPHEADER}
          source/entrypoint/qt/qtquick/${SUFFIX_SOURCE}
@@ -169,17 +175,14 @@ elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
 endif()
 
 
-if(HAS_USER_INTERFACE)
-    if(${PROJECT_MAIN_TYPE} STREQUAL "qtwidget")
-        file(GLOB UI_SOURCE ui/classic/${SUFFIX_WIDGET})
-    else()
-        file(GLOB UI_SOURCE ui/modern/${SUFFIX_QRC})
-    endif()
+if(${PROJECT_MAIN_TYPE} STREQUAL "qtwidget")
+   file(GLOB UI_SOURCE ui/widgets/${SUFFIX_WIDGET})
+else()
+   file(GLOB UI_SOURCE ui/qtquick/${SUFFIX_QRC})
 endif()
 
 file(GLOB CONFIGFILE config/${SUFFIX_CONFIG})
 
-if(HAS_USER_INTERFACE)
 file(GLOB SOURCESFILE
     #---C++---
     ${MAIN_ENTRY_POINT}
@@ -200,26 +203,6 @@ source_group("UI"     FILES ${UI_SOURCE})
 source_group("Config" FILES ${CONFIGFILE})
 source_group("Examples"  FILES ${EXAMPLES})
 
-else()
-    file(GLOB SOURCESFILE
-    #---C++---
-    ${MAIN_ENTRY_POINT}
-    ${HEADERS}
-    ${SOURCES}
-    ${UTILS}
-    ${CONFIGFILE}
-    ${PRECOMPILED}
-    ${EXAMPLES}
-    )
-
-source_group("Precompiled Headers"  FILES ${PRECOMPILED})
-source_group("Utilities"            FILES ${UTILS})
-source_group("Entry Point (Main)"   FILES ${MAIN_ENTRY_POINT})
-source_group("Base"                 FILES ${HEADERS} ${SOURCES})
-source_group("Config"               FILES ${CONFIGFILE})
-source_group("Examples"             FILES ${EXAMPLES})
-
-endif()
 
 # ------ PROJECT DIRECTORIES ------
 
@@ -360,62 +343,28 @@ if(USE_QT)
 
     if(USE_QT_QUICK_COMPILER)
     find_package(QtQuickCompiler)
-    qt_add_resources(UI_SOURCE ui/modern/qml.qrc)
+    qt_add_resources(UI_SOURCE ui/qtquick/qml.qrc)
     endif()
-
     target_link_libraries(${PROJECT_NAME} PRIVATE ${QT_MODULES_LINK})
 endif()
 
+#Extra Modules
+target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES})
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source
+    ${LIB_TARGET_INCLUDE_DIRECTORIES}
+    )
 
+target_link_directories(${PROJECT_NAME}
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/source
+    ${LIB_TARGET_LINK_DIRECTORIES}
+    )
 
-if(USE_BOOST)
-set(Boost_USE_STATIC_LIBS        ON)  # only find static libs.
-set(Boost_USE_DEBUG_LIBS        OFF) # ignore debug libs and.
-set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs.
-set(Boost_USE_MULTITHREADED      ON)  # use multithread mode.
-set(Boost_USE_STATIC_RUNTIME    OFF)  # use static mode at runtime.
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${Boost_LIBRARIES})
-endif()
-if(USE_NONE_STL_JSON)
-    target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
-endif()
-if(USE_CATCH2)
-    target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2)
-endif()
-if(USE_GOOGLE_TEST)
-    target_link_libraries(${PROJECT_NAME} PRIVATE gtest)
-endif()
-if(USE_DOC_TEST)
-    target_link_libraries(${PROJECT_NAME} PRIVATE doctest)
-endif()
-if(USE_CURL)
-    target_link_libraries(${PROJECT_NAME} PRIVATE curl)
-endif()
-if(USE_FMT)
-    target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt-header-only)
-endif()
-if(USE_OPENSSL)
-    target_link_libraries(${PROJECT_NAME} PRIVATE crypto ssl)
-endif()
-if(USE_ZLIB)
-    target_link_libraries(${PROJECT_NAME} PRIVATE zlib)
-endif()
-if(USE_CTRE)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ctre)
-endif()
-if(USE_BOOST)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${Boost_LIBRARIES})
-endif()
+target_compile_definitions(${PROJECT_NAME} PUBLIC ${LIB_TARGET_COMPILER_DEFINATION})
 
-
-
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source)
-target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source)
-
-if(PLATFORM_OS STREQUAL "Android")
-    include(${ANDROID_SDK}/android_openssl/CMakeLists.txt)
-endif()
-
+#set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS ${LIB_TARGET_PROPERTIES})
 #This command generates installation rules for a project.
 #Install rules specified by calls to the install() command within a source directory. are executed in order during installation.
 install(TARGETS ${PROJECT_NAME} DESTINATION build/bin)

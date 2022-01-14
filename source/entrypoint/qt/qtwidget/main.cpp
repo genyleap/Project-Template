@@ -1,6 +1,6 @@
 #ifdef USE_QT
 
-#include "ui/classic/mainwindow.hpp"
+#include "ui/widgets/mainwindow.hpp"
 
 #include <QApplication>
 
