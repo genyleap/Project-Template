@@ -44,7 +44,7 @@ on:
 
 env:
   BASE_BRANCH: main
-  HEAD_BRANCH: chore/sync-from-template
+  HEAD_BRANCH: template
   GIT_AUTHOR_NAME: ${{ github.repository_owner }}
   GIT_AUTHOR_EMAIL: ${{ github.repository_owner }}@users.noreply.github.com
   REPO_TEMPLATE: KambizAsadzadeh/Project-Template
