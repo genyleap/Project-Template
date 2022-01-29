@@ -1,3 +1,8 @@
+# -------------------- PROJECT INFO --------------------
+#   Title   :                       Project Template
+#   Version :                       Kambiz Asadzadeh
+# ------------------------------------------------------
+
 cmake_minimum_required(VERSION 3.18)
 cmake_policy(SET CMP0048 NEW)
 

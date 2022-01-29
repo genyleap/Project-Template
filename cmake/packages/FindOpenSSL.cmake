@@ -5,15 +5,14 @@ set(OPENSSL_DESCRIPTION "TLS/SSL and crypto library.")
 #Pakcage option.
 option(USE_OPENSSL ${OPENSSL_DESCRIPTION}  FALSE)
 if (USE_OPENSSL)
-  add_definitions(-DUSE_OPENSSL)
+    add_definitions(-DUSE_OPENSSL)
 endif()
 
-if(UNIX)
-  find_package(PkgConfig QUIET)
-  pkg_search_module(${OPENSSL_NAME} openssl)
-  #Package data repository.
-  if(USE_OPENSSL)
-      EXTERNALPROJECT_ADD(
+find_package(PkgConfig QUIET)
+pkg_search_module(${OPENSSL_NAME} openssl)
+#Package data repository.
+if(USE_OPENSSL)
+    EXTERNALPROJECT_ADD(
         openssl
         PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/${OPENSSL_NAME}
         GIT_REPOSITORY "https://github.com/openssl/openssl.git"
@@ -30,10 +29,9 @@ if(UNIX)
         LOG_DOWNLOAD ON
         LOG_BUILD ON
         USES_TERMINAL_DOWNLOAD ON
-      )
-  list(APPEND LIB_MODULES crypto ssl)
-  endif()
+        )
+    list(APPEND LIB_MODULES crypto ssl)
 endif()
 if(NOT OPENSSL_FOUND)
-  return()
+    return()
 endif()

@@ -5,11 +5,10 @@ set(CPPCHECK_DESCRIPTION "Static analysis of C/C++ code.")
 #Pakcage option.
 option(USE_CPP_CHECK ${CPPCHECK_DESCRIPTION} FALSE)
 if (USE_CPP_CHECK)
-  add_definitions(-DUSE_CPP_CHECK)
+    add_definitions(-DUSE_CPP_CHECK)
 endif()
 
-if(UNIX)
-    if(USE_CPP_CHECK)
+if(USE_CPP_CHECK)
     externalproject_add(${CPPCHECK_NAME}
         GIT_REPOSITORY "https://github.com/danmar/cppcheck.git"
         GIT_TAG main
@@ -18,8 +17,7 @@ if(UNIX)
         CMAKE_CACHE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/${CPPCHECK_NAME}
         UPDATE_COMMAND ""
         )
-    endif()
 endif()
 if(NOT CPPCHECK_FOUND)
-  return()
+    return()
 endif()
