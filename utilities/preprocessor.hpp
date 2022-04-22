@@ -1090,27 +1090,31 @@ required. For example, an array dimension.
  * Processors:	x86, x86-64
  */
 
-#if defined(_WIN32) || defined(_WIN32_WINNT) && !defined(_WIN64) &&            \
-                           !defined(WINAPI_FAMILY_PHONE_APP) &&                \
-                           !defined(WINAPI_FAMILY) &&                          \
-                           (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+
+#if defined(_WIN32) && !defined(_WIN64) && !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 /* Microsoft Windows (32-bit). ------------------------------ */
 #define PLATFORM_OS "Windows"
 #define PLATFORM_ARCH "x86 (32-Bit)"
 #define PLATFORM_WINDOWS_X86 "Microsoft Windows (32-Bit)"
 #define PLATFORM_WINDOWS "Microsoft Windows (32-Bit)"
 #define PLATFORM_DEVICE "Desktop"
-#define PLATFORM_TYPE "PC (Windows)"
-#elif defined(_WIN64) && !defined(_WIN32) && !defined(_WIN32_WINNT) &&         \
-    !defined(WINAPI_FAMILY_PHONE_APP) &&                                       \
-    (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#define PLATFORM_TYPE "PC"
+#elif defined(_WIN64) && defined(_WIN32) && !defined(_M_ARM64) !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 /* Microsoft Windows (64-bit). ------------------------------ */
-#define PLATFORM_OS "Windows "
+#define PLATFORM_OS "Windows"
 #define PLATFORM_ARCH "x64 (64-Bit)"
-#define PLATFORM_WINDOWS_X64 "Microsoft Windows"
+#define PLATFORM_WINDOWS_X64 "Microsoft Windows (64-Bit)"
+#define PLATFORM_WINDOWS "Microsoft Windows (64-Bit)"
 #define PLATFORM_DEVICE "Desktop"
-#define PLATFORM_WINDOWS "Microsoft Windows"
-#define PLATFORM_TYPE "PC (Windows)"
+#define PLATFORM_TYPE "PC"
+#elif defined(_M_ARM64) && defined(_WIN32) && !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+/* Microsoft Windows (64-bit). ------------------------------ */
+#define PLATFORM_OS "Windows"
+#define PLATFORM_ARCH "Arm64 (64-Bit)"
+#define PLATFORM_WINDOWS_ARM64 "Microsoft Windows (64-Bit)"
+#define PLATFORM_WINDOWS "Microsoft Windows (64-Bit)"
+#define PLATFORM_DEVICE "Desktop"
+#define PLATFORM_TYPE "PC"
 /* Microsoft Phone ------------------------------ */
 #elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
 /* Microsoft Windows Store or Universal Windows Platform - (32-bit).
@@ -1120,7 +1124,7 @@ required. For example, an array dimension.
 #define PLATFORM_WINDOWS_X86 "Microsoft Windows (32-Bit)"
 #define PLATFORM_WINDOWS_UWP "Microsoft Windows UWP (32-Bit)"
 #define PLATFORM_DEVICE "Desktop"
-#define PLATFORM_TYPE "PC (Windows)"
+#define PLATFORM_TYPE "PC"
 #elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP) &&        \
     defined(_WIN64) && !defined(_WIN32) && !defined(_WIN32_WINNT)
 /* Microsoft Windows (64-bit). ------------------------------ */
@@ -1130,7 +1134,7 @@ required. For example, an array dimension.
 #define PLATFORM_WINDOWS_UWP "Microsoft Windows UWP"
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_WINDOWS "Microsoft Windows"
-#define PLATFORM_TYPE "PC (Windows)"
+#define PLATFORM_TYPE "PC"
 /* Microsoft Phone ------------------------------ */
 #elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
 /* Microsoft Windows (Phone). ------------------------------ */

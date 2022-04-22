@@ -12,34 +12,94 @@ PlatformTest::PlatformTest()
 void PlatformTest::getPlatformInfo() const noexcept
 {
 #if defined(PLATFORM_MAC)
-  cout << "This is macOS platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_MAC << "\n";
 #elif defined(PLATFORM_WINDOWS)
-  cout << "This is Windows platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_WINDOWS << "\n";
 #elif defined(PLATFORM_LINUX)
-  cout << "This is Linux platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_LINUX << "\n";
 #elif defined(PLATFORM_FREEBSD)
-  cout << "This is freeBSD platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_FREEBSD << "\n";
 #elif defined(PLATFORM_OPENBSD)
-  cout << "This is openBSD platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_OPENBSD << "\n";
 #elif defined(PLATFORM_VXWORKS)
-  cout << "This is VXWorks platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_VXWORKS << "\n";
 #elif defined(PLATFORM_MOTOROLA)
-  cout << "This is Motorola platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_MOTOROLA << "\n";
 #elif defined(PLATFORM_ULTRIX)
-  cout << "This is Ultrix platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_ULTRIX << "\n";
 #elif defined(PLATFORM_DOS)
-  cout << "This is Dos platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_DOS << "\n";
 #elif defined(PLATFORM_WINDOWS_PHONE)
-  cout << "This is Windows Phone platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_WINDOWS_PHONE << "\n";
 #elif defined(PLATFORM_IOS_SIMULATOR)
-  cout << "This is iOS Simulator platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_IOS_SIMULATOR << "\n";
 #elif defined(PLATFORM_IOS)
-  cout << "This is iOS platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_IOS << "\n";
 #elif defined(PLATFORM_APPLE_TV)
-  cout << "This is AppleTV platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_APPLE_TV << "\n";
 #elif defined(PLATFORM_IWATCH)
-  cout << "This is iWatch platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_IWATCH << "\n";
 #elif defined(PLATFORM_ANDROID)
-  cout << "This is Android platform!\n";
+    cout << "Device: " << PLATFORM_DEVICE << "\n";
+    cout << "Type: " << PLATFORM_TYPE << "\n";
+    cout << "Platform OS: " << PLATFORM_OS << "\n";
+    cout << "Platform Architecture: " << PLATFORM_ARCH << "\n";
+    cout << "OS Name: " << PLATFORM_ANDROID << "\n";
 #endif
 }

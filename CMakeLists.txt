@@ -1,6 +1,7 @@
 # -------------------- PROJECT INFO --------------------
 #   Title   :                       Project Template
-#   Version :                       Kambiz Asadzadeh
+#   Version :                       0.9.988.0
+#   Author  :                       Kambiz Asadzadeh
 # ------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.18)
@@ -21,7 +22,7 @@ set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 9)
-set(PROJECT_VERSION_PATCH 966)
+set(PROJECT_VERSION_PATCH 988)
 set(PROJECT_VERSION_TWEAK 0)
 
 # ---- Project settings ----
