@@ -81,6 +81,21 @@ if (USE_QT_QUICK_COMPILER)
   add_definitions(-DUSE_QT_QUICK_COMPILER)
 endif()
 
+option(ENABLE_DEVELOPER_MODE	    "Developer Mode"      ON)
+if (ENABLE_DEVELOPER_MODE)
+  add_definitions(-DENABLE_DEVELOPER_MODE)
+endif()
+
+option(ENABLE_TODO_MODE	    "Todo Mode (Not activated feature!)"      ON)
+if (ENABLE_TODO_MODE)
+  add_definitions(-DENABLE_TODO_MODE)
+endif()
+
+option(ENABLE_EXPERIMENTAL_MODE	    "Experimental Mode"      ON)
+if (ENABLE_EXPERIMENTAL_MODE)
+  add_definitions(-DENABLE_EXPERIMENTAL_MODE)
+endif()
+
 option(FORCE_COLORED_OUTPUT "Always produce ANSI-colored output (GNU/Clang only)."  TRUE)
 if (FORCE_COLORED_OUTPUT)
   add_definitions(-DFORCE_COLORED_OUTPUT)
