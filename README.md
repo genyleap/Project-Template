@@ -177,17 +177,32 @@ cmake .. -DENABLE_SAFE_ONLY=true
 
 - Enable developer (debug) mode
 ```
-cmake .. -BUILD_DEBUG_MODE=true
+cmake .. -DBUILD_DEBUG_MODE=true
 ```
 
 - Enabling the build of debug logging
 ```
-cmake .. -DEBUG_LOGGING=true
+cmake .. -DDEBUG_LOGGING=true
 ```
 
 - Build Static Version
 ```
-cmake .. -ENABLE_STATIC_LIB_BUILD=true
+cmake .. -DENABLE_STATIC_LIB_BUILD=true
+```
+
+- Developer mode
+```
+cmake .. -DENABLE_DEVELOPER_MODE=true
+```
+
+- Todo mode
+```
+cmake .. -DENABLE_TODO_MODE=true
+```
+
+- Experimental mode
+```
+cmake .. -DENABLE_EXPERIMENTAL_MODE=true
 ```
 
 - Build Shared (Dynamic) Version
