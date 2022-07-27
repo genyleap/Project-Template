@@ -39,22 +39,48 @@ using ulong        = unsigned long;
 using ullong       = unsigned long long;
 using llong        = long long;
 
-using u8  = std::uint8_t;
-using u16 = std::uint16_t;
-using u32 = std::uint32_t;
-using u64 = std::uint64_t;
-
+//! Fixed width integer types (since C++11)
+//! Signed integer type
 using s8  = std::int8_t;
 using s16 = std::int16_t;
 using s32 = std::int32_t;
 using s64 = std::int64_t;
 
-#if __APPLE__
-using uptr = std::uint64_t;
-#else
-using uptr = std::uintptr_t;
-#endif
+//! Fastest signed integer type with width of at least 8, 16, 32 and 64 bits respectively.
+using fs8  = std::int_fast8_t;
+using fs16 = std::int_fast16_t;
+using fs32 = std::int_fast32_t;
+using fs64 = std::int_fast64_t;
 
+//! Smallest signed integer type with width of at least 8, 16, 32 and 64 bits respectively.
+using ss8  = std::int_least8_t;
+using ss16 = std::int_least16_t;
+using ss32 = std::int_least32_t;
+using ss64 = std::int_least64_t;
+
+using smax = std::intmax_t; //! Maximum-width signed integer type.
+using sptr = std::intptr_t; //! Signed integer type capable of holding a pointer to void.
+
+//! Unsigned integer type with width of exactly 8, 16, 32 and 64 bits respectively.
+using u8  = std::uint8_t;
+using u16 = std::uint16_t;
+using u32 = std::uint32_t;
+using u64 = std::uint64_t;
+
+//! Fastest unsigned integer type with width of at least 8, 16, 32 and 64 bits respectively.
+using fu8  = std::uint_fast8_t;
+using fu16 = std::uint_fast16_t;
+using fu32 = std::uint_fast32_t;
+using fu64 = std::uint_fast64_t;
+
+//! Smallest unsigned integer type with width of at least 8, 16, 32 and 64 bits respectively.
+using su8  = std::uint_least8_t;
+using su16 = std::uint_least16_t;
+using su32 = std::uint_least32_t;
+using su64 = std::uint_least64_t;
+
+using umax = std::uintmax_t; //! Maximum-width unsigned integer type
+using uptr = std::uintptr_t; //! Unsigned integer type capable of holding a pointer to void.
 
 using if_streamer    = std::ifstream;
 using string_stream  = std::stringstream;

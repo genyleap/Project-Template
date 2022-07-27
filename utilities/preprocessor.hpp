@@ -74,7 +74,7 @@ namespace Preprocessor {
 #undef COMPILER_VER
 #define COMPILER_VER __MINGW64_MAJOR_VERSION << "." << __MINGW64_MINOR_VERSION
 #elif defined(__GNUC__) || defined(__GNUG__) && !defined(__clang__)
-#define GCC_VERSION __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__
+#define GCC_VERSION __GNUC__ << "." << __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__
 /* GNU GCC/G++. --------------------------------------------- */
 #undef COMPILER
 #define COMPILER "GNU GCC/G++"
@@ -776,12 +776,14 @@ required. For example, an array dimension.
 /* iOS in Xcode simulator */
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "x86 (32-Bit)"
+#define PLATFORM_MOBILE
 #define PLATFORM_IOS_SIMULATOR "iOS Simulator"
 #define PLATFORM_TYPE "iOS-Emulator"
 #elif TARGET_OS_WATCH == 1
 /* iOS on iWatch. */
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "x86 (32-Bit)"
+#define PLATFORM_MOBILE
 #define PLATFORM_IWATCH "iOS (iWatch)"
 #define PLATFORM_TYPE "iWatch"
 #elif TARGET_OS_TV == 1
@@ -794,6 +796,7 @@ required. For example, an array dimension.
 /* iOS on iPhone, iPad, etc. */
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "ARM (32-Bit)"
+#define PLATFORM_MOBILE
 #define PLATFORM_IOS "iOS"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_TYPE "iPhone, iPad"
@@ -887,6 +890,7 @@ required. For example, an array dimension.
 #define PLATFORM_ANDROID "Linux (Android)"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_ARCH "x86 (32-Bit)"
+#define PLATFORM_MOBILE
 #define PLATFORM_TYPE "Android"
 #elif defined(X64_64bit) && defined(__linux) && defined(__linux__) &&          \
         defined(linux) && defined(__ANDROID__) ||                              \
@@ -896,6 +900,7 @@ required. For example, an array dimension.
 #define PLATFORM_ANDROID "Linux (Android)"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_ARCH "x64 (64-Bit)"
+#define PLATFORM_MOBILE
 #define PLATFORM_TYPE "Android"
 #endif
 
@@ -1099,7 +1104,7 @@ required. For example, an array dimension.
 #define PLATFORM_WINDOWS "Microsoft Windows (32-Bit)"
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_TYPE "PC"
-#elif defined(_WIN64) && defined(_WIN32) && !defined(_M_ARM64) !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#elif defined(_WIN64) && defined(_WIN32) && !defined(_M_ARM64) && !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 /* Microsoft Windows (64-bit). ------------------------------ */
 #define PLATFORM_OS "Windows"
 #define PLATFORM_ARCH "x64 (64-Bit)"
