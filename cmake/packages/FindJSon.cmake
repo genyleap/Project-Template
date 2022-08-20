@@ -9,7 +9,7 @@ if (USE_NONE_STL_JSON)
 endif()
 
 find_package(PkgConfig QUIET)
-pkg_search_module(${DOCTEST_NAME} doctest)
+pkg_search_module(${NONE_STL_JSON_NAME} json)
 #Package data repository.
 if(USE_NONE_STL_JSON)
     set(FETCHCONTENT_QUIET off)
@@ -20,7 +20,7 @@ if(USE_NONE_STL_JSON)
 
     FetchContent_Declare(
         json
-        GIT_REPOSITORY      https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent
+        GIT_REPOSITORY      https://github.com/nlohmann/json.git
         GIT_TAG master
         GIT_PROGRESS   TRUE
         )
