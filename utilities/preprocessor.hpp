@@ -751,14 +751,14 @@ required. For example, an array dimension.
  * Processors:	x86, x86-64, arm64, POWER, etc.
  */
 
-#if defined(__linux__) && defined(linux) && !defined(ARM64_BIT) && !defined(X64_64bit) && !defined(__ANDROID__)
+#if defined(__linux__) && defined(linux) && !defined(ARM64_BIT) && !defined(X64_64bit)
 /* Linux. --------------------------------------------------- */
 #define PLATFORM_OS "Linux"
 #define PLATFORM_ARCH "x86 (32-Bit)"
 #define PLATFORM_LINUX "Linux"
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_TYPE "Unix (Linux)"
-#elif defined(X64_64bit) && defined(__linux) && defined(__linux__) && defined(linux) && !defined(__ANDROID__)
+#elif defined(X64_64bit) && defined(__linux) && defined(__linux__) && defined(linux)
 /* Linux. --------------------------------------------------- */
 #define PLATFORM_OS "Linux"
 #define PLATFORM_ARCH "x64 (64-Bit)"
