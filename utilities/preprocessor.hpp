@@ -1,6 +1,3 @@
-#ifndef PREPROCESSOR_HPP
-#define PREPROCESSOR_HPP
-
 /*!
  * MIT License
  *
@@ -23,6 +20,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+#ifndef PREPROCESSOR_HPP
+#define PREPROCESSOR_HPP
 
 /*!
  * namespace Preprocessor
@@ -74,7 +74,7 @@ namespace Preprocessor {
 #undef COMPILER_VER
 #define COMPILER_VER __MINGW64_MAJOR_VERSION << "." << __MINGW64_MINOR_VERSION
 #elif defined(__GNUC__) || defined(__GNUG__) && !defined(__clang__)
-#define GCC_VERSION __GNUC__ << "." << __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__
+#define GCC_VERSION __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__
 /* GNU GCC/G++. --------------------------------------------- */
 #undef COMPILER
 #define COMPILER "GNU GCC/G++"
@@ -343,6 +343,14 @@ required. For example, an array dimension.
 #define PROCESSOR "Intel"
 #undef ARCHITECTURE
 #define ARCHITECTURE "x86_64 (64-Bit)"
+#elif defined(__aarch64__)
+//! arm64 based systems (64-bit)
+#undef ARM64_BIT
+#define ARM64_BIT
+#undef PROCESSOR
+#define PROCESSOR "Arm"
+#undef ARCHITECTURE
+#define ARCHITECTURE "Arm64 (64-Bit)"
 #endif
 
 /*
@@ -740,22 +748,27 @@ required. For example, an array dimension.
  * Linux
  * Developer:	Open source
  * Distributions:	Centos, Debian, Fedora, OpenSUSE, RedHat, Ubuntu
- * Processors:	x86, x86-64, POWER, etc.
+ * Processors:	x86, x86-64, arm64, POWER, etc.
  */
 
-#if defined(__linux__) && defined(linux) && !defined(__ANDROID__) &&           \
-    !defined(ANDROID)
+#if defined(__linux__) && defined(linux) && !defined(ARM64_BIT) && !defined(X64_64bit) && !defined(__ANDROID__)
 /* Linux. --------------------------------------------------- */
 #define PLATFORM_OS "Linux"
 #define PLATFORM_ARCH "x86 (32-Bit)"
 #define PLATFORM_LINUX "Linux"
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_TYPE "Unix (Linux)"
-#elif defined(X64_64bit) && defined(__linux) && defined(__linux__) &&          \
-    defined(linux) && !defined(__ANDROID__) && !defined(ANDROID)
+#elif defined(X64_64bit) && defined(__linux) && defined(__linux__) && defined(linux) && !defined(__ANDROID__)
 /* Linux. --------------------------------------------------- */
 #define PLATFORM_OS "Linux"
 #define PLATFORM_ARCH "x64 (64-Bit)"
+#define PLATFORM_LINUX "Linux"
+#define PLATFORM_DEVICE "Desktop"
+#define PLATFORM_TYPE "Unix (Linux)"
+/* Linux. --------------------------------------------------- */
+#elif defined(ARM64_BIT) && defined(__linux) && defined(__linux__)
+#define PLATFORM_OS "Linux"
+#define PLATFORM_ARCH "arm64 (aarch64)"
 #define PLATFORM_LINUX "Linux"
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_TYPE "Unix (Linux)"
@@ -790,6 +803,7 @@ required. For example, an array dimension.
 /* Apple TV. */
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "x86 (32-Bit)"
+#define PLATFORM_MOBILE
 #define PLATFORM_APPLE_TV "Apple (TV)"
 #define PLATFORM_TYPE "Apple TV"
 #elif TARGET_OS_IPHONE == 1
@@ -804,6 +818,7 @@ required. For example, an array dimension.
 /* macOS */
 #define PLATFORM_OS "macOS"
 #define PLATFORM_ARCH ARCHITECTURE
+#define PLATFORM_DESKTOP
 #define PLATFORM_MAC "Unix(Darwin)-macOS (X11)"
 #define PLATFORM_DEVICE "Unix(Darwin)-macOS (X11)"
 #define PLATFORM_TYPE "Macintosh"
@@ -816,6 +831,7 @@ required. For example, an array dimension.
 /* iOS in Xcode simulator */
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "x86_64"
+#define PLATFORM_MOBILE
 #define PLATFORM_IOS_SIMULATOR "iOS Simulator"
 #define PLATFORM_DEVICE "Simulator"
 #define PLATFORM_TYPE "iOS-Emulator"
@@ -824,6 +840,7 @@ required. For example, an array dimension.
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_IWATCH "x64 (64-Bit)"
+#define PLATFORM_MOBILE
 #define PLATFORM_DEVICE "iOS (iWatch)"
 #define PLATFORM_TYPE "iWatch"
 #elif TARGET_OS_TV == 1
@@ -831,12 +848,14 @@ required. For example, an array dimension.
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_APPLE_TV "Apple (TV)"
+#define PLATFORM_MOBILE
 #define PLATFORM_DEVICE "Apple (TV)"
 #define PLATFORM_TYPE "Apple TV"
 #elif TARGET_OS_IPHONE == 1
 /* iOS on iPhone, iPad, etc. */
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "ARM (64-Bit)"
+#define PLATFORM_MOBILE
 #define PLATFORM_IOS "iOS"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_TYPE "iPhone, iPad"
@@ -845,6 +864,7 @@ required. For example, an array dimension.
 #define PLATFORM_OS "macOS"
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_DEVICE "Desktop"
+#define PLATFORM_DESKTOP
 #define PLATFORM_MAC "Unix-macOS (X11)"
 #define PLATFORM_TYPE "Macintosh"
 #endif
@@ -890,7 +910,6 @@ required. For example, an array dimension.
 #define PLATFORM_ANDROID "Linux (Android)"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_ARCH "x86 (32-Bit)"
-#define PLATFORM_MOBILE
 #define PLATFORM_TYPE "Android"
 #elif defined(X64_64bit) && defined(__linux) && defined(__linux__) &&          \
         defined(linux) && defined(__ANDROID__) ||                              \
@@ -900,7 +919,6 @@ required. For example, an array dimension.
 #define PLATFORM_ANDROID "Linux (Android)"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_ARCH "x64 (64-Bit)"
-#define PLATFORM_MOBILE
 #define PLATFORM_TYPE "Android"
 #endif
 
@@ -1103,6 +1121,7 @@ required. For example, an array dimension.
 #define PLATFORM_WINDOWS_X86 "Microsoft Windows (32-Bit)"
 #define PLATFORM_WINDOWS "Microsoft Windows (32-Bit)"
 #define PLATFORM_DEVICE "Desktop"
+#define PLATFORM_DESKTOP
 #define PLATFORM_TYPE "PC"
 #elif defined(_WIN64) && defined(_WIN32) && !defined(_M_ARM64) && !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 /* Microsoft Windows (64-bit). ------------------------------ */
@@ -1111,6 +1130,7 @@ required. For example, an array dimension.
 #define PLATFORM_WINDOWS_X64 "Microsoft Windows (64-Bit)"
 #define PLATFORM_WINDOWS "Microsoft Windows (64-Bit)"
 #define PLATFORM_DEVICE "Desktop"
+#define PLATFORM_DESKTOP
 #define PLATFORM_TYPE "PC"
 #elif defined(_M_ARM64) && defined(_WIN32) && !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 /* Microsoft Windows (64-bit). ------------------------------ */
@@ -1119,6 +1139,7 @@ required. For example, an array dimension.
 #define PLATFORM_WINDOWS_ARM64 "Microsoft Windows (64-Bit)"
 #define PLATFORM_WINDOWS "Microsoft Windows (64-Bit)"
 #define PLATFORM_DEVICE "Desktop"
+#define PLATFORM_DESKTOP
 #define PLATFORM_TYPE "PC"
 /* Microsoft Phone ------------------------------ */
 #elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
@@ -1129,6 +1150,7 @@ required. For example, an array dimension.
 #define PLATFORM_WINDOWS_X86 "Microsoft Windows (32-Bit)"
 #define PLATFORM_WINDOWS_UWP "Microsoft Windows UWP (32-Bit)"
 #define PLATFORM_DEVICE "Desktop"
+#define PLATFORM_DESKTOP
 #define PLATFORM_TYPE "PC"
 #elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP) &&        \
     defined(_WIN64) && !defined(_WIN32) && !defined(_WIN32_WINNT)
@@ -1138,6 +1160,7 @@ required. For example, an array dimension.
 #define PLATFORM_WINDOWS_X64 "Microsoft Windows x64"
 #define PLATFORM_WINDOWS_UWP "Microsoft Windows UWP"
 #define PLATFORM_DEVICE "Desktop"
+#define PLATFORM_DESKTOP
 #define PLATFORM_WINDOWS "Microsoft Windows"
 #define PLATFORM_TYPE "PC"
 /* Microsoft Phone ------------------------------ */
@@ -1147,6 +1170,7 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x86 (32-Bit)"
 #define PLATFORM_WINDOWS_PHONE "Windows Phone"
 #define PLATFORM_DEVICE "Mobile"
+#define PLATFORM_MOBILE
 #define PLATFORM_TYPE "Mobile (Windows Phone)"
 #elif defined(_WIN64) && defined(WINAPI_FAMILY_PHONE_APP)
 /* Microsoft Windows (Phone). ------------------------------ */
