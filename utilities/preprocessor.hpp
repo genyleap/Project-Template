@@ -74,7 +74,7 @@ namespace Preprocessor {
 #undef COMPILER_VER
 #define COMPILER_VER __MINGW64_MAJOR_VERSION << "." << __MINGW64_MINOR_VERSION
 #elif defined(__GNUC__) || defined(__GNUG__) && !defined(__clang__)
-#define GCC_VERSION __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__
+#define GCC_VERSION __GNUC__ << "." <<  __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__
 /* GNU GCC/G++. --------------------------------------------- */
 #undef COMPILER
 #define COMPILER "GNU GCC/G++"

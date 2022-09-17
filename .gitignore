@@ -33,3 +33,6 @@
 
 #Extra
 .DS_Store
+
+# Final Output
+build/ProjectTemplate
