@@ -1,10 +1,10 @@
 # -------------------- PROJECT INFO --------------------
 #   Title   :                       Project Template
-#   Version :                       0.9.988.0
+#   Version :                       1.0.2.0
 #   Author  :                       Kambiz Asadzadeh
 # ------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.23)
 cmake_policy(SET CMP0048 NEW)
 
 # Add include path for cmake modules
@@ -20,9 +20,9 @@ include(FetchContent)
 set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name.") #You can change "ProjectTemplate" with your project name.
 set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 
-set(PROJECT_VERSION_MAJOR 0)
-set(PROJECT_VERSION_MINOR 9)
-set(PROJECT_VERSION_PATCH 988)
+set(PROJECT_VERSION_MAJOR 1)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 2)
 set(PROJECT_VERSION_TWEAK 0)
 
 # ---- Project settings ----
@@ -53,7 +53,7 @@ if(NOT PROJECT_VERSION_TAG)
   set(PROJECT_VERSION_TAG 00000000)
 endif()
 set(PROJECT_VERSION_TAG_HEX 0x${PROJECT_VERSION_TAG})
-set(PROJECT_VERSION_TYPE "alpha" CACHE STRING "Version type.")
+set(PROJECT_VERSION_TYPE "final" CACHE STRING "Version type.")
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(PROJECT_VERSION_STRING ${PROJECT_VERSION})
 
@@ -63,9 +63,6 @@ set(PROJECT_LANGUAGES CXX)
 
 #Use these keys [stl, qt, qtwidget, qtquick]
 set(PROJECT_MAIN_TYPE "stl" CACHE STRING "Library System.")
-
-#Use these keys [macOS, Windows, Linux, iOS, Android]
-set(PLATFORM_OS "macOS" CACHE STRING "OS Type.")
 
 #You can replace your project description with this string.
 set(PROJECT_DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." CACHE STRING "Project Description")
@@ -122,7 +119,6 @@ if(packages)
   return()
 endif()
 set(packages ON)
-
 
 if(USE_QT AND NOT PROJECT_MAIN_TYPE STREQUAL "stl")
     set(CMAKE_AUTOUIC ON)
@@ -226,22 +222,6 @@ SET(CMAKE_CACHEFILE_DIR ${dir})
 message("CMAKE_BUILD_FILES_DIRECTORY: " ${CMAKE_BUILD_FILES_DIRECTORY})
 
 # ------ OUTPUTS CONFIG ------
-
-if(PLATFORM_OS STREQUAL "macOS")
-    if(OS_ARCHITECTURES STREQUAL "")
-      set(OS_ARCHITECTURES ${CMAKE_OSX_ARCHITECTURES})
-      else()
-      set(OS_ARCHITECTURES "x86_64")
-    endif()
-else()
-    if(PROCESSOR_ARCHITECTURE STREQUAL "")
-      set(OS_ARCHITECTURES ${PROCESSOR_ARCHITECTURE})
-      else()
-      set(OS_ARCHITECTURES "x86_64")
-    endif()
-    set(OS_ARCHITECTURES ${PROCESSOR_ARCHITECTURE})
-endif()
-
 message(STATUS "${BoldRed}------ ${PROJECT_TARGET} Tools Configuration ------${ColourReset}")
 message(STATUS "${Bold}Language Standard${ColourReset}	    : C++[${CMAKE_CXX_STANDARD}]")
 message(STATUS "${Bold}Compiler${ColourReset}		    : ${CMAKE_CXX_COMPILER_ID}")
