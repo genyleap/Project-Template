@@ -4,8 +4,6 @@ A template for modern C++ projects with useful features for developing cross-pla
 ##  Cross-Platform project structure based on CMake ##
 This repository is a modern project template based on C++ and CMake build tool.
 
-> Note : This template is not yet complete and conceptually under development.
-
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
 ## Supported platforms:
@@ -13,10 +11,10 @@ This repository is a modern project template based on C++ and CMake build tool.
 - [x] macOS
 - [x] Windows
 - [x] Linux
-- [ ] freeBSD
+- [x] freeBSD
 - [ ] OpenBSD
 - [ ] NetBSD
-- [ ] iOS
+- [x] iOS
 - [ ] watchOS
 - [x] Android
 
@@ -35,7 +33,7 @@ This repository is a modern project template based on C++ and CMake build tool.
 ## Building
 
 - You need CMake tool for building source code
-- CMake 3.18 or higher is required.
+- CMake 3.23 or higher is required.
 
 ```
 cd build
@@ -72,11 +70,6 @@ cmake .. -DUSE_BOOST=true
 - Include Qt Framework
 ```
 cmake .. -DUSE_QT=true
-```
-
-- Set Platform os type [macOS, Windows, Linux, iOS, Android]
-```
-cmake .. -DPLATFORM_OS=macOS
 ```
 
 - Include UI
@@ -278,8 +271,8 @@ project(
 -- DEVELOPER		    : 
 -- PROJECT_PROJECT	    : 
 -- PROJECT_TARGET	    : ProjectTemplate
--- PROJECT_VERSION	    : 0.5.432
--- PROJECT_VERSION_TYPE	    : pre-alpha
+-- PROJECT_VERSION	    : 1.0.2.0
+-- PROJECT_VERSION_TYPE	    : final
 -- ------ ProjectTemplate Building Configuration ------
 -- PROJECT_BUILD_SHARED	: 
 -- PROJECT_VERSION_TAG_HEX	: 0x00000000
