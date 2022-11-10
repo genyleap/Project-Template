@@ -24,8 +24,7 @@ This repository is a modern project template based on C++ and CMake build tool.
 - [x] Desktop Application
 - [x] Embedded Application
 - [x] Mobile Application
-- [ ] Library
-- [ ] Mixed Version
+- [x] Library
 
 ## Language Standard Support [C++2a or C++2b]
 - It depends on your compiler!
@@ -84,6 +83,18 @@ cmake .. -DHAS_USER_INTERFACE=true
 - qtquick (Your project will be based on C++, QtQuick and QML [Modern GUI]).
 ```
 cmake .. -DPROJECT_MAIN_TYPE=stl
+```
+
+- Project Type
+- Use these keys [application, library]
+```
+cmake .. -DPROJECT_USAGE_TYPE=application
+```
+
+- Project Type
+- Use these keys [application, library]
+```
+cmake .. -DDEVELOPER_BUNDLE_IDENTIFIER=com.kambizasadzadeh.app
 ```
 
 - The Qt Quick Compiler is a development add-on for Qt Quick applications which allows you to compile QML source code into the final binary. When you use this add-on, the application's startup time is significantly improved and you no longer need to deploy .qml files together with the application.
