@@ -1,5 +1,5 @@
-#include "examples/compilertest.hpp"
-#include "common.hpp"
+#include "compilertest.hpp"
+#include "../common.hpp"
 #include <iostream>
 
 using namespace std;

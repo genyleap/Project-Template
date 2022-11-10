@@ -17,7 +17,7 @@ include(FetchContent)
 
 # ------ PROJECT INFO ------
 # Options
-set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name.") #You can change "ProjectTemplate" with your project name.
+set(PROJECT_NAME "Project-Template" CACHE STRING "Project Name.") #You can change "ProjectTemplate" with your project name.
 set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 
 set(PROJECT_VERSION_MAJOR 1)
@@ -61,15 +61,19 @@ set(PROJECT_VERSION_STRING ${PROJECT_VERSION})
 # Specify language NONE, or use the LANGUAGES keyword and list no languages, to skip enabling any languages.
 set(PROJECT_LANGUAGES CXX)
 
+#Use these keys [application, library]
+set(PROJECT_USAGE_TYPE "application" CACHE STRING "Usage Type.")
+
 #Use these keys [stl, qt, qtwidget, qtquick]
 set(PROJECT_MAIN_TYPE "stl" CACHE STRING "Library System.")
+
+set(DEVELOPER_BUNDLE_IDENTIFIER com.kambizasadzadeh.app.${PROJECT_NAME} CACHE STRING "Developer Bundle Identifier.")
 
 #You can replace your project description with this string.
 set(PROJECT_DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." CACHE STRING "Project Description")
 
 #Your project website address.
 set(PROJECT_HOMEPAGE_URL "https://kambizasadzadeh.com" CACHE STRING "Project URL.")
-
 
 #Project pre-configuration system.
 configure_file(
@@ -85,7 +89,7 @@ project(
     VERSION ${PROJECT_VERSION}
     )
 
-# ------ PACKAGES CONFIG ------
+# ------ PROJECT CONFIG ------
 include(project-setting)
 if(project-setting)
   return()
@@ -112,13 +116,6 @@ if(compiler-options)
   return()
 endif()
 set(compiler-options ON)
-
-# ------ PACKAGES CONFIG ------
-include(packages)
-if(packages)
-  return()
-endif()
-set(packages ON)
 
 if(USE_QT AND NOT PROJECT_MAIN_TYPE STREQUAL "stl")
     set(CMAKE_AUTOUIC ON)
@@ -205,22 +202,6 @@ source_group("UI"     FILES ${UI_SOURCE})
 source_group("Config" FILES ${CONFIGFILE})
 source_group("Examples"  FILES ${EXAMPLES})
 
-
-# ------ PROJECT DIRECTORIES ------
-
-set(dir ${CMAKE_CURRENT_SOURCE_DIR}/build/)
-set(EXECUTABLE_OUTPUT_PATH ${dir} CACHE PATH "Build directory" FORCE)
-set(LIBRARY_OUTPUT_PATH ${dir} CACHE PATH "Build directory" FORCE)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${dir})
-set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
-set(CMAKE_BUILD_DIRECTORY ${dir})
-set(CMAKE_BINARY_DIR  ${dir})
-SET(EXECUTABLE_OUTPUT_PATH ${dir})
-SET(LIBRARY_OUTPUT_PATH ${dir}lib)
-SET(CMAKE_CACHEFILE_DIR ${dir})
-
-message("CMAKE_BUILD_FILES_DIRECTORY: " ${CMAKE_BUILD_FILES_DIRECTORY})
-
 # ------ OUTPUTS CONFIG ------
 message(STATUS "${BoldRed}------ ${PROJECT_TARGET} Tools Configuration ------${ColourReset}")
 message(STATUS "${Bold}Language Standard${ColourReset}	    : C++[${CMAKE_CXX_STANDARD}]")
@@ -249,40 +230,17 @@ message(STATUS "${Bold}LIBRARY_OUTPUT_PATH${ColourReset}		: ${LIBRARY_OUTPUT_PAT
 message(STATUS "${Bold}CMAKE_CURRENT_SOURCE_DIR${ColourReset}	: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} End Configuration ------${ColourReset}")
 
-if(ANDROID)
-    set(DANDROID_NATIVE_API_LEVEL 23)
-    if(NOT PROJECT_MAIN_TYPE STREQUAL "qtquick")
-        #message(${BoldRed} "Please set {qtquick} key to PROJECT_MAIN_TYPE." ${ColourReset})
-        set(PROJECT_MAIN_TYPE "qtquick")
-    endif()
-    add_library(${PROJECT_NAME} SHARED ${SOURCESFILE} ${UI_SOURCE})
-else()
-  if(USE_QT)
-    #Add an executable to the project using the specified source files.
-    add_executable(${PROJECT_NAME} ${SOURCESFILE} ${UI_SOURCE})
-  else()
-    #Add an executable to the project using the specified source files.
-    add_executable(${PROJECT_NAME} ${SOURCESFILE})
-  endif()
-endif()
-
-#Support Qt6 & Qt5 Modules.
 if(USE_QT)
 
-
-    if(QT_VERSION_MAJOR EQUAL 6)
-        qt_import_qml_plugins(${PROJECT_NAME})
-        qt_finalize_executable(${PROJECT_NAME})
-    endif()
-
     if(USE_QT5_FEATURES)
-
         if(${PROJECT_MAIN_TYPE} STREQUAL "qt")
             list(APPEND QT_MODULES Core Core5Compat)
             list(APPEND QT_MODULES_LINK
                 Qt${QT_VERSION_MAJOR}::Core
                 Qt${QT_VERSION_MAJOR}::Core5Compat
                 )
+            find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Core5Compat)
+            find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Core5Compat)
         elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtwidget")
             list(APPEND QT_MODULES Core Widgets Core5Compat)
             list(APPEND QT_MODULES_LINK
@@ -290,6 +248,8 @@ if(USE_QT)
                 Qt${QT_VERSION_MAJOR}::Widgets
                 Qt${QT_VERSION_MAJOR}::Core5Compat
                 )
+            find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets Core5Compat)
+            find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Core5Compat)
         elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
             list(APPEND QT_MODULES Core Quick Core5Compat)
             list(APPEND QT_MODULES_LINK
@@ -297,12 +257,16 @@ if(USE_QT)
                 Qt${QT_VERSION_MAJOR}::Quick
                 Qt${QT_VERSION_MAJOR}::Core5Compat
                 )
+            find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Core5Compat)
+            find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Core5Compat)
         else()
             list(APPEND QT_MODULES Core Core5Compat)
             list(APPEND QT_MODULES_LINK
                 Qt${QT_VERSION_MAJOR}::Core
                 Qt${QT_VERSION_MAJOR}::Core5Compat
                 )
+            find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Core5Compat)
+            find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Core5Compat)
         endif()
     else()
         if(${PROJECT_MAIN_TYPE} STREQUAL "qt")
@@ -310,29 +274,101 @@ if(USE_QT)
             list(APPEND QT_MODULES_LINK
                 Qt${QT_VERSION_MAJOR}::Core
                 )
+            find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+            find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
         elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtwidget")
             list(APPEND QT_MODULES Core Widgets)
             list(APPEND QT_MODULES_LINK
                 Qt${QT_VERSION_MAJOR}::Core
                 Qt${QT_VERSION_MAJOR}::Widgets
                 )
+            find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Widgets)
+            find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets)
         elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
-            list(APPEND QT_MODULES Core Quick)
+            list(APPEND QT_MODULES Core${SPACE_ARG})
+            list(APPEND QT_MODULES Quick${SPACE_ARG})
             list(APPEND QT_MODULES_LINK
-                Qt${QT_VERSION_MAJOR}::Core
-                Qt${QT_VERSION_MAJOR}::Quick
+                Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick
                 )
+            find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
+            find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
         endif()
     endif()
-    find_package(QT NAMES Qt6 Qt5 COMPONENTS ${QT_MODULES} REQUIRED)
-    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_MODULES} REQUIRED)
+
+    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        if(PROJECT_USAGE_TYPE STREQUAL "library")
+            qt_add_library(${PROJECT_NAME}
+                MANUAL_FINALIZATION
+                ${SOURCESFILE}
+            )
+        else()
+            qt_add_executable(${PROJECT_NAME}
+                MANUAL_FINALIZATION
+                ${SOURCESFILE}
+            )
+        endif()
+    else()
+        if(ANDROID)
+            add_library(${PROJECT_NAME} SHARED
+                ${SOURCESFILE}
+            )
+        else()
+            if(PROJECT_USAGE_TYPE STREQUAL "library")
+                add_library(${PROJECT_NAME}
+                  ${SOURCESFILE}
+                )
+            else()
+                add_executable(${PROJECT_NAME}
+                  ${SOURCESFILE}
+                )
+            endif()
+        endif()
+    endif()
 
     if(USE_QT_QUICK_COMPILER)
     find_package(QtQuickCompiler)
     qt_add_resources(UI_SOURCE ui/qtquick/qml.qrc)
     endif()
     target_link_libraries(${PROJECT_NAME} PRIVATE ${QT_MODULES_LINK})
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        MACOSX_BUNDLE_GUI_IDENTIFIER ${DEVELOPER_BUNDLE_IDENTIFIER}
+        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+        MACOSX_BUNDLE TRUE
+        WIN32_EXECUTABLE TRUE
+    )
+
+install(TARGETS ${PROJECT_NAME}
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+if(ANDROID)
+    include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
 endif()
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_import_qml_plugins(${PROJECT_NAME})
+    qt_finalize_executable(${PROJECT_NAME})
+endif()
+else()
+
+if(PROJECT_USAGE_TYPE STREQUAL "library")
+    add_library(${PROJECT_NAME}
+      ${SOURCESFILE}
+    )
+else()
+    add_executable(${PROJECT_NAME}
+      ${SOURCESFILE}
+    )
+endif()
+
+# ------ PACKAGES CONFIG ------
+include(packages)
+if(packages)
+  return()
+endif()
+set(packages ON)
 
 #Extra Modules
 target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES})
@@ -347,6 +383,7 @@ target_link_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/source
     ${LIB_TARGET_LINK_DIRECTORIES}
     )
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${LIB_TARGET_COMPILER_DEFINATION})
 

@@ -1,6 +1,6 @@
 #Package Info.
 set(QT_NAME "Qt")
-set(QT_DESCRIPTION "A moidern cross-platform graphical user interfaces framework.")
+set(QT_DESCRIPTION "A modern cross-platform graphical user interfaces framework.")
 
 #Pakcage option.
 option(USE_QT ${QT_DESCRIPTION} FALSE)

@@ -1,5 +1,5 @@
-#include "examples/platformtest.hpp"
-#include "common.hpp"
+#include "platformtest.hpp"
+#include "../common.hpp"
 #include <iostream>
 
 using namespace std;

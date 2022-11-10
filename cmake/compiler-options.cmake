@@ -151,12 +151,3 @@ if (FORCE_LATEST_STANDARD_FEATURE)
   add_definitions(-DFORCE_LATEST_STANDARD_FEATURE)
 endif()
 
-##################################
-# --- Installation Variables --- #
-##################################
-
-set(DIST_PATH ${PROJECT_BINARY_DIR}/output)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${DIST_PATH}/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${DIST_PATH}/lib)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${DIST_PATH}/lib)
-
