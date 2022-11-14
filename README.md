@@ -583,6 +583,8 @@ void LibraryTest::testBoost() const noexcept
     std::cout << "========CONFIG TEST========" << std::endl;
   
 ```
+## If you want donate, Bitcoin address is here! <3
+<img width="368" alt="Screenshot 2022-11-12 at 9 25 49 AM" src="https://user-images.githubusercontent.com/4066299/201459675-f3c0d09e-f308-4fa6-9be2-60a4bd81212e.png">
 
 ## TOOD
 - Bug fixing.
