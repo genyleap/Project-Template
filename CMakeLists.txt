@@ -65,7 +65,7 @@ set(PROJECT_LANGUAGES CXX)
 set(PROJECT_USAGE_TYPE "application" CACHE STRING "Usage Type.")
 
 #Use these keys [stl, qt, qtwidget, qtquick]
-set(PROJECT_MAIN_TYPE "stl" CACHE STRING "Library System.")
+set(PROJECT_MAIN_TYPE "qtquick" CACHE STRING "Library System.")
 
 set(DEVELOPER_BUNDLE_IDENTIFIER com.kambizasadzadeh.app.${PROJECT_NAME} CACHE STRING "Developer Bundle Identifier.")
 
@@ -116,6 +116,13 @@ if(compiler-options)
   return()
 endif()
 set(compiler-options ON)
+
+# ------ PACKAGES CONFIG ------
+include(packages)
+if(packages)
+  return()
+endif()
+set(packages ON)
 
 if(USE_QT AND NOT PROJECT_MAIN_TYPE STREQUAL "stl")
     set(CMAKE_AUTOUIC ON)
@@ -230,8 +237,7 @@ message(STATUS "${Bold}LIBRARY_OUTPUT_PATH${ColourReset}		: ${LIBRARY_OUTPUT_PAT
 message(STATUS "${Bold}CMAKE_CURRENT_SOURCE_DIR${ColourReset}	: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} End Configuration ------${ColourReset}")
 
-if(USE_QT)
-
+if(GUI_APPLICATION)
     if(USE_QT5_FEATURES)
         if(${PROJECT_MAIN_TYPE} STREQUAL "qt")
             list(APPEND QT_MODULES Core Core5Compat)
@@ -362,13 +368,6 @@ else()
       ${SOURCESFILE}
     )
 endif()
-
-# ------ PACKAGES CONFIG ------
-include(packages)
-if(packages)
-  return()
-endif()
-set(packages ON)
 
 #Extra Modules
 target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES})

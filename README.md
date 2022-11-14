@@ -50,6 +50,19 @@ make
 cmake .. -DPROJECT_NAME="Your Project Name" -DPROJECT_CREATOR="Kambiz" -DPROJECT_VERSION_TYPE="beta" -DPROJECT_DESCRIPTION="This is my awesome project" -DPROJECT_LICENSE_TYPE="mit"
 ```
 
+## Customization Note
+- Change PROJECT_NAME variable to your own project name.
+- Change PROJECT_CREATOR variable to your main project developer.
+- Change PROJECT_DESCRIPTION variable to your project description.
+- Change PROJECT_HOMEPAGE_URL variable to your project official url.
+- Change PROJECT_VERSION_TYPE variable to your project version based on semantic versioning.
+
+- The project output structure is based on "application" with gui by default, so if you want to change it, you should change the PROJECT_USAGE_TYPE and PROJECT_MAIN_TYPE variables.
+- Change the DEVELOPER_BUNDLE_IDENTIFIER variable for your own developer id, especially in Apple products, you should set it according to the bundle string in Xcode.
+- The language standard is based on C++17 by default, you can change it via CMAKE_CXX_STANDARD variable.
+- Finally, specify software version for the variables PROJECT_VERSION_MAJOR, PROJECT_VERSION_MINOR, PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK.
+- Enjoy your project! :)
+
 ## CMake module option [Dependencies]
 - These features can be useful in downloading, building, and integrating prerequisites into your project.
 - So you can set cmake option variable for enabling them.
@@ -68,7 +81,7 @@ cmake .. -DUSE_BOOST=true
 
 - Include Qt Framework
 ```
-cmake .. -DUSE_QT=true
+cmake .. -DGUI_APPLICATION=true
 ```
 
 - Include UI

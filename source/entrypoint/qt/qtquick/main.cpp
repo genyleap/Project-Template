@@ -1,4 +1,3 @@
-#ifdef USE_QT
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
@@ -21,6 +20,3 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
-#else
-#error Please enable USE_QT from cmake variables!
-#endif
