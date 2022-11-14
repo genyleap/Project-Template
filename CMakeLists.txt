@@ -23,7 +23,6 @@ set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 2)
-set(PROJECT_VERSION_TWEAK 0)
 
 # ---- Project settings ----
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -55,7 +54,7 @@ endif()
 set(PROJECT_VERSION_TAG_HEX 0x${PROJECT_VERSION_TAG})
 set(PROJECT_VERSION_TYPE "final" CACHE STRING "Version type.")
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
-set(PROJECT_VERSION_STRING ${PROJECT_VERSION})
+set(PROJECT_VERSION_STRING ${PROJECT_VERSION}-${PROJECT_VERSION_TYPE})
 
 # Supported languages include C, CXX (i.e. C++), CUDA, OBJC (i.e. Objective-C), OBJCXX, Fortran, HIP, ISPC, and ASM. By default C and CXX are enabled if no language options are given.
 # Specify language NONE, or use the LANGUAGES keyword and list no languages, to skip enabling any languages.
@@ -124,7 +123,7 @@ if(packages)
 endif()
 set(packages ON)
 
-if(USE_QT AND NOT PROJECT_MAIN_TYPE STREQUAL "stl")
+if(NOT PROJECT_MAIN_TYPE STREQUAL "stl")
     set(CMAKE_AUTOUIC ON)
     set(CMAKE_AUTOMOC ON)
     set(CMAKE_AUTORCC ON)
@@ -222,6 +221,7 @@ message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} Framework Info ------${Colou
 message(STATUS "${Bold}Name${ColourReset}			    : ${CMAKE_PROJECT_NAME}")
 message(STATUS "${Bold}Description${ColourReset}		    : ${CMAKE_PROJECT_DESCRIPTION}")
 message(STATUS "${Bold}Version${ColourReset}		    : ${PROJECT_VERSION}")
+message(STATUS "${Bold}Full Version${ColourReset}	    : ${PROJECT_VERSION_STRING}")
 message(STATUS "${Bold}Creator${ColourReset}		    : ${PROJECT_CREATOR}")
 message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} Project Configuration ------${ColourReset}")
 message(STATUS "${Bold}DEVELOPER${ColourReset}		    : ${PROJECT_CREATOR}")
