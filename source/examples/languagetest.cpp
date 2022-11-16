@@ -1,5 +1,5 @@
 #include "languagetest.hpp"
-#include "../common.hpp"
+#include "common.hpp"
 #include <iostream>
 
 LanguageTest::LanguageTest()

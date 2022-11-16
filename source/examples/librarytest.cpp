@@ -1,5 +1,5 @@
 #include "librarytest.hpp"
-#include "../common.hpp"
+#include "common.hpp"
 #include <iostream>
 
 #ifdef USE_BOOST

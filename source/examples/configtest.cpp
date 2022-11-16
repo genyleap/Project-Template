@@ -1,5 +1,5 @@
 #include "configtest.hpp"
-#include "../common.hpp"
+#include "common.hpp"
 #include "config.hpp"
 #include <iostream>
 

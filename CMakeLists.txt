@@ -25,7 +25,7 @@ set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 2)
 
 # ---- Project settings ----
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL APPEND PROPERTY USE_FOLDERS ON)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -337,6 +337,20 @@ if(GUI_APPLICATION)
     endif()
     target_link_libraries(${PROJECT_NAME} PRIVATE ${QT_MODULES_LINK})
 
+    #Extra Modules
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES})
+    target_include_directories(${PROJECT_NAME}
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source
+        ${LIB_TARGET_INCLUDE_DIRECTORIES}
+        )
+
+    target_link_directories(${PROJECT_NAME}
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/source
+        ${LIB_TARGET_LINK_DIRECTORIES}
+        )
+
     set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE_GUI_IDENTIFIER ${DEVELOPER_BUNDLE_IDENTIFIER}
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
@@ -358,30 +372,6 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(${PROJECT_NAME})
 endif()
 else()
-
-if(PROJECT_USAGE_TYPE STREQUAL "library")
-    add_library(${PROJECT_NAME}
-      ${SOURCESFILE}
-    )
-else()
-    add_executable(${PROJECT_NAME}
-      ${SOURCESFILE}
-    )
-endif()
-
-#Extra Modules
-target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES})
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source
-    ${LIB_TARGET_INCLUDE_DIRECTORIES}
-    )
-
-target_link_directories(${PROJECT_NAME}
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/source
-    ${LIB_TARGET_LINK_DIRECTORIES}
-    )
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${LIB_TARGET_COMPILER_DEFINATION})
