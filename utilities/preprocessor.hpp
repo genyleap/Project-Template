@@ -806,12 +806,21 @@ required. For example, an array dimension.
 #define PLATFORM_TYPE "Apple TV"
 #elif TARGET_OS_IPHONE == 1
 /* iOS on iPhone, iPad, etc. */
+#if defined(__arm__) && !defined(__arm64__)
 #define PLATFORM_OS "Apple iOS"
-#define PLATFORM_ARCH "ARM (32-Bit)"
+#define PLATFORM_ARCH "arm (32-Bit)"
 #define PLATFORM_MOBILE
 #define PLATFORM_IOS "iOS"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_TYPE "iPhone, iPad"
+#elif !defined(__arm__) && defined(__arm64__)
+#define PLATFORM_OS "Apple iOS"
+#define PLATFORM_ARCH "arm64 (64-Bit)"
+#define PLATFORM_MOBILE
+#define PLATFORM_IOS "iOS"
+#define PLATFORM_DEVICE "Mobile"
+#define PLATFORM_TYPE "iPhone, iPad"
+#endif
 #elif TARGET_OS_MAC == 1
 /* macOS */
 #define PLATFORM_OS "macOS"
