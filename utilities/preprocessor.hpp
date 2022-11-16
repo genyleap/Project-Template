@@ -531,8 +531,7 @@ required. For example, an array dimension.
  */
 
 /// Indicates that the target architecture is PowerPC®.
-#if defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) ||      \
-    defined(__ppc__) || defined(_M_PPC) || defined(__PPC) || defined(__PPC__)
+#if defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) ||  defined(__ppc__) || defined(_M_PPC) || defined(__PPC) || defined(__PPC__)
 /* POWER ---------------------------------------------------- */
 #undef POWER_PC_32BIT
 #define POWER_PC_32BIT
@@ -542,8 +541,7 @@ required. For example, an array dimension.
 #define ARCHITECTURE "PowerPC (32-Bit)"
 /// Indicates that the target architecture is PowerPC and that 64-bit
 /// compilation mode is enabled.
-#elseif defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) ||  \
-    defined(__64BIT__) || defined(_LP64) || defined(__LP64__)
+#elif defined(__powerpc64__)
 /* POWER 64-bit --------------------------------------------- */
 #undef POWER_PC_64bit__
 #define POWER_PC_64bit__
@@ -766,7 +764,7 @@ required. For example, an array dimension.
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_TYPE "Unix (Linux)"
 /* Linux. --------------------------------------------------- */
-#elif defined(ARM64_BIT) && defined(__linux) && defined(__linux__)
+#elif defined(ARM64_BIT) && defined(__linux) && defined(__linux__) && !defined(ANDROID)
 #define PLATFORM_OS "Linux"
 #define PLATFORM_ARCH "arm64 (aarch64)"
 #define PLATFORM_LINUX "Linux"
@@ -902,23 +900,53 @@ required. For example, an array dimension.
  * Processors:	x86, x86-64, ARM
  */
 
-#if defined(X86_32bit) && defined(__linux) && defined(__linux__) &&            \
-        defined(linux) && defined(__ANDROID__) ||                              \
-    defined(ANDROID)
+#if !defined(__aarch64__) && defined(__ANDROID__) && defined(__ARM_ARCH) || defined(__ARM_ARCH_7A__)
 /* Android. ------------------------------------------------- */
 #define PLATFORM_OS "Linux"
 #define PLATFORM_ANDROID "Linux (Android)"
+#undef PLATFORM_DEVICE
 #define PLATFORM_DEVICE "Mobile"
-#define PLATFORM_ARCH "x86 (32-Bit)"
+#undef PLATFORM_MOBILE
+#define PLATFORM_MOBILE
+#undef PLATFORM_ARCH
+#define PLATFORM_ARCH "armv7a (32-Bit)"
+#undef PLATFORM_TYPE
 #define PLATFORM_TYPE "Android"
-#elif defined(X64_64bit) && defined(__linux) && defined(__linux__) &&          \
-        defined(linux) && defined(__ANDROID__) ||                              \
-    defined(ANDROID)
+#elif defined(__aarch64__) && defined(__ANDROID__)
 /* Android. ------------------------------------------------- */
 #define PLATFORM_OS "Linux"
 #define PLATFORM_ANDROID "Linux (Android)"
+#undef PLATFORM_DEVICE
 #define PLATFORM_DEVICE "Mobile"
-#define PLATFORM_ARCH "x64 (64-Bit)"
+#undef PLATFORM_MOBILE
+#define PLATFORM_MOBILE
+#undef PLATFORM_ARCH
+#define PLATFORM_ARCH "arm64-v8a (64-Bit)"
+#undef PLATFORM_TYPE
+#define PLATFORM_TYPE "Android"
+#elif defined(X86_64BIT) && !defined(__aarch64__) && !defined(__ARM_ARCH) && defined(__ANDROID__)
+/* Android. ------------------------------------------------- */
+#define PLATFORM_OS "Linux"
+#define PLATFORM_ANDROID "Linux (Android)"
+#undef PLATFORM_DEVICE
+#define PLATFORM_DEVICE "Mobile"
+#undef PLATFORM_MOBILE
+#define PLATFORM_MOBILE
+#undef PLATFORM_ARCH
+#define PLATFORM_ARCH "x86 (32-Bit)"
+#undef PLATFORM_TYPE
+#define PLATFORM_TYPE "Android"
+#elif defined(X64_64BIT) && !defined(__aarch64__) && !defined(__ARM_ARCH) && defined(__ANDROID__)
+/* Android. ------------------------------------------------- */
+#define PLATFORM_OS "Linux"
+#define PLATFORM_ANDROID "Linux (Android)"
+#undef PLATFORM_DEVICE
+#define PLATFORM_DEVICE "Mobile"
+#undef PLATFORM_MOBILE
+#define PLATFORM_MOBILE
+#undef PLATFORM_ARCH
+#define PLATFORM_ARCH "x86_64 (64-Bit)"
+#undef PLATFORM_TYPE
 #define PLATFORM_TYPE "Android"
 #endif
 
