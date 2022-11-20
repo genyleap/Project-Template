@@ -3,6 +3,7 @@ set (CMAKE_SYSTEM_NAME iOS)
 set (CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_CROSSCOMPILING TRUE)
 set (IOS TRUE)
+set (PLATFORM_FOLDER "iOS")
 
 if(NOT DEFINED IOS_BITCODE) # check xcode/clang version? since xcode 7
   set(IOS_BITCODE 1)
