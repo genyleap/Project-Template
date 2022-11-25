@@ -1,8 +1,10 @@
-# -------------------- PROJECT INFO --------------------
+# -------------------- PROJECT TEMPLATE INFO ---------------------------------------------
 #   Title   :                       Project Template
-#   Version :                       1.0.2.0
+#   Version :                       1.0.12
 #   Author  :                       Kambiz Asadzadeh
-# ------------------------------------------------------
+#   Url     :                       https://github.com/genyleap/Project-Template
+#   Organization  :                 The Genyleap
+# ----------------------------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.23)
 cmake_policy(SET CMP0048 NEW)
@@ -22,7 +24,7 @@ set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 0)
-set(PROJECT_VERSION_PATCH 6)
+set(PROJECT_VERSION_PATCH 12)
 
 # ---- Project settings ----
 set_property(GLOBAL APPEND PROPERTY USE_FOLDERS ON)
@@ -72,7 +74,7 @@ set(DEVELOPER_BUNDLE_IDENTIFIER com.kambizasadzadeh.app.${PROJECT_NAME} CACHE ST
 set(PROJECT_DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." CACHE STRING "Project Description")
 
 #Your project website address.
-set(PROJECT_HOMEPAGE_URL "https://kambizasadzadeh.com" CACHE STRING "Project URL.")
+set(PROJECT_HOMEPAGE_URL "https://github.com/genyleap/Project-Template" CACHE STRING "Project URL.")
 
 #Project pre-configuration system.
 configure_file(
@@ -178,7 +180,6 @@ elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
          source/entrypoint/qt/qtquick/${SUFFIX_SOURCE}
     )
 endif()
-
 
 if(${PROJECT_MAIN_TYPE} STREQUAL "qtwidget")
    file(GLOB UI_SOURCE ui/widgets/${SUFFIX_WIDGET})

@@ -616,23 +616,6 @@ required. For example, an array dimension.
 #define ARCHITECTURE "Arm (32-Bit)"
 #endif
 
-/*
- * ARM
- * 64-bit
- * Developer:	ARM Holdings
- * Processors:	Acorn RISC Machine
- */
-
-#if defined(__aarch64__)
-/* ARM-x64 -------------------------------------------------- */
-#undef ARM_64BIT
-#define ARM_64BIT
-#undef PROCESSOR
-#define PROCESSOR "Arm64"
-#undef ARCHITECTURE
-#define ARCHITECTURE "Arm64 (64-Bit)"
-#endif
-
 // Embedded Architecture
 #if defined(__arm__) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||    \
     defined(__TARGET_ARCH_THUMB) || defined(_ARM) || defined(_M_ARM) ||        \
