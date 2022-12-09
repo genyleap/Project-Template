@@ -232,6 +232,19 @@ cmake .. -ENABLE_SHARED_LIB_BUILD=true
 cmake .. -FORCE_LATEST_STANDARD_FEATURE=true
 ```
 
+- Optimization level.
+```
+cmake .. -DOPTIMIZATION_LEVEL=0
+```
+#============================================================================================================
+#-O disables optimization, to speed compilation and simplify debugging. (default)
+#-1 optimization for code size and execution time, generate minimum size code.
+#-2 optimization more for code size and execution time, optimizes code for maximum speed.
+#-3 optimization more for code size and execution time
+#-4 optimization for code size, optimizations for size over optimizations for speed.
+#-5 O3 with fast none accurate math calculations, optimizations for speed over optimizations for size.
+#============================================================================================================
+
 - ِYou can set or change your project's basic information such as name, description, link, etc.
 
 ```
