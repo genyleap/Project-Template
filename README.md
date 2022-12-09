@@ -236,16 +236,14 @@ cmake .. -FORCE_LATEST_STANDARD_FEATURE=true
 ```
 cmake .. -DOPTIMIZATION_LEVEL=0
 ```
-#============================================================================================================
-#-O disables optimization, to speed compilation and simplify debugging. (default)
-#-1 optimization for code size and execution time, generate minimum size code.
-#-2 optimization more for code size and execution time, optimizes code for maximum speed.
-#-3 optimization more for code size and execution time
-#-4 optimization for code size, optimizations for size over optimizations for speed.
-#-5 O3 with fast none accurate math calculations, optimizations for speed over optimizations for size.
-#============================================================================================================
+- O Disables optimization, no optimization, fast compilation and nicely debuggable code. (default)
+- 1 Some optimization. Is equivalent to 0 with no parameters. Optimization for code size and execution time, generate minimum size code.
+- 2 Moderate optimization, enables all standard optimizations. Optimization more for code size and execution time, optimizes code for maximum speed.
+- 3 Over and above 2, does aggressive optimizations that may not be compliant to language standard. Optimization more for code size and execution time
+- 4 Over and above 3, does aggressive optimizations that may not be compliant to language standard. Optimizations for size over optimizations for speed.
+- 5 O3 with fast none accurate math calculations, optimizations for speed over optimizations for size.
 
-- ِYou can set or change your project's basic information such as name, description, link, etc.
+- You can set or change your project's basic information such as name, description, link, etc.
 
 ```
 set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name")
