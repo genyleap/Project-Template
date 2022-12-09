@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "resource.hpp"
 /////////////////////////////////////////////////////////////////////////////
 // English (United States) resources
 
