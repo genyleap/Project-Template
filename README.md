@@ -244,7 +244,7 @@ cmake .. -DOPTIMIZATION_LEVEL=0
 - -5 O3 with fast none accurate math calculations, optimizations for speed over optimizations for size.
 
 
-- ِYou can set or change your project's basic information such as name, description, link, etc.
+- You can set or change your project's basic information such as name, description, link, etc.
 
 ```
 set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name")
