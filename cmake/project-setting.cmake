@@ -1,5 +1,3 @@
-set(THIRD_PARTY "third-party" CACHE STRING "3rdparty folder for project dependencies. [Don't change this variable.]")
-
 option(USE_LATEST_STANDARD    "Include latest standard of C++"  TRUE)
 if (USE_LATEST_STANDARD)
   add_definitions(-DUSE_LATEST_STANDARD)
@@ -15,7 +13,7 @@ if (USE_FULL_QT_FEATURES)
   add_definitions(-USE_FULL_QT_FEATURES)
 endif()
 
-option(GUI_APPLICATION    "Include User Interface"  TRUE)
+option(GUI_APPLICATION    "Include User Interface"  FALSE)
 if (GUI_APPLICATION)
   add_definitions(-DGUI_APPLICATION)
 endif()

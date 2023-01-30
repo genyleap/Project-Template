@@ -79,7 +79,7 @@ if(UNIX AND NOT ANDROID AND NOT LINUX AND NOT APPLE)
   set(unix-toolchain ON)
 endif()
 
-#WINDOWS
+#Windows
 if(WIN32)
     set(WINDOWS TRUE)
     message(STATUS "Ready for Windows.")

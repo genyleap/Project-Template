@@ -35,7 +35,7 @@ if (OPTIMIZATION_LEVEL)
   add_definitions(-DOPTIMIZATION_LEVEL)
 endif()
 
-if(CMAKE_CXX_COMPILER_ID EQUAL "MSVC")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     message("-- CMake run for msvc")
     if(OPTIMIZATION_LEVEL EQUAL "0")
         set(CMAKE_CXX_FLAGS_DEBUG "/Z7 /Od")
@@ -113,12 +113,10 @@ if (ENABLE_CLANG_TIDY)
   add_definitions(-DENABLE_CLANG_TIDY)
 endif()
 
-
 option(ENABLE_CPPCHECK	    "Enabling the test of cppcheck"  FALSE)
 if (ENABLE_CPPCHECK)
   add_definitions(-DENABLE_CPPCHECK)
 endif()
-
 
 option(SIMPLE_BUILD	    "Build the project as minimally as possible" FALSE)
 if (SIMPLE_BUILD)
@@ -160,7 +158,6 @@ if (FORCE_COLORED_OUTPUT)
   add_definitions(-DFORCE_COLORED_OUTPUT)
 endif()
 
-
 option(ENABLE_SAFE_ONLY	    "Enabling the build of safe codes only!"  FALSE)
 if (ENABLE_SAFE_ONLY)
   add_definitions(-DENABLE_SAFE_ONLY)
@@ -183,12 +180,10 @@ if (DEBUG_LOGGING)
   add_definitions(-DDEBUG_LOGGING)
 endif()
 
-
 option(ENABLE_STATIC_LIB_BUILD "Build Static Version" OFF)
 if (ENABLE_STATIC_LIB_BUILD)
   add_definitions(-DENABLE_STATIC_LIB_BUILD)
 endif()
-
 
 option(ENABLE_SHARED_LIB_BUILD "Build Shared Version" OFF)
 if (ENABLE_SHARED_LIB_BUILD)

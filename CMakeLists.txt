@@ -1,6 +1,6 @@
 # -------------------- PROJECT TEMPLATE INFO ---------------------------------------------
 #   Title   :                       Project Template
-#   Version :                       1.0.12
+#   Version :                       1.0.80
 #   Author  :                       Kambiz Asadzadeh
 #   Url     :                       https://github.com/genyleap/Project-Template
 #   Organization  :                 The Genyleap
@@ -19,12 +19,12 @@ include(FetchContent)
 
 # ------ PROJECT INFO ------
 # Options
-set(PROJECT_NAME "Project-Template" CACHE STRING "Project Name.") #You can change "ProjectTemplate" with your project name.
+set(PROJECT_NAME "ProjectTemplate" CACHE STRING "Project Name.") #You can change "ProjectTemplate" with your project name.
 set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 0)
-set(PROJECT_VERSION_PATCH 16)
+set(PROJECT_VERSION_PATCH 80)
 
 # ---- Project settings ----
 set_property(GLOBAL APPEND PROPERTY USE_FOLDERS ON)
@@ -32,12 +32,14 @@ set_property(GLOBAL APPEND PROPERTY USE_FOLDERS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 if(NOT DEFINED CMAKE_CXX_STANDARD)
-    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD 23)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     set(CMAKE_CXX_EXTENSIONS ON)
 endif()
 
 set(PROJECT_CREATOR "Kambiz Asadzadeh" CACHE STRING "Creator of your project.") #Your project creator.
+
+set(PROJECT_ORGANIZATION "The Genyleap" CACHE STRING "Organization name.") #Your project creator.
 
 set(PROJECT_LICENSE_TYPE "MIT" CACHE STRING "Project License Type.") #Your project license type.
 
@@ -66,7 +68,7 @@ set(PROJECT_LANGUAGES CXX)
 set(PROJECT_USAGE_TYPE "application" CACHE STRING "Usage Type.")
 
 #Use these keys [stl, qt, qtwidget, qtquick]
-set(PROJECT_MAIN_TYPE "qtquick" CACHE STRING "Library System.")
+set(PROJECT_MAIN_TYPE "stl" CACHE STRING "Library System.")
 
 set(DEVELOPER_BUNDLE_IDENTIFIER com.kambizasadzadeh.app.${PROJECT_NAME} CACHE STRING "Developer Bundle Identifier.")
 
@@ -180,12 +182,21 @@ elseif(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
          source/entrypoint/qt/qtquick/${SUFFIX_SOURCE}
     )
 endif()
-
 if(${PROJECT_MAIN_TYPE} STREQUAL "qtwidget")
    file(GLOB UI_SOURCE ui/widgets/${SUFFIX_WIDGET})
-else()
-   file(GLOB UI_SOURCE ui/qtquick/${SUFFIX_QRC})
 endif()
+if(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
+   file(GLOB UI_SOURCE ui/qtquick/${SUFFIX_QRC})
+   file(GLOB UI_QML_SOURCE ui/qtquick/${SUFFIX_QML})
+endif()
+
+file(GLOB_RECURSE src_files ui/qtquick/${SUFFIX_QML})
+
+FOREACH(LETTER ${src_files})
+  string(REGEX REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" fileList "${LETTER}")
+  message(${fileList})
+  list(APPEND UI_QML_FILES ${fileList})
+ENDFOREACH()
 
 file(GLOB CONFIGFILE config/${SUFFIX_CONFIG})
 
@@ -195,6 +206,7 @@ file(GLOB SOURCESFILE
     ${HEADERS}
     ${SOURCES}
     ${UI_SOURCE}
+    ${UI_QML_SOURCE}
     ${UTILS}
     ${CONFIGFILE}
     ${PRECOMPILED}
@@ -206,6 +218,7 @@ source_group("Utilities"  FILES ${UTILS})
 source_group("Entry Point (Main)"   FILES ${MAIN_ENTRY_POINT})
 source_group("Base"   FILES ${HEADERS} ${SOURCES})
 source_group("UI"     FILES ${UI_SOURCE})
+source_group("UI/QML"     FILES ${UI_QML_SOURCE})
 source_group("Config" FILES ${CONFIGFILE})
 source_group("Examples"  FILES ${EXAMPLES})
 
@@ -239,6 +252,7 @@ message(STATUS "${Bold}CMAKE_CURRENT_SOURCE_DIR${ColourReset}	: ${CMAKE_CURRENT_
 message(STATUS "${BoldBlue}------ ${PROJECT_TARGET} End Configuration ------${ColourReset}")
 
 if(GUI_APPLICATION)
+
     if(USE_QT5_FEATURES)
         if(${PROJECT_MAIN_TYPE} STREQUAL "qt")
             list(APPEND QT_MODULES Core Core5Compat)
@@ -301,7 +315,6 @@ if(GUI_APPLICATION)
             find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
         endif()
     endif()
-
     if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         if(PROJECT_USAGE_TYPE STREQUAL "library")
             qt_add_library(${PROJECT_NAME}
@@ -309,10 +322,19 @@ if(GUI_APPLICATION)
                 ${SOURCESFILE}
             )
         else()
-            qt_add_executable(${PROJECT_NAME}
-                MANUAL_FINALIZATION
-                ${SOURCESFILE}
-            )
+            qt_add_resources(SOURCESFILE ui/qtquick/qml.qrc)
+            qt_add_executable(${PROJECT_NAME} MANUAL_FINALIZATION ${SOURCESFILE})
+            if(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
+                if(USE_QT_QUICK_COMPILER)
+                qt_add_qml_module(${PROJECT_NAME}
+                    URI ${PROJECT_NAME}
+                    VERSION 1.0
+                    RESOURCE_PREFIX /app.genyleap.com/import
+                    OUTPUT_DIRECTORY ""
+                    QML_FILES ${UI_QML_FILES}
+                )
+                endif()
+            endif()
         endif()
     else()
         if(ANDROID)
@@ -332,11 +354,52 @@ if(GUI_APPLICATION)
         endif()
     endif()
 
-    if(USE_QT_QUICK_COMPILER)
-    find_package(QtQuickCompiler)
-    qt_add_resources(UI_SOURCE ui/qtquick/qml.qrc)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES} ${QT_MODULES_LINK})
+
+    #Extra Modules
+    target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source ${LIB_TARGET_INCLUDE_DIRECTORIES})
+    target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source ${LIB_TARGET_LINK_DIRECTORIES})
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        MACOSX_BUNDLE_GUI_IDENTIFIER ${DEVELOPER_BUNDLE_IDENTIFIER}
+        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/properties/${PLATFORM_FOLDER}/Info.plist.in"
+        MACOSX_BUNDLE TRUE
+        WIN32_EXECUTABLE TRUE
+    )
+
+if(ANDROID)
+    include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
+endif()
+
+if(QT_VERSION_MAJOR GREATER_EQUAL 6.0) #From Qt.6.0
+        qt_import_qml_plugins(${PROJECT_NAME})
+    if(QT_VERSION GREATER_EQUAL 6.2) #From Qt6.2
+        qt_finalize_target(${PROJECT_NAME})
     endif()
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${QT_MODULES_LINK})
+    if(WIN32)
+        qt_disable_unicode_defines(${PROJECT_NAME})
+        qt_allow_non_utf8_sources(${PROJECT_NAME})
+    endif()
+endif()
+
+else()
+    if(ANDROID)
+        add_library(${PROJECT_NAME} SHARED
+            ${SOURCESFILE}
+        )
+    else()
+        if(PROJECT_USAGE_TYPE STREQUAL "library")
+            add_library(${PROJECT_NAME}
+              ${SOURCESFILE}
+            )
+        else()
+            add_executable(${PROJECT_NAME}
+              ${SOURCESFILE}
+            )
+        endif()
+    endif()
 
     #Extra Modules
     target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES})
@@ -361,25 +424,10 @@ if(GUI_APPLICATION)
         WIN32_EXECUTABLE TRUE
     )
 
-install(TARGETS ${PROJECT_NAME}
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
-if(ANDROID)
-    include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
-endif()
-
-if(QT_VERSION_MAJOR GREATER_EQUAL 6.0) #From Qt.6.0
-    qt_import_qml_plugins(${PROJECT_NAME})
-    if(QT_VERSION GREATER_EQUAL 6.2) #From Qt6.2
-        qt_finalize_target(${PROJECT_NAME})
-    endif()
-endif()
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${LIB_TARGET_COMPILER_DEFINATION})
 
-#set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS ${LIB_TARGET_PROPERTIES})
 #This command generates installation rules for a project.
 #Install rules specified by calls to the install() command within a source directory. are executed in order during installation.
 install(TARGETS ${PROJECT_NAME} DESTINATION build/bin)
