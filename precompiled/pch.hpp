@@ -1,24 +1,8 @@
 /*!
- * MIT License
+ * Gen3 License
  *
  * Copyright (c) 2021 Kambiz Asadzadeh
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * Copyright (c) 2023 Genyleap
  */
 
 #ifndef PCH_HPP
@@ -28,14 +12,20 @@
  * Creating and using precompiled headers can do two major things for you:
  * Can reduce the compilation time of C++ files.
  * Can reduce the number of lines of code that the compiler must process (in some cases, by several orders of magnitude).
-*/
+ */
 
-#include <utilities/preprocessor.hpp>
+#ifdef __has_include
+# if __has_include(<utilities/preprocessor.hpp>)
+#   include <utilities/preprocessor.hpp>
+# endif
+#else
+#   include <utilities/preprocessor.hpp>
+#endif
 
 //!Header files for the C++ standard library and extensions, by category.
 
 #ifdef CXX_STANDARD_98
-    #error "C++11 or better is required"
+#error "C++11 or better is required"
 #endif
 
 #include <algorithm>
@@ -328,6 +318,26 @@
 
 #ifdef _MSC_VER
 #include <intrin.h>
+#endif
+
+#if __cpp_lib_json
+#    include <json>
+#else
+# if __has_include(<boost/json.hpp>)
+#    include <boost/json.hpp>
+# elif __has_include(<json/json.h>)
+#    include <json/json.h>
+#endif
+#endif
+
+#if __cpp_lib_format
+#    include <format>
+#else
+# if __has_include(<boost/format.hpp>)
+#    include <boost/format.hpp>
+# elif __has_include(<fmt/format.h>)
+#    include <fmt/format.h>
+#endif
 #endif
 
 #endif // PCH_HPP

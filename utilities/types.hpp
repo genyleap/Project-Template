@@ -1,58 +1,21 @@
 /*!
- * MIT License
  *
  * Copyright (c) 2021 Kambiz Asadzadeh
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * Copyright (c) 2023 Genyleap
  */
 
 #ifndef PROJECT_TYPES_HPP
 #define PROJECT_TYPES_HPP
 
-#include "precompiled/pch.hpp" //get some header.
+#ifdef __has_include
+# if __has_include(<precompiled/pch.hpp>)
+#   include <precompiled/pch.hpp>
+# endif
+#else
+#   include <precompiled/pch.hpp>
+#endif
 
 namespace Types {
-
-using MapString = std::pair<std::string, std::string>;
-using MapVector = std::pair<std::string, std::vector<std::string>>;
-using MapList   = std::pair<std::string, std::map<std::string, std::string>>;
-
-template<typename T1, typename T2>
-using Map = std::map<T1, T2>;
-
-template<typename T>
-using Vector = std::vector<T>;
-
-template<typename T>
-using Optional = std::optional<T>;
-
-template<typename T>
-using Variant = std::variant<T>;
-
-template<typename T1, typename T2>
-using Pair = std::pair<T1, T2>;
-
-using Function = std::function<void(void)>;
-using PackagedTask = std::packaged_task<void(void)>;
-
-using MultiThreadVector = std::vector<std::thread>;
-
-using StringStream   =  std::basic_stringstream<char>;
 
 using schar        = signed char;
 using uchar        = unsigned char;
@@ -105,8 +68,54 @@ using su64 = std::uint_least64_t;
 using umax = std::uintmax_t; //! Maximum-width unsigned integer type
 using uptr = std::uintptr_t; //! Unsigned integer type capable of holding a pointer to void.
 
-using if_streamer    = std::ifstream;
-using string_stream  = std::stringstream;
+using VariantTypes      = std::map<std::string, std::variant<std::string, std::string_view, int, double, bool>>;
+using MapList           = std::pair<std::string, std::map<std::string, std::string>>;
+using MapVector         = std::pair<std::string, std::vector<std::string>>;
+using IteratorConfig    = std::map<std::string, std::string>::iterator;
+using LanguageType      = std::map<std::string, std::string>;
+using MetaList          = std::map<std::string, std::string>;
+using ResourceType      = std::map<std::string, std::string>;
+using MapConfig         = std::map<std::string, std::string>;
+using MapString         = std::map<std::string, std::string>;
+using PairString        = std::pair<std::string, std::string>;
+using SettingType       = std::map<int, std::string>;
+using VectorString      = std::vector<std::string>;
+using VectorSection     = std::vector<std::string>;
+using OptionalString    = std::optional<std::string>;
+
+using OptionalNumeric   = std::optional<int>;
+using OptionalBool      = std::optional<bool>;
+
+#if defined(USE_JSON) && !defined(USE_BOOST)
+namespace JSon      = Json;
+#   elif defined(USE_BOOST)
+namespace JSon      = boost::json;
+#   elif !defined(USE_JSON) && !defined(USE_BOOST)
+#if __cpp_lib_json
+namespace JSon      = std::json;
+#endif
+#endif
+
+using TableNames        = std::vector<std::string>;
+using QueryType         = std::vector<std::string>;
+using TranslateType     = std::string;
+
+template<typename T1, typename T2> using Map      = std::map<T1, T2>;
+template<typename T1, typename T2> using MultiMap = std::multimap<T1, T2>;
+template<typename T1, typename T2> using Pair     = std::pair<T1, T2>;
+
+template<typename T> using Vector        = std::vector<T>;
+template<typename T> using Optional      = std::optional<T>;
+template<typename T> using Variant       = std::variant<T>;
+
+
+using Function          = std::function<void(void)>;
+using PackagedTask      = std::packaged_task<void(void)>;
+using MultiThreadVector = std::vector<std::thread>;
+using StringStream      = std::basic_stringstream<char>;
+using String            = std::string;
+using IfStreamer        = std::ifstream;
+using StringStream      = std::stringstream;
 
 }
 
