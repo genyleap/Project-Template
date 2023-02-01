@@ -150,9 +150,9 @@ cmake .. -DUSE_CATCH2=true
 cmake .. -DUSE_CTRE=true
 ```
 
-- Include Non-STL JSon library
+- Include JSon library
 ```
-cmake .. -DUSE_NONE_STL_JSON=true
+cmake .. -DUSE_JSON=true
 ```
 
 - Include OpenSSL
