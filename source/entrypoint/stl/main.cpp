@@ -89,8 +89,7 @@ TEST_CASE( "Factorials are computed", "[factorial]" ) {
 #include "examples/thirdpartytest.hpp"
 
 #ifdef USE_OPENMESH
-#include <third-party/openmesh/openmesh-src/src/OpenMesh/Core/IO/MeshIO.hh>
-
+#include <OpenMesh/Core/IO/MeshIO.hh>
 #endif
 
 
