@@ -1,6 +1,6 @@
 # -------------------- PROJECT TEMPLATE INFO ---------------------------------------------
 #   Title   :                       Project Template
-#   Version :                       1.0.80
+#   Version :                       1.1.222
 #   Author  :                       Kambiz Asadzadeh
 #   Url     :                       https://github.com/genyleap/Project-Template
 #   Organization  :                 The Genyleap
@@ -354,7 +354,7 @@ if(GUI_APPLICATION)
         endif()
     endif()
 
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES} ${QT_MODULES_LINK})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES} ${QT_MODULES_LINK} ${OS_LIBS})
 
     #Extra Modules
     target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source ${LIB_TARGET_INCLUDE_DIRECTORIES})
@@ -402,7 +402,7 @@ else()
     endif()
 
     #Extra Modules
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES} ${OS_LIBS})
     target_include_directories(${PROJECT_NAME}
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/source PRIVATE source

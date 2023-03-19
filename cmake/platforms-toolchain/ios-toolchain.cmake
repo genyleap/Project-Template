@@ -10,6 +10,8 @@ if(NOT DEFINED IOS_BITCODE) # check xcode/clang version? since xcode 7
 endif()
 set(IOS_BITCODE_MARKER 0)
 
+set(OS_LIBS "-framework IOKit -framework Foundation")
+
 #------ PROJECT DIRECTORIES ------
 #set(dir ${CMAKE_CURRENT_SOURCE_DIR}/build/iOS)
 #set(EXECUTABLE_OUTPUT_PATH ${dir} CACHE PATH "Build directory" FORCE)

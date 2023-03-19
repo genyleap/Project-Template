@@ -17,4 +17,6 @@ SET(EXECUTABLE_OUTPUT_PATH ${dir})
 SET(LIBRARY_OUTPUT_PATH ${dir}lib/)
 SET(CMAKE_CACHEFILE_DIR ${dir})
 
+set(OS_LIBS "-framework IOKit -framework ApplicationServices -framework CoreServices -framework CoreGraphics -framework Foundation")
+
 message("CMAKE_BUILD_FILES_DIRECTORY: " ${CMAKE_BUILD_FILES_DIRECTORY})
