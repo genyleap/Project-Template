@@ -19,3 +19,7 @@ find_package(JSon       REQUIRED)
 find_package(Ctre       REQUIRED)
 find_package(Zlib       REQUIRED)
 find_package(Eigen      REQUIRED)
+
+if (USE_CUSTOM_ENGINE)
+  find_package(${ENGINE_CODE_NAME}  REQUIRED)
+endif()

@@ -315,6 +315,8 @@ required. For example, an array dimension.
 #define X86_64BIT
 #undef PROCESSOR
 #define PROCESSOR "Intel"
+#undef INTEL
+#define INTEL
 #undef ARCHITECTURE
 #define ARCHITECTURE "x86 (32-Bit)"
 #elif defined(__x86_64) || defined(__x86_64__) || defined(__amd64) ||          \
@@ -324,16 +326,10 @@ required. For example, an array dimension.
 #define X64_64BIT
 #undef PROCESSOR
 #define PROCESSOR "Intel"
+#undef INTEL
+#define INTEL
 #undef ARCHITECTURE
 #define ARCHITECTURE "x86_64 (64-Bit)"
-#elif defined(__aarch64__)
-//! arm64 based systems (64-bit)
-#undef ARM64_BIT
-#define ARM64_BIT
-#undef PROCESSOR
-#define PROCESSOR "Arm"
-#undef ARCHITECTURE
-#define ARCHITECTURE "Arm64 (64-Bit)"
 #endif
 
 /*
@@ -351,6 +347,8 @@ required. For example, an array dimension.
 #define INTEL_32BIT
 #undef PROCESSOR
 #define PROCESSOR "Intel"
+#undef INTEL
+#define INTEL
 #undef ARCHITECTURE_INTEL
 #define ARCHITECTURE_INTEL "x86 (32-Bit)"
 #elif defined(__x86_64__) && !defined(_M_AMD64)
@@ -359,6 +357,8 @@ required. For example, an array dimension.
 #define INTEL_64BIT
 #undef PROCESSOR
 #define PROCESSOR "Intel"
+#undef INTEL
+#define INTEL
 #undef ARCHITECTURE_INTEL
 #define ARCHITECTURE_INTEL "x86_64 (64-Bit)"
 #endif
@@ -378,6 +378,8 @@ required. For example, an array dimension.
 #define AMD_32BIT
 #undef PROCESSOR
 #define PROCESSOR "AMD"
+#undef AMD
+#define AMD
 #undef ARCHITECTURE
 #undef ARCHITECTURE_AMD
 #define ARCHITECTURE_AMD "x86 (32-Bit)"
@@ -388,6 +390,8 @@ required. For example, an array dimension.
 #define AMD_64BIT
 #undef PROCESSOR
 #define PROCESSOR "AMD"
+#undef AMD
+#define AMD
 #undef ARCHITECTURE_AMD
 #define ARCHITECTURE_AMD "x86_64 (64-Bit)"
 #endif
@@ -407,6 +411,8 @@ required. For example, an array dimension.
 #define ALPHA_32BIT
 #undef PROCESSOR
 #define PROCESSOR "Alpha"
+#undef ALPHA
+#define ALPHA
 #undef ARCHITECTURE
 #define ARCHITECTURE "Alpha (32-Bit)"
 #endif
@@ -426,6 +432,8 @@ required. For example, an array dimension.
 #define ARM_32BIT
 #undef PROCESSOR
 #define PROCESSOR "Arm"
+#undef ARM
+#define ARM
 #undef ARCHITECTURE
 #define ARCHITECTURE "Arm (32-Bit)"
 #endif
@@ -443,8 +451,10 @@ required. For example, an array dimension.
 #define ARM_64BIT
 #undef PROCESSOR
 #define PROCESSOR "Arm64"
+#undef ARM
+#define ARM
 #undef ARCHITECTURE
-#define ARCHITECTURE "ARM64 (64-Bit)"
+#define ARCHITECTURE "ARM64/AArch64 (64-Bit)"
 #endif
 
 /*
@@ -460,6 +470,8 @@ required. For example, an array dimension.
 #define PA_RISC_32BIT
 #undef PROCESSOR
 #define PROCESSOR "Convex PA-RISC"
+#undef PA_RISC
+#define PA_RISC
 #undef ARCHITECTURE
 #define ARCHITECTURE "RISC (32-Bit)"
 #endif
@@ -477,6 +489,8 @@ required. For example, an array dimension.
 #define EP_32BIT
 #undef PROCESSOR
 #define PROCESSOR "Adapteva Epiphany"
+#undef EPIPHANY
+#define EPIPHANY
 #undef ARCHITECTURE
 #define ARCHITECTURE "Epiphany (32-Bit)"
 #endif
@@ -494,6 +508,8 @@ required. For example, an array dimension.
 #define MOTOROLA_32BIT
 #undef PROCESSOR
 #define PROCESSOR "Motorola 68000"
+#undef MOTOROLA
+#define MOTOROLA
 #undef ARCHITECTURE
 #define ARCHITECTURE "Motorola (32-Bit)"
 #endif
@@ -522,6 +538,8 @@ required. For example, an array dimension.
 #define PROCESSOR "Power PC"
 #undef ARCHITECTURE
 #define ARCHITECTURE "PowerPC (32-Bit)"
+#undef POWER_PC
+#define POWER_PC
 /// Indicates that the target architecture is PowerPC and that 64-bit
 /// compilation mode is enabled.
 #elif defined(__powerpc64__)
@@ -530,6 +548,8 @@ required. For example, an array dimension.
 #define POWER_PC_64bit__
 #undef PROCESSOR
 #define PROCESSOR "Power PC"
+#undef POWER_PC
+#define POWER_PC
 #undef ARCHITECTURE
 #define ARCHITECTURE "PowerPC (64-Bit)"
 #endif
@@ -568,6 +588,8 @@ required. For example, an array dimension.
 #define SPARC_32BIT
 #undef PROCESSOR
 #define PROCESSOR "Sparc"
+#undef SPARC
+#define SPARC
 #undef ARCHITECTURE
 #define ARCHITECTURE "Sparc (32-Bit)"
 #elif defined(__sparc64__)
@@ -576,6 +598,8 @@ required. For example, an array dimension.
 #define SPARC_64bit__
 #undef PROCESSOR
 #define PROCESSOR "Sparc"
+#undef SPARC
+#define SPARC
 #undef ARCHITECTURE
 #define ARCHITECTURE "Sparc (64-Bit)"
 #endif
@@ -595,6 +619,8 @@ required. For example, an array dimension.
 #define ARM_32BIT
 #undef PROCESSOR
 #define PROCESSOR "Arm"
+#undef ARM
+#define ARM
 #undef ARCHITECTURE
 #define ARCHITECTURE "Arm (32-Bit)"
 #endif
@@ -676,12 +702,16 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x86 (32-Bit)"
 #define PLATFORM_AIX "AIX"
 #define PLATFORM_TYPE "UNIX AIX"
+#undef AIX
+#define AIX
 #elif defined(X64_64bit) && defined(_AIX) || defined(__TOS_AIX__) ||           \
     defined(__xlC__)
 /* IBM AIX. ------------------------------------------------- */
 #define PLATFORM_OS "AIX"
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_AIX "AIX"
+#undef AIX
+#define AIX
 #define PLATFORM_TYPE "UNIX AIX"
 #endif
 
@@ -699,6 +729,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x86 (32-Bit)"
 #define PLATFORM_HP "HP"
 #define PLATFORM_TYPE "UNIX HP-UX"
+#undef HPUX
+#define HPUX
 #elif defined(X64_64bit) && defined(X86_32bit) && defined(hpux) ||             \
     defined(__hpux) || defined(__hpux) || defined(__hpux)
 /* Hewlett-Packard HP-UX. ----------------------------------- */
@@ -706,6 +738,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_HP "HP"
 #define PLATFORM_TYPE "UNIX HP-UX"
+#undef HPUX
+#define HPUX
 #endif
 
 /*
@@ -722,6 +756,8 @@ required. For example, an array dimension.
 #define PLATFORM_LINUX "Linux"
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_TYPE "Unix (Linux)"
+#undef PLATFORM_IS_LINUX
+#define PLATFORM_IS_LINUX
 #elif defined(X64_64bit) && defined(__linux) && defined(__linux__) && defined(linux)
 /* Linux. --------------------------------------------------- */
 #define PLATFORM_OS "Linux"
@@ -729,6 +765,8 @@ required. For example, an array dimension.
 #define PLATFORM_LINUX "Linux"
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_TYPE "Unix (Linux)"
+#undef PLATFORM_IS_LINUX
+#define PLATFORM_IS_LINUX
 /* Linux. --------------------------------------------------- */
 #elif defined(ARM64_BIT) && defined(__linux) && defined(__linux__) && !defined(ANDROID)
 #define PLATFORM_OS "Linux"
@@ -736,6 +774,8 @@ required. For example, an array dimension.
 #define PLATFORM_LINUX "Linux"
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_TYPE "Unix (Linux)"
+#undef PLATFORM_IS_LINUX
+#define PLATFORM_IS_LINUX
 #endif
 
 /*
@@ -756,6 +796,8 @@ required. For example, an array dimension.
 #define PLATFORM_MOBILE
 #define PLATFORM_IOS_SIMULATOR "iOS Simulator"
 #define PLATFORM_TYPE "iOS-Emulator"
+#undef PLATFORM_IS_IOS_EMULATOR
+#define PLATFORM_IS_IOS_EMULATOR
 #elif TARGET_OS_WATCH == 1
 /* iOS on iWatch. */
 #define PLATFORM_OS "Apple iOS"
@@ -763,6 +805,8 @@ required. For example, an array dimension.
 #define PLATFORM_MOBILE
 #define PLATFORM_IWATCH "iOS (iWatch)"
 #define PLATFORM_TYPE "iWatch"
+#undef PLATFORM_IS_IWATCH
+#define PLATFORM_IS_IWATCH
 #elif TARGET_OS_TV == 1
 /* Apple TV. */
 #define PLATFORM_OS "Apple iOS"
@@ -770,6 +814,8 @@ required. For example, an array dimension.
 #define PLATFORM_MOBILE
 #define PLATFORM_APPLE_TV "Apple (TV)"
 #define PLATFORM_TYPE "Apple TV"
+#undef PLATFORM_IS_IOS_APPLE_TV
+#define PLATFORM_IS_IOS_APPLE_TV
 #elif TARGET_OS_IPHONE == 1
 /* iOS on iPhone, iPad, etc. */
 #if defined(__arm__) && !defined(__arm64__)
@@ -779,6 +825,8 @@ required. For example, an array dimension.
 #define PLATFORM_IOS "iOS"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_TYPE "iPhone, iPad"
+#undef PLATFORM_IS_IOS
+#define PLATFORM_IS_IOS
 #elif !defined(__arm__) && defined(__arm64__)
 #define PLATFORM_OS "Apple iOS"
 #define PLATFORM_ARCH "arm64 (64-Bit)"
@@ -786,6 +834,8 @@ required. For example, an array dimension.
 #define PLATFORM_IOS "iOS"
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_TYPE "iPhone, iPad"
+#undef PLATFORM_IS_IOS
+#define PLATFORM_IS_IOS
 #endif
 #elif TARGET_OS_MAC == 1
 /* macOS */
@@ -795,51 +845,8 @@ required. For example, an array dimension.
 #define PLATFORM_MAC "Unix(Darwin)-macOS (X11)"
 #define PLATFORM_DEVICE "Unix(Darwin)-macOS (X11)"
 #define PLATFORM_TYPE "Macintosh"
-#endif
-#elif defined(X64_64bit) && defined(__APPLE__) && defined(__MACH__)
-// Detect for x64
-/* Apple OSX and iOS (Darwin). ------------------------------ */
-#include <TargetConditionals.h>
-#if TARGET_OS_SIMULATOR == 1
-/* iOS in Xcode simulator */
-#define PLATFORM_OS "Apple iOS"
-#define PLATFORM_ARCH "x86_64"
-#define PLATFORM_MOBILE
-#define PLATFORM_IOS_SIMULATOR "iOS Simulator"
-#define PLATFORM_DEVICE "Simulator"
-#define PLATFORM_TYPE "iOS-Emulator"
-#elif TARGET_OS_WATCH == 1
-/* iOS on iWatch. */
-#define PLATFORM_OS "Apple iOS"
-#define PLATFORM_ARCH "x64 (64-Bit)"
-#define PLATFORM_IWATCH "x64 (64-Bit)"
-#define PLATFORM_MOBILE
-#define PLATFORM_DEVICE "iOS (iWatch)"
-#define PLATFORM_TYPE "iWatch"
-#elif TARGET_OS_TV == 1
-/* Apple TV. */
-#define PLATFORM_OS "Apple iOS"
-#define PLATFORM_ARCH "x64 (64-Bit)"
-#define PLATFORM_APPLE_TV "Apple (TV)"
-#define PLATFORM_MOBILE
-#define PLATFORM_DEVICE "Apple (TV)"
-#define PLATFORM_TYPE "Apple TV"
-#elif TARGET_OS_IPHONE == 1
-/* iOS on iPhone, iPad, etc. */
-#define PLATFORM_OS "Apple iOS"
-#define PLATFORM_ARCH "ARM (64-Bit)"
-#define PLATFORM_MOBILE
-#define PLATFORM_IOS "iOS"
-#define PLATFORM_DEVICE "Mobile"
-#define PLATFORM_TYPE "iPhone, iPad"
-#elif TARGET_OS_MAC == 1
-/* macOS */
-#define PLATFORM_OS "macOS"
-#define PLATFORM_ARCH "x64 (64-Bit)"
-#define PLATFORM_DEVICE "Desktop"
-#define PLATFORM_DESKTOP
-#define PLATFORM_MAC "Unix-macOS (X11)"
-#define PLATFORM_TYPE "Macintosh"
+#undef PLATFORM_IS_MAC
+#define PLATFORM_IS_MAC
 #endif
 #endif
 #if defined(_APPLE) && defined(_LINUX) ||                                      \
@@ -887,6 +894,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "armv7a (32-Bit)"
 #undef PLATFORM_TYPE
 #define PLATFORM_TYPE "Android"
+#undef PLATFORM_IS_ANDROID
+#define PLATFORM_IS_ANDROID
 #elif defined(__aarch64__) && defined(__ANDROID__)
 /* Android. ------------------------------------------------- */
 #define PLATFORM_OS "Linux"
@@ -899,6 +908,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "arm64-v8a (64-Bit)"
 #undef PLATFORM_TYPE
 #define PLATFORM_TYPE "Android"
+#undef PLATFORM_IS_ANDROID
+#define PLATFORM_IS_ANDROID
 #elif defined(X86_64BIT) && !defined(__aarch64__) && !defined(__ARM_ARCH) && defined(__ANDROID__)
 /* Android. ------------------------------------------------- */
 #define PLATFORM_OS "Linux"
@@ -911,6 +922,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x86 (32-Bit)"
 #undef PLATFORM_TYPE
 #define PLATFORM_TYPE "Android"
+#undef PLATFORM_IS_ANDROID
+#define PLATFORM_IS_ANDROID
 #elif defined(X64_64BIT) && !defined(__aarch64__) && !defined(__ARM_ARCH) && defined(__ANDROID__)
 /* Android. ------------------------------------------------- */
 #define PLATFORM_OS "Linux"
@@ -923,6 +936,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x86_64 (64-Bit)"
 #undef PLATFORM_TYPE
 #define PLATFORM_TYPE "Android"
+#undef PLATFORM_IS_ANDROID
+#define PLATFORM_IS_ANDROID
 #endif
 
 /*
@@ -944,6 +959,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_POSIX_WINDOWS "POSIX under Microsoft Windows"
 #define PLATFORM_TYPE "POSIX under Microsoft Windows"
+#undef PLATFORM_IS_WINDOWS
+#define PLATFORM_IS_WINDOWS
 #endif
 
 /* FreeBSD */
@@ -958,6 +975,8 @@ required. For example, an array dimension.
 #define PLATFORM_OS "FreeBSD"
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_FREEBSD "Linux (FreeBSD)"
+#undef PLATFORM_IS_FREEBSD
+#define PLATFORM_IS_FREEBSD
 #endif
 
 /*
@@ -979,6 +998,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_ORBIS "Linux (Orbis)"
 #define PLATFORM_TYPE "Playstation"
+#undef PLATFORM_IS_PLAYSTATION
+#define PLATFORM_IS_PLAYSTATION
 #endif
 
 /* OpenBSD */
@@ -992,6 +1013,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_OPENBSD "OpenBSD"
 #define PLATFORM_TYPE "OpenBSD"
+#undef PLATFORM_IS_OPENBSD
+#define PLATFORM_IS_OPENBSD
 #endif
 
 #if defined(_XBOX_ONE) && defined(_TITLE)
@@ -999,6 +1022,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "AMD64 (x86-64)"
 #define PLATFORM_XBOX "Windows 10 (Xbox)"
 #define PLATFORM_TYPE "Xbox"
+#undef PLATFORM_IS_XBOX
+#define PLATFORM_IS_XBOX
 #endif
 
 /* NetBSD */
@@ -1012,6 +1037,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_BLACKBERRY "NetBSD"
 #define PLATFORM_TYPE "NetBSD"
+#undef PLATFORM_IS_NETBSD
+#define PLATFORM_IS_NETBSD
 #endif
 
 /* QNX (Blackberry) variant */
@@ -1025,6 +1052,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_BLACKBERRY "QNX"
 #define PLATFORM_TYPE "Blackberry"
+#undef PLATFORM_IS_BLACKBERRY
+#define PLATFORM_IS_BLACKBERRY
 #endif
 
 /* VMS */
@@ -1038,6 +1067,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_VMS "DEC (OpenVMS)"
 #define PLATFORM_TYPE "DEC"
+#undef PLATFORM_IS_OPENVMS
+#define PLATFORM_IS_OPENVMS
 #endif
 
 /* VXWORKS variant */
@@ -1051,6 +1082,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_VXWORKS "Monolithic"
 #define PLATFORM_TYPE "VXWORKS"
+#undef PLATFORM_IS_VXWORKS
+#define PLATFORM_IS_VXWORKS
 #endif
 
 /* Motorola 68K.  Not defined by VBCC, so user must define one of these
@@ -1093,6 +1126,8 @@ required. For example, an array dimension.
 #define PLATFORM_ARCH "x64 (64-Bit)"
 #define PLATFORM_ULTRIX "Ultrix"
 #define PLATFORM_TYPE "Ultrix"
+#undef PLATFORM_IS_ULTRIX
+#define PLATFORM_IS_ULTRIX
 #endif
 
 /* Embedded */
@@ -1107,6 +1142,8 @@ required. For example, an array dimension.
 #define PLATFORM_DOS "Microsoft-DOS"
 #define PLATFORM_ARCH "16-Bit"
 #define PLATFORM_TYPE "MS-Dos"
+#undef PLATFORM_IS_MSDOS
+#define PLATFORM_IS_MSDOS
 #endif
 
 /*
@@ -1126,6 +1163,8 @@ required. For example, an array dimension.
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_DESKTOP
 #define PLATFORM_TYPE "PC"
+#undef PLATFORM_IS_PC
+#define PLATFORM_IS_PC
 #elif defined(_WIN64) && defined(_WIN32) && !defined(_M_ARM64) && !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 /* Microsoft Windows (64-bit). ------------------------------ */
 #define PLATFORM_OS "Windows"
@@ -1135,6 +1174,8 @@ required. For example, an array dimension.
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_DESKTOP
 #define PLATFORM_TYPE "PC"
+#undef PLATFORM_IS_PC
+#define PLATFORM_IS_PC
 #elif defined(_M_ARM64) && defined(_WIN32) && !defined (WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 /* Microsoft Windows (64-bit). ------------------------------ */
 #define PLATFORM_OS "Windows"
@@ -1144,6 +1185,8 @@ required. For example, an array dimension.
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_DESKTOP
 #define PLATFORM_TYPE "PC"
+#undef PLATFORM_IS_PC
+#define PLATFORM_IS_PC
 /* Microsoft Phone ------------------------------ */
 #elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
 /* Microsoft Windows Store or Universal Windows Platform - (32-bit).
@@ -1155,6 +1198,8 @@ required. For example, an array dimension.
 #define PLATFORM_DEVICE "Desktop"
 #define PLATFORM_DESKTOP
 #define PLATFORM_TYPE "PC"
+#undef PLATFORM_IS_PC
+#define PLATFORM_IS_PC
 #elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP) &&        \
     defined(_WIN64) && !defined(_WIN32) && !defined(_WIN32_WINNT)
 /* Microsoft Windows (64-bit). ------------------------------ */
@@ -1166,6 +1211,8 @@ required. For example, an array dimension.
 #define PLATFORM_DESKTOP
 #define PLATFORM_WINDOWS "Microsoft Windows"
 #define PLATFORM_TYPE "PC"
+#undef PLATFORM_IS_PC
+#define PLATFORM_IS_PC
 /* Microsoft Phone ------------------------------ */
 #elif defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
 /* Microsoft Windows (Phone). ------------------------------ */
@@ -1182,6 +1229,8 @@ required. For example, an array dimension.
 #define PLATFORM_DEVICE "Mobile"
 #define PLATFORM_WINDOWS_PHONE "Windows Phone"
 #define PLATFORM_TYPE "Mobile (Windows Phone)"
+#undef PLATFORM_IS_WINDOWS_PHONE
+#define PLATFORM_IS_WINDOWS_PHPNE
 #endif
 
 //! Language Standard Macro
