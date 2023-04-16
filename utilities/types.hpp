@@ -65,6 +65,11 @@ using su16 = std::uint_least16_t;
 using su32 = std::uint_least32_t;
 using su64 = std::uint_least64_t;
 
+using f32  = float;
+using f64  = double;
+
+using b8   = bool;
+
 using umax = std::uintmax_t; //! Maximum-width unsigned integer type
 using uptr = std::uintptr_t; //! Unsigned integer type capable of holding a pointer to void.
 
