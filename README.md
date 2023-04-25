@@ -84,6 +84,12 @@ cmake .. -DUSE_BOOST=true
 cmake .. -DGUI_APPLICATION=true
 ```
 
+- Force to update latest version of dependencies from repositories.
+```
+cmake .. -DFORCE_UPGRADED_LIBS=false
+```
+
+
 - Include UI
 ```
 cmake .. -DHAS_USER_INTERFACE=true
