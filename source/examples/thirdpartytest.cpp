@@ -1,8 +1,12 @@
 #include "thirdpartytest.hpp"
 
 #if defined (USE_FMT)
-#include <fmt/format-inl.h>
-#include <fmt/format.h>
+#   include <fmt/format-inl.h>
+#   include <fmt/format.h>
+#   include <fmt/core.h>
+#   include <fmt/compile.h>
+#   include <fmt/ranges.h>
+#   include <fmt/chrono.h>
 #endif
 
 #if defined (USE_CTRE)
@@ -27,8 +31,12 @@ void ThirdPartyTest::testFmt()
     std::cout << "========FMT TEST========" << std::endl;
     fmt::print("This is a great template for C++{}.\n", 20);
     fmt::print("I'd rather be {1} than {0}.\n", "right", "happy");
-    fmt::print("Hello, {name}! The answer is {number}. Goodbye, {name}.\n",
-               fmt::arg("name", "World"), fmt::arg("number", 42));
+    fmt::print("Hello, {name}! The answer is {number}. Goodbye, {name}.\n", fmt::arg("name", "World"), fmt::arg("number", 42));
+
+    //!9.1.0
+    auto v = std::vector{1, 2, 3};
+    fmt::print("{:n}\n", v); // prints 1, 2, 3
+
     std::cout << "========FMT TEST========" << std::endl;
 #else
     std::cout << "Please enable USE_FMT!" << std::endl;

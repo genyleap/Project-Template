@@ -15,8 +15,10 @@
 #include "examples/configtest.hpp"
 
 //!JSon [Non-STL] Features
-#ifdef USE_JSON
-#include <nlohmann/json.hpp>
+#if defined(USE_JSON) && !defined(USE_BOOST)
+#include <json/json.h>
+#else
+//#include <boost/json.hpp>
 #endif
 //!Google Test
 #ifdef USE_GOOGLE_TEST
@@ -103,6 +105,7 @@ int main()
 {
     cout << "Hello World!" << endl;
 
+
     //!Config Test
     ConfigTest config;
     config.readConfig();
@@ -117,7 +120,9 @@ int main()
 
     //!Library Test
     LibraryTest library;
+    library.testOpenSSL(); // OpenSSL
     library.testBoost(); // Boost
+    library.testOpenCV(); // OpenCV
 
     //!Language Features
     LanguageTest language;
@@ -127,6 +132,8 @@ int main()
     ThirdPartyTest thirdPartyTest;
     thirdPartyTest.testFmt();
     thirdPartyTest.testCtre();
+
+
 
     return 0;
 }

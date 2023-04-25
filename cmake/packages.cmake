@@ -10,6 +10,7 @@ endif()
 
 find_package(Boost      REQUIRED)
 find_package(OpenSSL    REQUIRED)
+find_package(OpenCV     REQUIRED)
 find_package(OpenMesh   REQUIRED)
 find_package(GTest      REQUIRED)
 find_package(DocTest    REQUIRED)

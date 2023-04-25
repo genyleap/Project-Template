@@ -1,17 +1,24 @@
-#Package Info.
+# Package Info.
 set(OPENMESH_NAME "OpenMesh")
 set(OPENMESH_DESCRIPTION "A generic and efficient polygon mesh data structure.")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
-#Pakcage option.
+# Pakcage option.
 option(USE_OPENMESH ${OPENMESH_DESCRIPTION} FALSE)
 if (USE_OPENMESH)
     add_definitions(-DUSE_OPENMESH)
+    # Define the repository URL and tag for the OpenMesh libraries
+    set(OPENMESH_URL "https://github.com/Lawrencemm/openmesh.git")
+if(FORCE_UPGRADED_LIBS)
+    set(OPENMESH_TAG "master")
+else()
+    set(OPENMESH_TAG "lm-minimal")
+endif()
 endif()
 
 find_package(PkgConfig QUIET)
 pkg_search_module(${OPENMESH_NAME} openmesh)
-#Package data repository.
+# Package data repository.
 if(USE_OPENMESH)
     set(FETCHCONTENT_QUIET off)
     get_filename_component(openmesh_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/${OPENMESH_NAME}"
@@ -19,8 +26,8 @@ if(USE_OPENMESH)
     set(FETCHCONTENT_BASE_DIR ${openmesh_base})
     FetchContent_Declare(
         openmesh
-        GIT_REPOSITORY      https://github.com/Lawrencemm/openmesh.git
-        GIT_TAG master
+        GIT_REPOSITORY      ${OPENMESH_URL}
+        GIT_TAG             ${OPENMESH_TAG}
         GIT_PROGRESS   TRUE
         USES_TERMINAL_DOWNLOAD TRUE
         )

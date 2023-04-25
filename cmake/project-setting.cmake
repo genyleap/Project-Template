@@ -18,6 +18,11 @@ if (GUI_APPLICATION)
   add_definitions(-DGUI_APPLICATION)
 endif()
 
+option(FORCE_UPGRADED_LIBS    "Force to update latest version of dependencies from repositories."  FALSE)
+if (FORCE_UPGRADED_LIBS)
+  add_definitions(-DFORCE_UPGRADED_LIBS)
+endif()
+
 option(USE_CUSTOM_ENGINE    "Include your own engine"  FALSE)
 if (USE_CUSTOM_ENGINE)
   add_definitions(-DUSE_CUSTOM_ENGINE)
