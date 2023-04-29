@@ -1,26 +1,29 @@
-option(USE_CURL    "Include Curl"  FALSE)
+# Package Info.
+set(CURL_NAME "Curl")
+set(CURL_DESCRIPTION "A command-line tool used to transfer data from or to a server using various protocols such as HTTP, FTP, SMTP, etc. It is widely used in the development of web applications to test APIs or interact with web servers.")
+
+# Pakcage option.
+option(USE_CURL ${CURL_DESCRIPTION} FALSE)
 if (USE_CURL)
     add_definitions(-DUSE_CURL)
 endif()
 
 if(USE_CURL)
-    set(FETCHCONTENT_QUIET off)
-    get_filename_component(curl_base "${CMAKE_CURRENT_SOURCE_DIR}/${THIRD_PARTY}/curl" REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
-    set(FETCHCONTENT_BASE_DIR ${curl_base})
-    FetchContent_Declare(
-        curl
-        GIT_REPOSITORY      https://github.com/curl/curl.git
-        GIT_TAG master
-        GIT_PROGRESS   TRUE
-        USES_TERMINAL_DOWNLOAD TRUE
-        )
+    # Search Curl
+    find_package(PkgConfig REQUIRED)
+    pkg_search_module(OPENSSL REQUIRED openssl)
 
-    # Check if population has already been performed
-    FetchContent_GetProperties(curl)
-    string(TOLOWER "curl" lcName)
-    if(NOT ${lcName}_POPULATED)
-        FetchContent_Populate(${lcName})
-        add_subdirectory(${${lcName}_SOURCE_DIR} ${${lcName}_BINARY_DIR} EXCLUDE_FROM_ALL)
+    if(CURL_FOUND)
+        message(STATUS "Using Curl ${CURL_VERSION}")
+    else()
+        # Error; with REQUIRED, pkg_search_module() will throw an error by it's own
     endif()
-    FetchContent_MakeAvailable(curl)
+    list(APPEND LIB_MODULES curl)
+    list(APPEND LIB_TARGET_INCLUDE_DIRECTORIES ${CURL_INCLUDE_DIRS})
+    list(APPEND LIB_TARGET_LIBRARY_DIRECTORIES ${CURL_LIBRARY_DIRS})
+    list(APPEND LIB_TARGET_LINK_DIRECTORIES ${CURL_LIBRARY_DIRS})
+    list(APPEND LIB_TARGET_COMPILER_DEFINATION "")
+endif()
+if(NOT CURL_FOUND)
+    return()
 endif()
