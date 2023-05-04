@@ -8,6 +8,7 @@ public:
   void testOpenSSL() const noexcept;
   void testOpenCV() const noexcept;
   void testBoost() const noexcept;
+  void testJwt() const noexcept;
 };
 
 #endif // LIBRARYTEST_HPP

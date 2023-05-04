@@ -17,15 +17,19 @@
 #   include <opencv2/highgui.hpp>
 #endif
 
+#ifdef USE_JWT
+#   include <jwt-cpp/jwt.h>
+#endif
+
 LibraryTest::LibraryTest()
 {
 }
 
+#ifdef USE_OPENSSL
 void LibraryTest::testOpenSSL() const noexcept
 {
     std::cout << "========OPENSSL TEST========" << std::endl;
     //!OpenSSL Library
-#ifdef USE_OPENSSL
     std::cout << "OpenSSL version: " << OPENSSL_VERSION_STR << std::endl;
 
     std::string str {"Hello, World!"};
@@ -57,17 +61,13 @@ void LibraryTest::testOpenSSL() const noexcept
     std::string hash = ss.str();
 
     std::cout << "Hash of " << str << " is " << hash << std::endl;
-
-#else
-    std::cout << "OpenSSL Library is not available.\n";
-#endif
-    std::cout << "========OPENSSL TEST========" << std::endl;
 }
+#endif
 
+#ifdef USE_OPENCV
 void LibraryTest::testOpenCV() const noexcept
 {
     std::cout << "========OpenCV TEST========" << std::endl;
-#ifdef USE_OPENCV
     std::string image_path = cv::samples::findFile("starry_night.jpg");
     cv::Mat img = imread(image_path, cv::IMREAD_COLOR);
     if(img.empty())
@@ -80,18 +80,13 @@ void LibraryTest::testOpenCV() const noexcept
     {
         imwrite("starry_night.png", img);
     }
-#else
-    std::cout << "OpenCV Library is not available.\n";
-#endif
-    std::cout << "========OpenCV TEST========" << std::endl;
 }
+#endif
 
-
+#ifdef USE_BOOST
 void LibraryTest::testBoost() const noexcept
 {
 std::cout << "========BOOST TEST========" << std::endl;
-  //!Boost Library
-#ifdef USE_BOOST
   std::cout << "Boost version: " << BOOST_VERSION << std::endl;
   std::cout << "Boost Lib Clock Test\n";
   boost::chrono::system_clock::time_point start = boost::chrono::system_clock::now();
@@ -99,8 +94,46 @@ std::cout << "========BOOST TEST========" << std::endl;
     std::sqrt( 123.456L ); // burn some time
   boost::chrono::duration<double> sec = boost::chrono::system_clock::now() - start;
   std::cout << "took " << sec.count() << " seconds\n";
-#else
-  std::cout << "Boost Library is not available.\n";
-#endif
-  std::cout << "========BOOST TEST========" << std::endl;
 }
+#endif
+
+#ifdef USE_JWT
+void LibraryTest::testJwt() const noexcept
+{
+  // Set the secret key used to sign and verify JWTs
+  std::string secret_key = "my_secret_key";
+
+         // Create a JWT with a payload
+  std::string payload = R"({
+        "user_id": 12345,
+        "email": "user@example.com"
+    })";
+  std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+  std::chrono::system_clock::time_point exp = now + std::chrono::seconds(30); // expires in 30 seconds
+  std::string token = jwt::create()
+                          .set_issuer("my_app")
+                          .set_subject("auth_token")
+                          .set_issued_at(now)
+                          .set_expires_at(exp)
+                          .set_payload_claim("data", jwt::claim(payload))
+                          .sign(jwt::algorithm::hs256{ secret_key });
+
+         // Print the JWT
+  std::cout << "Token: " << token << std::endl;
+
+         // Verify the JWT and extract the payload
+  try {
+    jwt::decoded_jwt decoded = jwt::decode(token);
+    jwt::verify()
+        .allow_algorithm(jwt::algorithm::hs256{ secret_key })
+        .with_issuer("my_app")
+        .with_subject("auth_token")
+        .verify(decoded);
+    std::string payload_str = decoded.get_payload_claim("data").as_string();
+    std::cout << "Payload: " << payload_str << std::endl;
+  } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+  }
+
+}
+#endif
