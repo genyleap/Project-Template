@@ -4,11 +4,19 @@
 class LibraryTest
 {
 public:
-  LibraryTest();
-  void testOpenSSL() const noexcept;
-  void testOpenCV() const noexcept;
-  void testBoost() const noexcept;
-  void testJwt() const noexcept;
+    LibraryTest();
+#ifdef USE_OPENSSL
+    void testOpenSSL() const noexcept;
+#endif
+#ifdef USE_BOOST
+    void testBoost() const noexcept;
+#endif
+#ifdef USE_OPENCV
+    void testOpenCV() const noexcept;
+#endif
+#ifdef USE_JWT
+    void testJwt() const noexcept;
+#endif
 };
 
 #endif // LIBRARYTEST_HPP
