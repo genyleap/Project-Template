@@ -321,9 +321,9 @@ if(GUI_APPLICATION AND PROJECT_MAIN_TYPE STREQUAL "qt" OR PROJECT_MAIN_TYPE STRE
                 ${SOURCESFILE}
             )
         else()
-            qt_add_resources(SOURCESFILE ui/qtquick/qml.qrc)
             qt_add_executable(${PROJECT_NAME} MANUAL_FINALIZATION ${SOURCESFILE})
             if(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
+                qt_add_resources(SOURCESFILE ui/qtquick/qml.qrc)
                 if(USE_QT_QUICK_COMPILER)
                 qt_add_qml_module(${PROJECT_NAME}
                     URI ${PROJECT_NAME}
@@ -373,7 +373,9 @@ if(ANDROID)
 endif()
 
 if(QT_VERSION_MAJOR GREATER_EQUAL 6.0) #From Qt.6.0
+    if(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
         qt_import_qml_plugins(${PROJECT_NAME})
+    endif()
     if(QT_VERSION GREATER_EQUAL 6.2) #From Qt6.2
         qt_finalize_target(${PROJECT_NAME})
     endif()
