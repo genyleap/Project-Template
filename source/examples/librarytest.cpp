@@ -37,25 +37,25 @@ void LibraryTest::testOpenSSL() const noexcept
     EVP_MD_CTX* ctx = EVP_MD_CTX_new();
     EVP_MD_CTX_init(ctx);
 
-           // Set the hash algorithm
+    // Set the hash algorithm
     const EVP_MD* md = EVP_sha256();
 
-           // Initialize the digest buffer
+    // Initialize the digest buffer
     unsigned char digest[SHA256_DIGEST_LENGTH];
 
-           // Hash the input string
+    // Hash the input string
     EVP_DigestInit_ex(ctx, md, nullptr);
     EVP_DigestUpdate(ctx, str.c_str(), str.length());
     EVP_DigestFinal_ex(ctx, digest, nullptr);
 
-           // Convert the digest buffer to string
+    // Convert the digest buffer to string
     std::stringstream ss;
     for (int i = 0; i < SHA256_DIGEST_LENGTH; ++i)
     {
         ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(digest[i]);
     }
 
-           // Clean up the hash context
+    // Clean up the hash context
     EVP_MD_CTX_free(ctx);
 
     std::string hash = ss.str();
@@ -103,7 +103,7 @@ void LibraryTest::testJwt() const noexcept
     // Set the secret key used to sign and verify JWTs
     std::string secret_key = "my_secret_key";
 
-           // Create a JWT with a payload
+    // Create a JWT with a payload
     std::string payload = R"({
         "user_id": 12345,
         "email": "user@example.com"
@@ -118,10 +118,10 @@ void LibraryTest::testJwt() const noexcept
                             .set_payload_claim("data", jwt::claim(payload))
                             .sign(jwt::algorithm::hs256{ secret_key });
 
-           // Print the JWT
+    // Print the JWT
     std::cout << "Token: " << token << std::endl;
 
-           // Verify the JWT and extract the payload
+    // Verify the JWT and extract the payload
     try {
         jwt::decoded_jwt decoded = jwt::decode(token);
         jwt::verify()

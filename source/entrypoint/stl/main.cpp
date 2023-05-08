@@ -31,8 +31,8 @@ public:
         return m_counter++;
     }
 
-    // Returns the current counter value, and decrements it.
-    // counter can not be less than 0, return 0 in this case
+           // Returns the current counter value, and decrements it.
+           // counter can not be less than 0, return 0 in this case
     int Decrement() {
         if (m_counter == 0) {
             return m_counter;
@@ -41,7 +41,7 @@ public:
         }
     }
 
-    // Prints the current counter value to STDOUT.
+           // Prints the current counter value to STDOUT.
     void Print() const {
         printf("%d", m_counter);
     }
@@ -53,11 +53,11 @@ private:
 TEST(Counter, Increment) {
     Counter c;
 
-    // Test that counter 0 returns 0
+           // Test that counter 0 returns 0
     EXPECT_EQ(0, c.Decrement());
 
-    // EXPECT_EQ() evaluates its arguments exactly once, so they
-    // can have side effects.
+           // EXPECT_EQ() evaluates its arguments exactly once, so they
+           // can have side effects.
 
     EXPECT_EQ(0, c.Increment());
     EXPECT_EQ(1, c.Increment());
@@ -105,24 +105,33 @@ int main()
 {
     cout << "Hello World!" << endl;
 
-
     //!Config Test
     ConfigTest config;
     config.readConfig();
 
-    //!Compiler Test
+           //!Compiler Test
     CompilerTest compiler;
     compiler.getCompilerInfo();
 
-    //!Platform Test
+           //!Platform Test
     PlatformTest platform;
     platform.getPlatformInfo();
 
     //!Library Test
     LibraryTest library;
-    library.testOpenSSL(); // OpenSSL
-    library.testBoost(); // Boost
-    library.testOpenCV(); // OpenCV
+
+#ifdef USE_OPENSSL
+        library.testOpenSSL(); // OpenSSL
+#endif
+
+#ifdef USE_BOOST
+        library.testBoost(); // Boost
+#endif
+
+#ifdef USE_OPENCV
+        library.testOpenCV(); // OpenCV
+#endif
+
 
     //!Language Features
     LanguageTest language;
