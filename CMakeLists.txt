@@ -321,9 +321,11 @@ if(GUI_APPLICATION AND PROJECT_MAIN_TYPE STREQUAL "qt" OR PROJECT_MAIN_TYPE STRE
                 ${SOURCESFILE}
             )
         else()
-            qt_add_executable(${PROJECT_NAME} MANUAL_FINALIZATION ${SOURCESFILE})
             if(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
                 qt_add_resources(SOURCESFILE ui/qtquick/qml.qrc)
+            endif()
+            qt_add_executable(${PROJECT_NAME} MANUAL_FINALIZATION ${SOURCESFILE})
+            if(${PROJECT_MAIN_TYPE} STREQUAL "qtquick")
                 if(USE_QT_QUICK_COMPILER)
                 qt_add_qml_module(${PROJECT_NAME}
                     URI ${PROJECT_NAME}
