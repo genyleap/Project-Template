@@ -35,6 +35,24 @@ if (OPTIMIZATION_LEVEL)
   add_definitions(-DOPTIMIZATION_LEVEL)
 endif()
 
+# C++ STL Library Features.
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    list(APPEND LIB_STL_MODULES TBB)
+    list(APPEND LIB_STL_MODULES_LINKER tbb)
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    #Todo...
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    #Todo...
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+    #Todo...
+endif()
+
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     message("-- CMake run for msvc")
     if(OPTIMIZATION_LEVEL EQUAL "0")
