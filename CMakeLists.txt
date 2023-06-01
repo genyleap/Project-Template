@@ -24,7 +24,7 @@ set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
 
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 1)
-set(PROJECT_VERSION_PATCH 222)
+set(PROJECT_VERSION_PATCH 300)
 
 # ---- Project settings ----
 set_property(GLOBAL APPEND PROPERTY USE_FOLDERS ON)
@@ -411,6 +411,15 @@ else()
             )
         endif()
     endif()
+
+    # C++ STL Library Features Libs.
+    find_package(${LIB_STL_MODULES} REQUIRED COMPONENTS ${LIB_STL_MODULES_LINKER})
+
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+            ${LIB_STL_MODULES_LINKER}
+            ${LIB_MODULES}
+            ${OS_LIBS}
+        )
 
     #Extra Modules
     target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_MODULES} ${OS_LIBS})
