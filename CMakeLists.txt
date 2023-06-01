@@ -355,9 +355,7 @@ if(GUI_APPLICATION AND PROJECT_MAIN_TYPE STREQUAL "qt" OR PROJECT_MAIN_TYPE STRE
         endif()
     endif()
 
-    # C++ STL Library Features Libs.
-    find_package(${LIB_STL_MODULES} REQUIRED COMPONENTS ${LIB_STL_MODULES_LINKER})
-
+    #Extra Targets & Modules
     target_link_libraries(${PROJECT_NAME} PRIVATE
             ${LIB_STL_MODULES_LINKER}
             ${LIB_MODULES}
@@ -412,10 +410,7 @@ else()
         endif()
     endif()
 
-    # C++ STL Library Features Libs.
-    find_package(${LIB_STL_MODULES} REQUIRED COMPONENTS ${LIB_STL_MODULES_LINKER})
-
-    #Extra Modules
+    #Extra Targets & Modules
     target_link_libraries(${PROJECT_NAME} PRIVATE
             ${LIB_STL_MODULES_LINKER}
             ${LIB_MODULES}
