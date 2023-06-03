@@ -1,4 +1,4 @@
-# Modern Project-Template
+# Modern Project-Template (PT)
 A template for modern C++ projects with useful features for developing cross-platform projects.
 
 ##  Cross-Platform project structure based on CMake ##
