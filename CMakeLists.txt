@@ -21,6 +21,7 @@ include(FetchContent)
 # Options
 set(PROJECT_NAME "PT" CACHE STRING "Project Name.") #You can change "ProjectTemplate" with your project name.
 set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
+set(PROJECT_REAL_NAME "PT" CACHE STRING "Project Real Name.")
 
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 1)
