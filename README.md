@@ -1,4 +1,4 @@
-# Modern Project-Template
+# Modern Project-Template (PT)
 A template for modern C++ projects with useful features for developing cross-platform projects.
 
 ##  Cross-Platform project structure based on CMake ##
@@ -7,12 +7,12 @@ This repository is a modern project template based on C++ and CMake build tool.
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
 ## Top features:
-- Very easy management of dependencies.
-- Top level macro usage.
-- Customized project structure based on your program type.
-- Advanced microprocessors.
-- Cross-Platform
-- Adapted to latest language & compiler standards.
+- ✅ Very easy management of dependencies.
+- ✅ Top level macro usage.
+- ✅ Customized project structure based on your program type.
+- ✅ Advanced microprocessors.
+- ✅ Cross-Platform
+- ✅ Adapted to latest language & compiler standards.
 
 ## Supported platforms:
 
