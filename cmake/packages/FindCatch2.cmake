@@ -13,7 +13,7 @@ if(FORCE_UPGRADED_LIBS)
 else()
     set(CATCH2_TAG "v3.3.2")
 endif()
-    set(CATCH2_LIB_LIST "Catch2::Carch2" CACHE STRING "List of modules (separated by a semicolon)")
+    set(CATCH2_LIB_LIST "Catch2" CACHE STRING "List of modules (separated by a semicolon)")
 endif()
 
 find_package(PkgConfig QUIET)
