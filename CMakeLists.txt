@@ -1,6 +1,6 @@
 # -------------------- PROJECT TEMPLATE INFO ---------------------------------------------
 #   Title   :                       Project Template
-#   Version :                       1.1.222
+#   Version :                       1.1.225
 #   Author  :                       Kambiz Asadzadeh
 #   Url     :                       https://github.com/genyleap/Project-Template
 #   Organization  :                 The Genyleap
@@ -13,19 +13,16 @@ cmake_policy(SET CMP0048 NEW)
 # ------ PROJECT EXTRA CMAKE ------
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/config/")
 
 include(ExternalProject)
 include(FetchContent)
 
-# ------ PROJECT INFO ------
-# Options
-set(PROJECT_NAME "PT" CACHE STRING "Project Name.") #You can change "ProjectTemplate" with your project name.
-set(PROJECT_TARGET ${PROJECT_NAME} CACHE STRING "Project Target Name.")
-set(PROJECT_REAL_NAME "PT" CACHE STRING "Project Real Name.")
-
-set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 1)
-set(PROJECT_VERSION_PATCH 300)
+include(project)
+if(project)
+  return()
+endif()
+set(project ON)
 
 # ---- Project settings ----
 set_property(GLOBAL APPEND PROPERTY USE_FOLDERS ON)
@@ -37,12 +34,6 @@ if(NOT DEFINED CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     set(CMAKE_CXX_EXTENSIONS ON)
 endif()
-
-set(PROJECT_CREATOR "Kambiz Asadzadeh" CACHE STRING "Creator of your project.") #Your project creator.
-
-set(PROJECT_ORGANIZATION "The Genyleap" CACHE STRING "Organization name.") #Your project creator.
-
-set(PROJECT_LICENSE_TYPE "MIT" CACHE STRING "Project License Type.") #Your project license type.
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
   execute_process(
@@ -57,27 +48,12 @@ if(NOT PROJECT_VERSION_TAG)
   set(PROJECT_VERSION_TAG 00000000)
 endif()
 set(PROJECT_VERSION_TAG_HEX 0x${PROJECT_VERSION_TAG})
-set(PROJECT_VERSION_TYPE "final" CACHE STRING "Version type.")
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(PROJECT_VERSION_STRING ${PROJECT_VERSION}-${PROJECT_VERSION_TYPE})
 
 # Supported languages include C, CXX (i.e. C++), CUDA, OBJC (i.e. Objective-C), OBJCXX, Fortran, HIP, ISPC, and ASM. By default C and CXX are enabled if no language options are given.
 # Specify language NONE, or use the LANGUAGES keyword and list no languages, to skip enabling any languages.
 set(PROJECT_LANGUAGES CXX)
-
-#Use these keys [application, library]
-set(PROJECT_USAGE_TYPE "application" CACHE STRING "Usage Type.")
-
-#Use these keys [stl, qt, qtwidget, qtquick]
-set(PROJECT_MAIN_TYPE "stl" CACHE STRING "Library System.")
-
-set(DEVELOPER_BUNDLE_IDENTIFIER com.kambizasadzadeh.app.${PROJECT_NAME} CACHE STRING "Developer Bundle Identifier.")
-
-#You can replace your project description with this string.
-set(PROJECT_DESCRIPTION "A template for modern C++ projects with useful features for developing cross-platform projects." CACHE STRING "Project Description")
-
-#Your project website address.
-set(PROJECT_HOMEPAGE_URL "https://github.com/genyleap/Project-Template" CACHE STRING "Project URL.")
 
 #Project pre-configuration system.
 configure_file(
