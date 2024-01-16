@@ -9,7 +9,7 @@ set(PROJECT_REAL_NAME "PT" CACHE STRING "Project Real Name.")
 
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 1)
-set(PROJECT_VERSION_PATCH 300)
+set(PROJECT_VERSION_PATCH 325)
 
 #Your project creator.
 set(PROJECT_CREATOR "Kambiz Asadzadeh" CACHE STRING "Creator of your project.")

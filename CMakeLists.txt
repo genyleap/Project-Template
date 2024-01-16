@@ -1,6 +1,6 @@
 # -------------------- PROJECT TEMPLATE INFO ---------------------------------------------
 #   Title   :                       Project Template
-#   Version :                       1.1.225
+#   Version :                       1.1.325
 #   Author  :                       Kambiz Asadzadeh
 #   Url     :                       https://github.com/genyleap/Project-Template
 #   Organization  :                 The Genyleap
@@ -112,6 +112,8 @@ endif()
 
 set(SUFFIX_EXTRA *.in)
 set(SUFFIX_HPPHEADER *.hpp)
+set(SUFFIX_IPPHEADER *.ipp)
+set(SUFFIX_INLHEADER *.inl)
 set(SUFFIX_SOURCE *.cpp)
 set(SUFFIX_CONFIG *.json)
 
@@ -123,7 +125,11 @@ elseif(PROJECT_MAIN_TYPE STREQUAL "qtquick")
 endif()
 
 file(GLOB PRECOMPILED precompiled/pch.hpp)
-file(GLOB HEADERS source/${SUFFIX_HPPHEADER})
+file(GLOB HEADERS
+        source/${SUFFIX_HPPHEADER}
+        source/${SUFFIX_IPPHEADER}
+        source/${SUFFIX_INLHEADER}
+)
 file(GLOB SOURCES source/${SUFFIX_SOURCE})
 
 file(GLOB EXAMPLES
