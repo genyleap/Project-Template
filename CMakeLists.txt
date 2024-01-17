@@ -398,7 +398,6 @@ else()
             ${LIB_STL_MODULES_LINKER}
             ${LIB_MODULES}
             ${OS_LIBS}
-            c++ c++abi
         )
     target_include_directories(${PROJECT_NAME}
         PUBLIC
