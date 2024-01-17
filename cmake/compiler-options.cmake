@@ -43,9 +43,6 @@ endif()
 # C++ STL Library Features.
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(CMAKE_CXX_STANDARD_LIBRARIES "-lstdc++")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lstdc++")
-    # find_package(TBB REQUIRED COMPONENTS tbb)
-    # list(APPEND LIB_STL_MODULES_LINKER tbb)
 endif()
 
 
