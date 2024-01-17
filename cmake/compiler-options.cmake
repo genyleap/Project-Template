@@ -55,12 +55,10 @@ endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_STANDARD_LIBRARIES "-lc++ -lc++abi")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++ -lc++abi")
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
     set(CMAKE_CXX_STANDARD_LIBRARIES "-lc++ -lc++abi")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++ -lc++abi")
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
