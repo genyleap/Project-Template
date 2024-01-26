@@ -1,13 +1,23 @@
 # -------------------- PROJECT TEMPLATE INFO ---------------------------------------------
 #   Title   :                       Project Template
-#   Version :                       1.1.325
+#   Version :                       1.1.430
 #   Author  :                       Kambiz Asadzadeh
+#   License :                       MIT
 #   Url     :                       https://github.com/genyleap/Project-Template
-#   Organization  :                 The Genyleap
+#   Organization  :                 Genyleap
 # ----------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.28)
+
+if(${CMAKE_VERSION} VERSION_LESS 3.28)
+    cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
+else()
+    cmake_policy(VERSION 3.28)
+endif()
+
 cmake_policy(SET CMP0048 NEW)
+cmake_policy(SET CMP0152 NEW)
+cmake_policy(SET CMP0155 NEW)
 
 # Add include path for cmake modules
 # ------ PROJECT EXTRA CMAKE ------
@@ -42,8 +52,8 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
     OUTPUT_VARIABLE PROJECT_VERSION_TAG
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-
 endif()
+
 if(NOT PROJECT_VERSION_TAG)
   set(PROJECT_VERSION_TAG 00000000)
 endif()
